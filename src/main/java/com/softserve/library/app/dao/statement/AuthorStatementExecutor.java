@@ -63,12 +63,14 @@ public class AuthorStatementExecutor {
             DBConnectivity.closeConnection();
         }
     }
-    public void update(int id) {
+    public void update(Author author) {
 
-        try {
+        try (PreparedStatement preparedStatement = DBConnectivity.getConnection()
+                .prepareStatement(AuthorSQL.UPDATE.getSQL())) {
 
-            Statement statement = DBConnectivity.getConnection().createStatement();
-            statement.executeUpdate(AuthorSQL.UPDATE.getSQL() + scopesWrapper(id));
+            preparedStatement.setString(1, author.getName());
+            preparedStatement.setInt(2, author.getId());
+            preparedStatement.execute();
 
         } catch (SQLException e) {
 
