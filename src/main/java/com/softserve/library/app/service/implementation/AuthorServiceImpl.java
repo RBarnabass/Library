@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class AuthorServiceImpl implements AuthorService {
 
-    private AuthorDao authorDao = new AuthorDaoImpl();
+    private final AuthorDao authorDao = new AuthorDaoImpl();
 
     @Override public Author get(int id) throws SQLException {
 
