@@ -10,7 +10,7 @@ public class Main {
 
         AuthorService authorService = new AuthorServiceImpl();
         authorService.delete(10);
-
+        System.out.println("Hello");
 
 
 
