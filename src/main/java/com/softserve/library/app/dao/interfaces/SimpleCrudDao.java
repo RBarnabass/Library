@@ -1,9 +1,11 @@
 package com.softserve.library.app.dao.interfaces;
 
+import java.sql.SQLException;
+
 public interface SimpleCrudDao<E> {
 
-    E get(int id);
-    void add(E e);
-    void delete(int id);
-    void update(E e);
+    E get(int id) throws SQLException;
+    boolean add(E e) throws SQLException;
+    boolean delete(int id) throws SQLException;
+    boolean update(E e) throws SQLException;
 }
