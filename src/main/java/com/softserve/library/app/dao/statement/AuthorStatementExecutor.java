@@ -10,6 +10,8 @@ import java.util.List;
 
 public class AuthorStatementExecutor {
 
+    private boolean isSuccess;
+
     public Author get(int id) throws SQLException {
 
         List<Author> list = new ArrayList<>();
@@ -26,28 +28,37 @@ public class AuthorStatementExecutor {
             list.add(author);
         }
 
+        set.close();
+        preparedStatement.close();
+
         return list.get(0);
     }
     public boolean add(Author author) throws SQLException {
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(AuthorSQL.INSERT.getSQL());
         preparedStatement.setString(1, author.getName());
+        isSuccess = preparedStatement.executeUpdate() > 0;
+        preparedStatement.close();
 
-        return preparedStatement.executeUpdate() > 0;
+        return isSuccess;
     }
     public boolean delete(int id) throws SQLException {
 
         Statement statement = DBConnectivity.getConnection().createStatement();
+        isSuccess = statement.executeUpdate(AuthorSQL.DELETE.getSQL() + scopesWrapper(id)) > 0;
+        statement.close();
 
-        return statement.executeUpdate(AuthorSQL.DELETE.getSQL() + scopesWrapper(id)) > 0;
+        return isSuccess;
     }
     public boolean update(Author author) throws SQLException {
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(AuthorSQL.UPDATE.getSQL());
         preparedStatement.setString(1, author.getName());
         preparedStatement.setInt(2, author.getId());
+        isSuccess = preparedStatement.executeUpdate() > 0;
+        preparedStatement.close();
 
-        return preparedStatement.executeUpdate() > 0;
+        return isSuccess;
     }
 
     private String scopesWrapper(int id) {
