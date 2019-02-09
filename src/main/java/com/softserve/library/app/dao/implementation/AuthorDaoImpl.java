@@ -4,24 +4,26 @@ import com.softserve.library.app.dao.interfaces.AuthorDao;
 import com.softserve.library.app.dao.statement.AuthorStatementExecutor;
 import com.softserve.library.app.model.Author;
 
+import java.sql.SQLException;
+
 public class AuthorDaoImpl implements AuthorDao {
 
     private AuthorStatementExecutor authorStatementExecutor = new AuthorStatementExecutor();
 
-    @Override public Author get(int id) {
+    @Override public Author get(int id) throws SQLException {
 
         return authorStatementExecutor.get(id);
     }
-    @Override public void add(Author author) {
+    @Override public boolean add(Author author) throws SQLException {
 
-        authorStatementExecutor.add(author);
+        return authorStatementExecutor.add(author);
     }
-    @Override public void delete(int id) {
+    @Override public boolean delete(int id) throws SQLException {
 
-        authorStatementExecutor.delete(id);
+        return authorStatementExecutor.delete(id);
     }
-    @Override public void update(Author author) {
+    @Override public boolean update(Author author) throws SQLException {
 
-        authorStatementExecutor.update(author);
+        return authorStatementExecutor.update(author);
     }
 }
