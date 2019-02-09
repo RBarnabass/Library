@@ -26,8 +26,6 @@ public class DBConnectivity {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            System.out.println(" - - - close connector - " + connection);
         }
     }
 
