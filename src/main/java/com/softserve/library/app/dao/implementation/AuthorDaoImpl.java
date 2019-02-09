@@ -20,9 +20,8 @@ public class AuthorDaoImpl implements AuthorDao {
 
         authorStatementExecutor.delete(id);
     }
+    @Override public void update(Author author) {
 
-    @Override
-    public void update(int id) {
-
+        authorStatementExecutor.update(author);
     }
 }
