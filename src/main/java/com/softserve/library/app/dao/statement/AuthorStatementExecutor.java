@@ -17,7 +17,7 @@ public class AuthorStatementExecutor {
         List<Author> list = new ArrayList<>();
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(AuthorSQL.SELECT.getSQL() + scopesWrapper(id));
-        ResultSet set = preparedStatement.executeQuery();
+        ResultSet set = preparedStatement.getResultSet();
         Author author;
 
         while (set.next()) {
