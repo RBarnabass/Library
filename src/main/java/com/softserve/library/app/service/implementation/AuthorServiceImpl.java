@@ -21,9 +21,8 @@ public class AuthorServiceImpl implements AuthorService {
 
         authorDao.delete(id);
     }
+    @Override public void update(Author author) {
 
-    @Override
-    public void update(int id) {
-
+        authorDao.update(author);
     }
 }
