@@ -20,8 +20,9 @@ public enum AuthorSQL {
 
     UPDATE ("UPDATE "
             + Tables.AUTHOR.getTable()
-            + " WHERE id=");
-
+            + " SET "
+            + AuthorColumns.FULL_NAME.getColumn()
+            + "=? WHERE id=?");
 
     private String line;
 

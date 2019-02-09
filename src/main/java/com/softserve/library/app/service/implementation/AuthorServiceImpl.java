@@ -5,25 +5,26 @@ import com.softserve.library.app.dao.interfaces.AuthorDao;
 import com.softserve.library.app.model.Author;
 import com.softserve.library.app.service.interfaces.AuthorService;
 
+import java.sql.SQLException;
+
 public class AuthorServiceImpl implements AuthorService {
 
     private AuthorDao authorDao = new AuthorDaoImpl();
 
-    @Override public Author get(int id) {
+    @Override public Author get(int id) throws SQLException {
 
         return authorDao.get(id);
     }
-    @Override public void add(Author author) {
+    @Override public boolean add(Author author) throws SQLException {
 
-        authorDao.add(author);
+        return authorDao.add(author);
     }
-    @Override public void delete(int id) {
+    @Override public boolean delete(int id) throws SQLException {
 
-        authorDao.delete(id);
+        return authorDao.delete(id);
     }
+    @Override public boolean update(Author author) throws SQLException {
 
-    @Override
-    public void update(int id) {
-
+        return authorDao.update(author);
     }
 }
