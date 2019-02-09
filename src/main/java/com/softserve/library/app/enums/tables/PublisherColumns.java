@@ -4,7 +4,7 @@ public enum PublisherColumns {
 
     ID("id"),
     NAME("name");
-    
+
     private String line;
 
     PublisherColumns(String line) {
