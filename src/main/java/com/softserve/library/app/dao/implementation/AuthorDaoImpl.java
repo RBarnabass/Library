@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class AuthorDaoImpl implements AuthorDao {
 
-    private AuthorStatementExecutor authorStatementExecutor = new AuthorStatementExecutor();
+    private final AuthorStatementExecutor authorStatementExecutor = new AuthorStatementExecutor();
 
     @Override public Author get(int id) throws SQLException {
 
