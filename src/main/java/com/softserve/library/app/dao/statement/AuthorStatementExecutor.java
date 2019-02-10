@@ -8,6 +8,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class AuthorStatementExecutor {
 
     private boolean isSuccess;
