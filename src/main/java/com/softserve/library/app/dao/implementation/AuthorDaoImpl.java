@@ -6,6 +6,11 @@ import com.softserve.library.app.model.Author;
 
 import java.sql.SQLException;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class AuthorDaoImpl implements AuthorDao {
 
     private final AuthorStatementExecutor authorStatementExecutor = new AuthorStatementExecutor();
