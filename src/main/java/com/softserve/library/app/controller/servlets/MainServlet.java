@@ -22,11 +22,11 @@ public class MainServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         DispatcherType dispatcherType = req.getDispatcherType();
-        System.out.println("Disp type - " + dispatcherType);
+        /*System.out.println("Disp type - " + dispatcherType);
         System.out.println("Session - " + req.getSession());
         System.out.println("Auth - " + req.authenticate(resp));
         System.out.println("Auth type - " + req.getAuthType());
-        System.out.println("req session id -" + req.getRequestedSessionId());
+        System.out.println("req session id -" + req.getRequestedSessionId());*/
         RequestDispatcher view = req.getRequestDispatcher("main.jsp");
         view.forward(req, resp);
 
