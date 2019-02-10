@@ -1,5 +1,10 @@
 package com.softserve.library.app.enums;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public enum DBConstants {
 
     PATH ("jdbc:mysql://"),
