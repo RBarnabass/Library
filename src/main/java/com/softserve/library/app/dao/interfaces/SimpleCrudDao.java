@@ -2,6 +2,11 @@ package com.softserve.library.app.dao.interfaces;
 
 import java.sql.SQLException;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public interface SimpleCrudDao<E> {
 
     E get(int id) throws SQLException;
