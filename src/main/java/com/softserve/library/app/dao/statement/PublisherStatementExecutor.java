@@ -15,6 +15,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class PublisherStatementExecutor {
 
     private boolean isSuccess;
