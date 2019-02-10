@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 @WebServlet(name = "MainServlet", urlPatterns = "/library")
 public class MainServlet extends HttpServlet {
 
