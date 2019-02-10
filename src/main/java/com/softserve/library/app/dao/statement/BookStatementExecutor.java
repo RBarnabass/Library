@@ -13,6 +13,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class BookStatementExecutor {
 
     private boolean isSuccess;
