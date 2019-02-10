@@ -2,6 +2,11 @@ package com.softserve.library.app.service.interfaces;
 
 import java.sql.SQLException;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public interface SimpleCrudService<E> {
 
     E get(int id) throws SQLException;
