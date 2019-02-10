@@ -4,6 +4,11 @@ import com.softserve.library.app.enums.tables.BookColumns;
 import com.softserve.library.app.enums.tables.PublisherColumns;
 import com.softserve.library.app.enums.tables.Tables;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public enum BookSQL {
 
     SELECT ("SELECT * FROM "
