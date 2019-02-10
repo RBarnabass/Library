@@ -1,5 +1,10 @@
 package com.softserve.library.app.enums.tables;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public enum AuthorColumns {
 
     ID("id"),
