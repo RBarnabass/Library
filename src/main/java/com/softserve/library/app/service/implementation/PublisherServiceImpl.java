@@ -6,6 +6,11 @@ import com.softserve.library.app.model.Publisher;
 import com.softserve.library.app.service.interfaces.PublisherService;
 import java.sql.SQLException;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class PublisherServiceImpl implements PublisherService {
 
     private final PublisherDao publisherDao = new PublisherDaoImpl();
