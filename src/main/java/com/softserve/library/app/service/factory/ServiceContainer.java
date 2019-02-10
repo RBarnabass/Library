@@ -7,6 +7,11 @@ import com.softserve.library.app.service.interfaces.SimpleCrudService;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class ServiceContainer implements ServiceManager {
 
     private final Map<String, SimpleCrudService> map = new HashMap<>();
