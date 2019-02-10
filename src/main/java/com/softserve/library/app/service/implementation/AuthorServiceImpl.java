@@ -7,6 +7,11 @@ import com.softserve.library.app.service.interfaces.AuthorService;
 
 import java.sql.SQLException;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorDao authorDao = new AuthorDaoImpl();
