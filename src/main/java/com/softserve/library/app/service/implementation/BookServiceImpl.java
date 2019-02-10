@@ -6,6 +6,11 @@ import com.softserve.library.app.model.Book;
 import com.softserve.library.app.service.interfaces.BookService;
 import java.sql.SQLException;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class BookServiceImpl implements BookService {
 
     private final BookDao bookDao = new BookDaoImpl();
