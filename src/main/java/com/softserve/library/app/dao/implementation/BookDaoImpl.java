@@ -5,6 +5,11 @@ import com.softserve.library.app.dao.statement.BookStatementExecutor;
 import com.softserve.library.app.model.Book;
 import java.sql.SQLException;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class BookDaoImpl implements BookDao {
 
     private final BookStatementExecutor bookStatementExecutor = new BookStatementExecutor();
