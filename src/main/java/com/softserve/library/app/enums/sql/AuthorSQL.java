@@ -3,6 +3,11 @@ package com.softserve.library.app.enums.sql;
 import com.softserve.library.app.enums.tables.AuthorColumns;
 import com.softserve.library.app.enums.tables.Tables;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public enum AuthorSQL {
 
     INSERT ("INSERT INTO "
