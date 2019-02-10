@@ -5,6 +5,11 @@ import com.softserve.library.app.dao.statement.PublisherStatementExecutor;
 import com.softserve.library.app.model.Publisher;
 import java.sql.SQLException;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class PublisherDaoImpl implements PublisherDao {
 
     private final PublisherStatementExecutor publisherStatementExecutor = new PublisherStatementExecutor();
