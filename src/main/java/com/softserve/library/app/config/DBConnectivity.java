@@ -6,6 +6,11 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class DBConnectivity {
 
     private static Connection connection;
