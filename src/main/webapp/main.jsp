@@ -1,13 +1,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Login page</title>
 </head>
+
 <body>
+
     <h1>Hello</h1>
-<form action="/hey" method="get">
-    <br><br>
-    <input type="submit">
-</form>
+
+    <div class="form">
+
+        <form method="post" action="/">
+
+            <input type="text" required placeholder="login" name="login"><br>
+            <input type="password" required placeholder="password" name="password"><br><br>
+            <input class="button" type="submit" value="Enter">
+
+        </form>
+
+    </div>
+
 </body>
+
 </html>
