@@ -8,6 +8,11 @@ import com.softserve.library.app.service.interfaces.AuthorService;
 
 import java.sql.SQLException;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class Main {
 
     public static void main(String[] args) throws SQLException {
