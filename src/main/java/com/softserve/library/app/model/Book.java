@@ -2,6 +2,11 @@ package com.softserve.library.app.model;
 
 import java.util.Objects;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class Book {
 
     private int id;
