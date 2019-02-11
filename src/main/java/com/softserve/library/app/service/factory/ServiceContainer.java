@@ -3,6 +3,7 @@ package com.softserve.library.app.service.factory;
 import com.softserve.library.app.service.implementation.AuthorServiceImpl;
 import com.softserve.library.app.service.implementation.BookServiceImpl;
 import com.softserve.library.app.service.implementation.PublisherServiceImpl;
+import com.softserve.library.app.service.implementation.UserServiceImpl;
 import com.softserve.library.app.service.interfaces.SimpleCrudService;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +44,10 @@ public class ServiceContainer implements ServiceManager {
             }
             case "publisher": {
                 service = new PublisherServiceImpl();
+                break;
+            }
+            case "user": {
+                service = new UserServiceImpl();
                 break;
             }
         }
