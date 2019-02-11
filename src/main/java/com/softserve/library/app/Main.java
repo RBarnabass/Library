@@ -1,6 +1,7 @@
 package com.softserve.library.app;
 
 import com.softserve.library.app.config.DBConnectivity;
+import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.factory.ServiceFactory;
 import com.softserve.library.app.service.factory.ServiceFactoryImpl;
@@ -25,6 +26,13 @@ public class Main {
 
 
 
+
+
+        // Credential get
+
+        /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        Credential roma = serviceFactory.getCredentialService().getByLogin("roma");
+        System.out.println(roma);*/
 
         // User add
 
