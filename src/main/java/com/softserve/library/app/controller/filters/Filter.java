@@ -22,7 +22,7 @@ import static java.util.Objects.nonNull;
  *
  * @author Roman Berezhnov
  */
-@WebFilter("/*")
+//@WebFilter("/*")
 public class Filter implements javax.servlet.Filter {
 
     @Override public void init(FilterConfig filterConfig) throws ServletException {
