@@ -1,9 +1,6 @@
 package com.softserve.library.app.service.factory;
 
-import com.softserve.library.app.service.interfaces.AuthorService;
-import com.softserve.library.app.service.interfaces.BookService;
-import com.softserve.library.app.service.interfaces.PublisherService;
-import com.softserve.library.app.service.interfaces.UserService;
+import com.softserve.library.app.service.interfaces.*;
 
 /**
  *
@@ -31,4 +28,9 @@ public class ServiceFactoryImpl implements ServiceFactory {
 
         return (UserService) serviceManager.getService("user");
     }
+    @Override public CredentialService getCredentialService() {
+
+        return (CredentialService) serviceManager.getService("credential");
+    }
+
 }
