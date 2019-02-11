@@ -9,7 +9,8 @@ public enum CredentialColumns {
 
     ID("id"),
     LOGIN("login"),
-    PASSWORD("password");
+    PASSWORD("password"),
+    ROLE_ID("role_id");
 
     private String line;
 
