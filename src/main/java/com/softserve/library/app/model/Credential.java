@@ -12,16 +12,18 @@ public class Credential {
     private int id;
     private String login;
     private String password;
+    private Role role;
 
     public Credential() { }
     public Credential(String login, String password) {
         this.login = login;
         this.password = password;
     }
-    public Credential(int id, String login, String password) {
+    public Credential(int id, String login, String password, Role role) {
         this.id = id;
         this.login = login;
         this.password = password;
+        this.role = role;
     }
 
     public int getId() {
@@ -42,6 +44,12 @@ public class Credential {
     public void setPassword(String password) {
         this.password = password;
     }
+    public Role getRole() {
+        return role;
+    }
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     @Override public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,16 +57,18 @@ public class Credential {
         Credential that = (Credential) o;
         return id == that.id &&
                 Objects.equals(login, that.login) &&
-                Objects.equals(password, that.password);
+                Objects.equals(password, that.password) &&
+                Objects.equals(role, that.role);
     }
     @Override public int hashCode() {
-        return Objects.hash(id, login, password);
+        return Objects.hash(id, login, password, role);
     }
     @Override public String toString() {
         return "Credential{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", role=" + role +
                 '}';
     }
 }
