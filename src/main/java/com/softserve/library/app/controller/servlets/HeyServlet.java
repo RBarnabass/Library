@@ -17,7 +17,8 @@ public class HeyServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         System.out.println("-------------------------------------Hey servlet------------------------------------");
-        req.getRequestDispatcher("/view/welcome.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/view/welcome.jsp").forward(req, resp);
     }
 }
