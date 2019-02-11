@@ -4,7 +4,6 @@ import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.enums.sql.CredentialSQL;
 import com.softserve.library.app.enums.tables.CredentialColumns;
 import com.softserve.library.app.enums.tables.RoleColumns;
-import com.softserve.library.app.model.Author;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.model.Role;
 
@@ -43,7 +42,7 @@ public class CredentialStatementExecutor {
 
             role = new Role();
             role.setId(set.getInt(RoleColumns.ID.getColumn()));
-            role.setRole(set.getString(RoleColumns.TYPE.getColumn()));
+            role.setType(set.getString(RoleColumns.TYPE.getColumn()));
             credential.setRole(role);
 
             list.add(credential);
@@ -51,7 +50,8 @@ public class CredentialStatementExecutor {
 
         set.close();
         preparedStatement.close();
-
+        System.out.println(" ---------------------------- I was in db !");
+        System.out.println(list.get(0));
         return list.get(0);
     }
 
