@@ -10,15 +10,15 @@ import java.util.Objects;
 public class Role {
 
     private int id;
-    private String role;
+    private String type;
 
     public Role() { }
-    public Role(String role) {
-        this.role = role;
+    public Role(String type) {
+        this.type = type;
     }
-    public Role(int id, String role) {
+    public Role(int id, String type) {
         this.id = id;
-        this.role = role;
+        this.type = type;
     }
 
     public int getId() {
@@ -27,11 +27,11 @@ public class Role {
     public void setId(int id) {
         this.id = id;
     }
-    public String getRole() {
-        return role;
+    public String getType() {
+        return type;
     }
-    public void setRole(String role) {
-        this.role = role;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override public boolean equals(Object o) {
@@ -39,15 +39,15 @@ public class Role {
         if (o == null || getClass() != o.getClass()) return false;
         Role role1 = (Role) o;
         return id == role1.id &&
-                Objects.equals(role, role1.role);
+                Objects.equals(type, role1.type);
     }
     @Override public int hashCode() {
-        return Objects.hash(id, role);
+        return Objects.hash(id, type);
     }
     @Override public String toString() {
         return "Role{" +
                 "id=" + id +
-                ", role='" + role + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
