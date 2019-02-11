@@ -27,7 +27,7 @@ public class MainServlet extends HttpServlet {
         System.out.println("Auth - " + req.authenticate(resp));
         System.out.println("Auth type - " + req.getAuthType());
         System.out.println("req session id -" + req.getRequestedSessionId());*/
-        RequestDispatcher view = req.getRequestDispatcher("main.jsp");
+        RequestDispatcher view = req.getRequestDispatcher("welcome.jsp");
         view.forward(req, resp);
 
     }
