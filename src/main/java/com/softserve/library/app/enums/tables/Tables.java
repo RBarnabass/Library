@@ -12,7 +12,11 @@ public enum Tables {
     COPY("copy"),
     PUBLISHER("publisher"),
     TIME_PERIOD("time_period"),
-    USER("user");
+    USER("user"),
+    CREDENTIAL("credential"),
+    ROLE("role"),
+    USER_BY_CREDENTIAL("user_by_credential"),
+    USER_BY_ROLE("user_by_role");
 
     private String line;
 
