@@ -1,6 +1,7 @@
 package com.softserve.library.app.enums.sql;
 
 import com.softserve.library.app.enums.tables.CredentialColumns;
+import com.softserve.library.app.enums.tables.RoleColumns;
 import com.softserve.library.app.enums.tables.Tables;
 
 /**
@@ -14,7 +15,19 @@ public enum CredentialSQL {
 
     SELECT ("SELECT * FROM "
             + Tables.CREDENTIAL.getTable()
+            + " JOIN "
+            + Tables.ROLE.getTable()
+            + " ON "
+            + Tables.CREDENTIAL.getTable()
+            + "."
+            + CredentialColumns.ROLE_ID.getColumn()
+            + "="
+            + Tables.ROLE.getTable()
+            + "."
+            + RoleColumns.ID.getColumn()
             + " WHERE "
+            + Tables.CREDENTIAL.getTable()
+            + "."
             + CredentialColumns.LOGIN.getColumn()
             + "=");
 
