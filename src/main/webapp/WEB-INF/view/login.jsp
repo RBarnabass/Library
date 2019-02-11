@@ -14,7 +14,7 @@
 
             <input type="text" required placeholder="login" name="login"><br>
             <input type="password" required placeholder="password" name="password"><br><br>
-            <input class="button" type="submit" value="Enter"> ${message}
+            <input class="button" type="submit" value="Enter"> ${error}
 
         </form>
 
