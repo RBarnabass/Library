@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class TimePeriod {
     private static int id;
-    private int copyId=Book.getId();
+    private int copyId=Copy.getId();
     private LocalDateTime bookTakingDate;
     private LocalDateTime bookReturningDate;
     private int userId=User.getId();
@@ -80,9 +80,10 @@ public class TimePeriod {
     public String toString() {
         return new StringBuilder()
                 .append("id ").append(id)
-                .append(", book ").append(copyId)
+                .append(", copy ").append(copyId)
                 .append(", was taken ").append(bookTakingDate)
                 .append(", returned ").append(bookReturningDate)
                 .append(" , by ").append(userId).toString();
     }
 }
+

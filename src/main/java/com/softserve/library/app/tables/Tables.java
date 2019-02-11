@@ -5,6 +5,7 @@ public enum Tables {
     USER("user"),
     AUTHOR("author"),
     BOOK("book"),
+    COPY("copy"),
     PUBLISHER("publisher"),
     TIME_PERIOD("time_period");
 
@@ -17,5 +18,4 @@ public enum Tables {
     public String getTable() {
         return line;
     }
-
 }
