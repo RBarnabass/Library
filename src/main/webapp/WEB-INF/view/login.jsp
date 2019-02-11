@@ -10,11 +10,11 @@
 
     <div class="form">
 
-        <form method="post" action="/">
+        <form method="post" action="login">
 
             <input type="text" required placeholder="login" name="login"><br>
             <input type="password" required placeholder="password" name="password"><br><br>
-            <input class="button" type="submit" value="Enter">
+            <input class="button" type="submit" value="Enter"> ${message}
 
         </form>
 
