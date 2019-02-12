@@ -20,7 +20,7 @@ public class UserStatementExecutor {
 
     private boolean isSuccess;
 
-    public User get(int id) throws SQLException {
+    public List<User> get(int id) throws SQLException {
 
         List<User> list = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class UserStatementExecutor {
         set.close();
         preparedStatement.close();
 
-        return list.get(0);
+        return list;
     }
 
     // todo: about role should it be here or separated sql in service?
