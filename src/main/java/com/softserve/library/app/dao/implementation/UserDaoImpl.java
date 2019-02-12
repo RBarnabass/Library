@@ -17,6 +17,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override public User get(int id) throws SQLException {
 
+        // todo: remove this to some util class and adapt it for other similar situations
         List<User> list = userStatementExecutor.get(id);
 
         if (list != null && !list.isEmpty()) {
