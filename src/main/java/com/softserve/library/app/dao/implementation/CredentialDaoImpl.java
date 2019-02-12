@@ -41,6 +41,7 @@ public class CredentialDaoImpl implements CredentialDao {
 
     @Override public Credential getByLogin(String login) throws SQLException {
 
+        // todo: remove this to some util class and adapt it for other similar situations
         List<Credential> list = credentialStatementExecutor.get(login);
 
         if (list != null && !list.isEmpty()) {
