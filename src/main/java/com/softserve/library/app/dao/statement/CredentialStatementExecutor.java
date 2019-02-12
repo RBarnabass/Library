@@ -22,7 +22,7 @@ public class CredentialStatementExecutor {
 
     private boolean isSuccess;
 
-    public Credential get(String login) throws SQLException {
+    public List<Credential> get(String login) throws SQLException {
 
         List<Credential> list = new ArrayList<>();
 
@@ -51,8 +51,7 @@ public class CredentialStatementExecutor {
         set.close();
         preparedStatement.close();
         System.out.println(" ---------------------------- I was in db !");
-        System.out.println(list.get(0));
-        return list.get(0);
+        return list;
     }
 
     public boolean add(Credential credential) {
