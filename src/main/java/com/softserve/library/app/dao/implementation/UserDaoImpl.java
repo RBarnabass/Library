@@ -4,6 +4,7 @@ import com.softserve.library.app.dao.interfaces.UserDao;
 import com.softserve.library.app.dao.statement.UserStatementExecutor;
 import com.softserve.library.app.model.User;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -16,7 +17,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override public User get(int id) throws SQLException {
 
-        return userStatementExecutor.get(id);
+        List<User> list = userStatementExecutor.get(id);
+
+        if (list != null && !list.isEmpty()) {
+
+            return list.get(0);
+        }
+
+        return null;
     }
     @Override public boolean add(User user) throws SQLException {
 
