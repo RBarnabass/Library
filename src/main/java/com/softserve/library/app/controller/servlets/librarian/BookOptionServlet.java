@@ -1,5 +1,6 @@
 package com.softserve.library.app.controller.servlets.librarian;
 
+import com.softserve.library.app.constant.UrlPatterns;
 import com.softserve.library.app.enums.patterns.LibrarianJSP;
 
 import javax.servlet.RequestDispatcher;
@@ -15,7 +16,7 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet("/library/book_option")
+@WebServlet(UrlPatterns.BOOK_OPTION)
 public class BookOptionServlet extends HttpServlet {
 
     @Override
