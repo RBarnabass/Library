@@ -25,19 +25,28 @@ public class Main {
 
 
         ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        int bookQuantityPublishedFromYear = serviceFactory.getBookService().getBookQuantityPublishedFromYear(1990);
+        System.out.println(bookQuantityPublishedFromYear);
+
+
+
+
+
+
+
+
+
+
+
+
+       /* ServiceFactory serviceFactory = new ServiceFactoryImpl();
         List<UserStatisticDto> userStatistic = serviceFactory.getUserService().getUserStatistic(6);
 
         for (UserStatisticDto userStatisticDto : userStatistic) {
 
             System.out.println();
             System.out.println(userStatisticDto);
-        }
-
-
-
-
-
-
+        }*/
 
         /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         List<BookDto> allByAuthor = serviceFactory.getBookService().getAllByAuthor("Author has co - author 2");
@@ -47,10 +56,6 @@ public class Main {
             System.out.println(bookDto);
             System.out.println();
         }*/
-
-
-
-
 
         // Credential get
 
