@@ -14,7 +14,7 @@ public class BookStatisticServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/viewTest/book_statistic.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/librarian/book_statistic.jsp");
         dispatcher.forward(req, resp);
     }
 }
