@@ -1,9 +1,9 @@
 package com.softserve.library.app.controller.servlets.user;
 
 import com.softserve.library.app.dto.BookDto;
+import com.softserve.library.app.enums.patterns.UserJSP;
 import com.softserve.library.app.service.factory.ServiceFactory;
 import com.softserve.library.app.service.factory.ServiceFactoryImpl;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +34,7 @@ public class BookListServlet extends HttpServlet {
         }
         req.getSession().setAttribute("bookList", all);
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/user/book_list.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(UserJSP.BOOK_LIST.getPattern());
         dispatcher.forward(req, resp);
     }
 }
