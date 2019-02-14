@@ -2,9 +2,11 @@ package com.softserve.library.app.service.implementation;
 
 import com.softserve.library.app.dao.implementation.UserDaoImpl;
 import com.softserve.library.app.dao.interfaces.UserDao;
+import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.interfaces.UserService;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -40,5 +42,10 @@ public class UserServiceImpl implements UserService {
 
         // todo: realize it
         return false;
+    }
+
+    @Override public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
+
+        return userDao.getUserStatistic(id);
     }
 }
