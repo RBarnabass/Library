@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Book list</title>
@@ -13,5 +14,11 @@
 <body>
 <jsp:include page="../general/_menu.jsp"></jsp:include>
 <h1>Book list</h1>
+    <div>
+        <c:forEach items="${bookList}" var="list">
+            <pre>${list.bookName}    ${list.publishYear}    ${list.publisherName}    ${list.primaryAuthor}</pre>
+        </c:forEach>
+    </div>
+
 </body>
 </html>
