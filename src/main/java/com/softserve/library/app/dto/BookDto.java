@@ -1,5 +1,10 @@
 package com.softserve.library.app.dto;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class BookDto {
 
     private int id;
