@@ -1,7 +1,9 @@
 package com.softserve.library.app.dao.statement;
 
 import com.softserve.library.app.config.DBConnectivity;
+import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.enums.sql.UserSQL;
+import com.softserve.library.app.enums.tables.BookColumns;
 import com.softserve.library.app.enums.tables.UserColumns;
 import com.softserve.library.app.model.User;
 
@@ -58,5 +60,40 @@ public class UserStatementExecutor {
         preparedStatement.close();
 
         return isSuccess;
+    }
+
+    public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
+
+        List<UserStatisticDto> list = new ArrayList<>();
+
+        String sql = "SELECT user.full_name, from_days(datediff(curdate(), user.registration_date)) AS usingTime, book.name, book.publish_year, time_period.start_date, time_period.end_date\n" +
+                "  FROM user\n" +
+                "    JOIN time_period\n" +
+                "      ON user.id = time_period.user_id\n" +
+                "        JOIN copy\n" +
+                "          ON time_period.copy_id = copy.id\n" +
+                "            JOIN book\n" +
+                "              ON copy.book_id = book.id\n" +
+                "                WHERE user.id =" + "'" + id + "'";
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        UserStatisticDto userStatisticDto;
+
+        while (resultSet.next()) {
+
+            userStatisticDto = new UserStatisticDto();
+            userStatisticDto.setUserName(resultSet.getString(UserColumns.FULL_NAME.getColumn()));
+            userStatisticDto.setUsingTime(resultSet.getTimestamp("usingTime"));
+            userStatisticDto.setBookName(resultSet.getString(BookColumns.NAME.getColumn()));
+            userStatisticDto.setPublishYear(resultSet.getInt(BookColumns.PUBLISH_YEAR.getColumn()));
+            userStatisticDto.setStartDate(resultSet.getDate("time_period.start_date"));
+            userStatisticDto.setEndDate(resultSet.getDate("time_period.end_date"));
+            list.add(userStatisticDto);
+        }
+
+        return list;
     }
 }
