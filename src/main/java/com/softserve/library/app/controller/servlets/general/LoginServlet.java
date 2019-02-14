@@ -1,5 +1,6 @@
 package com.softserve.library.app.controller.servlets.general;
 
+import com.softserve.library.app.constant.UrlPatterns;
 import com.softserve.library.app.enums.patterns.CommonJSP;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.security.SecurityUtils;
@@ -19,7 +20,7 @@ import java.sql.SQLException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet("/library/login")
+@WebServlet(UrlPatterns.LOGIN)
 public class LoginServlet extends HttpServlet {
 
     @Override
@@ -66,7 +67,7 @@ public class LoginServlet extends HttpServlet {
         SecurityUtils.storeLoggedUser(request.getSession(), credential);
 
         // todo: case role - case redirect !!!
-        String redirect = request.getContextPath() + "/library/info";
+        String redirect = request.getContextPath() + UrlPatterns.INFO;
 
         System.out.println(" - - - Login servlet _ success _ redirect to - " + redirect);
 
