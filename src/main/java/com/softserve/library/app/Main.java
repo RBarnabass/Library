@@ -2,6 +2,7 @@ package com.softserve.library.app;
 
 import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.dto.BookDto;
+import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.factory.ServiceFactory;
@@ -24,13 +25,28 @@ public class Main {
 
 
         ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        List<UserStatisticDto> userStatistic = serviceFactory.getUserService().getUserStatistic(6);
+
+        for (UserStatisticDto userStatisticDto : userStatistic) {
+
+            System.out.println();
+            System.out.println(userStatisticDto);
+        }
+
+
+
+
+
+
+
+        /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         List<BookDto> allByAuthor = serviceFactory.getBookService().getAllByAuthor("Author has co - author 2");
 
         for (BookDto bookDto : allByAuthor) {
 
             System.out.println(bookDto);
             System.out.println();
-        }
+        }*/
 
 
 
