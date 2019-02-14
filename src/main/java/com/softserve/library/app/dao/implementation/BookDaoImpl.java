@@ -34,6 +34,10 @@ public class BookDaoImpl implements BookDao {
 
         return bookStatementExecutor.getAllByAuthor(authorName);
     }
+    @Override public int getBookQuantityPublishedFromYear(int year) throws SQLException {
+
+        return bookStatementExecutor.getAllBooksPublishedFromYear(year);
+    }
 
     @Override
     public boolean add(Book book) throws SQLException {
