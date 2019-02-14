@@ -2,6 +2,11 @@ package com.softserve.library.app.security;
 
 import java.util.*;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class SecurityConfig {
 
     private static final String ROLE_ADMIN = "admin";
