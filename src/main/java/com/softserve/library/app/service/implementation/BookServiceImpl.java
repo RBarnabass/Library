@@ -48,4 +48,8 @@ public class BookServiceImpl implements BookService {
 
         return bookDao.getAllBooksByAuthor(authorName);
     }
+    @Override public int getBookQuantityPublishedFromYear(int year) throws SQLException {
+
+        return bookDao.getBookQuantityPublishedFromYear(year);
+    }
 }
