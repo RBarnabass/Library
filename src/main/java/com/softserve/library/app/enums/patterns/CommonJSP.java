@@ -5,15 +5,14 @@ package com.softserve.library.app.enums.patterns;
  *
  * @author Roman Berezhnov
  */
-public enum CommonPatterns {
+public enum CommonJSP {
 
-    INFO ("/library/info"),
-    LOGIN ("/library/login"),
-    LOGOUT ("/library/logout");
+    INFO ("/WEB-INF/view/general/info.jsp"),
+    LOGIN ("/WEB-INF/view/general/login.jsp");
 
     private String line;
 
-    CommonPatterns(String line) {
+    CommonJSP(String line) {
 
         this.line = line;
     }
