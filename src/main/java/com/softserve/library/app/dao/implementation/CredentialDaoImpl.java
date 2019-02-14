@@ -18,24 +18,28 @@ public class CredentialDaoImpl implements CredentialDao {
     @Override
     public Credential get(int id) throws SQLException {
 
+        //todo: implement me !
         return null;
     }
 
     @Override
     public boolean add(Credential credential) throws SQLException {
 
+        //todo: implement me !
         return false;
     }
 
     @Override
     public boolean delete(int id) throws SQLException {
 
+        //todo: implement me !
         return false;
     }
 
     @Override
     public boolean update(Credential credential) throws SQLException {
 
+        //todo: implement me !
         return false;
     }
 
