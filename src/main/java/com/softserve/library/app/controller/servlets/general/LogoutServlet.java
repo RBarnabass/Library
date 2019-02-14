@@ -1,5 +1,7 @@
 package com.softserve.library.app.controller.servlets.general;
 
+import com.softserve.library.app.constant.UrlPatterns;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +14,7 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet("/library/logout")
+@WebServlet(UrlPatterns.LOGOUT)
 public class LogoutServlet extends HttpServlet {
 
     @Override
