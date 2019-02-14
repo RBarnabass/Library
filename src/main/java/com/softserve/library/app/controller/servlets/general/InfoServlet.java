@@ -1,5 +1,6 @@
 package com.softserve.library.app.controller.servlets.general;
 
+import com.softserve.library.app.constant.UrlPatterns;
 import com.softserve.library.app.enums.patterns.CommonJSP;
 
 import javax.servlet.RequestDispatcher;
@@ -15,7 +16,7 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet({"/library", "/library/info"})
+@WebServlet({UrlPatterns.LIBRARY, UrlPatterns.INFO})
 public class InfoServlet extends HttpServlet {
 
     @Override
