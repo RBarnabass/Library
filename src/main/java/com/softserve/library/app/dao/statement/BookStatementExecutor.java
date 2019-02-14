@@ -147,6 +147,28 @@ public class BookStatementExecutor {
         return list;
 
     }
+    public int getAllBooksPublishedFromYear(int year) throws SQLException {
+
+        if (year < 0 || year > 2100) {
+            return 0;
+        }
+
+        int quantity = 0;
+
+        String sql = "SELECT COUNT(book.id) AS quantity FROM book\n" +
+                "  WHERE book.publish_year >=" + "'" + year + "'";
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        while (resultSet.next()) {
+
+            quantity = resultSet.getInt("quantity");
+        }
+
+        return quantity;
+    }
 
     private String scopesWrapper(int id) {
 
