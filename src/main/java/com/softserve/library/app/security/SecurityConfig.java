@@ -1,5 +1,7 @@
 package com.softserve.library.app.security;
 
+import com.softserve.library.app.constant.UrlPatterns;
+
 import java.util.*;
 
 /**
@@ -24,26 +26,26 @@ public class SecurityConfig {
 
         // ADMIN
         List<String> urlPatternsForAdmin = new ArrayList<>();
-        urlPatternsForAdmin.add("/library/user_option");
+        urlPatternsForAdmin.add(UrlPatterns.USER_OPTION);
         mapConfig.put(ROLE_ADMIN, urlPatternsForAdmin);
 
         // USER
         List<String> urlPatternsForUser = new ArrayList<>();
-        urlPatternsForUser.add("/library/book_list");
-        urlPatternsForUser.add("/library/book_order");
+        urlPatternsForUser.add(UrlPatterns.BOOK_LIST);
+        urlPatternsForUser.add(UrlPatterns.BOOK_ORDER);
         mapConfig.put(ROLE_USER, urlPatternsForUser);
 
         // LIBRARIAN
         List<String> urlPatternsForLibrarian = new ArrayList<>();
-        urlPatternsForLibrarian.add("/library/book_option");
-        urlPatternsForLibrarian.add("/library/book_statistic");
+        urlPatternsForLibrarian.add(UrlPatterns.BOOK_OPTION);
+        urlPatternsForLibrarian.add(UrlPatterns.BOOK_STATISTIC);
         mapConfig.put(ROLE_LIBRARIAN, urlPatternsForLibrarian);
 
         // Common
         List<String> urlPatternsForGuest = new ArrayList<>();
-        urlPatternsForGuest.add("/library/info");
-        urlPatternsForGuest.add("/library/login");
-        urlPatternsForGuest.add("/library/logout");
+        urlPatternsForGuest.add(UrlPatterns.INFO);
+        urlPatternsForGuest.add(UrlPatterns.LOGIN);
+        urlPatternsForGuest.add(UrlPatterns.LOGOUT);
         mapConfig.put(ROLE_GUEST, urlPatternsForGuest);
     }
 
