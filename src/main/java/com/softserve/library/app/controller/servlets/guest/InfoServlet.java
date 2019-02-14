@@ -1,4 +1,4 @@
-package com.softserve.library.app.controller.mySecurityTest.freeServlets;
+package com.softserve.library.app.controller.servlets.guest;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
