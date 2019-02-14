@@ -5,13 +5,13 @@ package com.softserve.library.app.enums.patterns;
  *
  * @author Roman Berezhnov
  */
-public enum AdminPatterns {
+public enum AdminJSP {
 
-    USER_OPTION ("/library/user_option");
+    USER_OPTION ("/WEB-INF/view/admin/user_option.jsp");
 
     private String line;
 
-    AdminPatterns(String line) {
+    AdminJSP(String line) {
 
         this.line = line;
     }
