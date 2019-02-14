@@ -39,7 +39,7 @@ public class SecurityConfig {
         urlPatternsForLibrarian.add("/library/book_statistic");
         mapConfig.put(ROLE_LIBRARIAN, urlPatternsForLibrarian);
 
-        // GUEST
+        // Common
         List<String> urlPatternsForGuest = new ArrayList<>();
         urlPatternsForGuest.add("/library/info");
         urlPatternsForGuest.add("/library/login");
