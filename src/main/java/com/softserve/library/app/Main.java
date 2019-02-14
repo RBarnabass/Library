@@ -24,7 +24,7 @@ public class Main {
 
 
         ServiceFactory serviceFactory = new ServiceFactoryImpl();
-        List<Boolean> allAvailable = serviceFactory.getBookService().getAllAvailable();
+        List<Boolean> allAvailable = serviceFactory.getBookService().getAllAvailableByBookId(5);
 
         System.out.println(allAvailable);
 

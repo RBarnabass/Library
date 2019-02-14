@@ -14,5 +14,5 @@ import java.util.List;
 public interface BookDao extends SimpleCrudDao<Book> {
 
     List<BookDto> getAll() throws SQLException;
-    List<Boolean> getAllAvailable() throws SQLException;
+    List<Boolean> getAllAvailableByBookId(int id) throws SQLException;
 }

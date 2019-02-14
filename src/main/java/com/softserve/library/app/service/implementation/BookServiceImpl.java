@@ -40,8 +40,8 @@ public class BookServiceImpl implements BookService {
 
         return bookDao.getAll();
     }
-    @Override public List<Boolean> getAllAvailable() throws SQLException {
+    @Override public List<Boolean> getAllAvailableByBookId(int id) throws SQLException {
 
-        return bookDao.getAllAvailable();
+        return bookDao.getAllAvailableByBookId(id);
     }
 }

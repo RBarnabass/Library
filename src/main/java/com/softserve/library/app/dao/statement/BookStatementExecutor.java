@@ -90,14 +90,14 @@ public class BookStatementExecutor {
 
     }
 
-    public List<Boolean> getAllAvailable() throws SQLException {
+    public List<Boolean> getAllAvailable(int id) throws SQLException {
 
         List<Boolean> list = new ArrayList<>();
 
         String sql = "SELECT copy.is_available FROM copy\n" +
                 "  JOIN book\n" +
                 "    ON copy.book_id = book.id\n" +
-                "      WHERE book_id = 5 and is_available = true;";
+                "      WHERE book_id = "+ id +" and is_available = true;";
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
         preparedStatement.executeQuery();

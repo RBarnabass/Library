@@ -26,9 +26,9 @@ public class BookDaoImpl implements BookDao {
 
         return bookStatementExecutor.getAll();
     }
-    @Override public List<Boolean> getAllAvailable() throws SQLException {
+    @Override public List<Boolean> getAllAvailableByBookId(int id) throws SQLException {
 
-        return bookStatementExecutor.getAllAvailable();
+        return bookStatementExecutor.getAllAvailable(id);
     }
 
     @Override
