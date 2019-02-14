@@ -1,5 +1,7 @@
 package com.softserve.library.app.controller.filters;
 
+import com.softserve.library.app.constant.UrlPatterns;
+import com.softserve.library.app.enums.patterns.CommonJSP;
 import com.softserve.library.app.security.SecurityUtils;
 import com.softserve.library.app.model.Credential;
 import javax.servlet.*;
@@ -14,7 +16,7 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-@WebFilter("/*")
+@WebFilter(UrlPatterns.ABSOLUTE)
 public class SecurityFilter implements Filter {
 
     @Override
@@ -58,7 +60,9 @@ public class SecurityFilter implements Filter {
             System.out.println();
         }
 
-        if (servletPath.equals("/library/info") || servletPath.equals("/library/login") || servletPath.equals("/library/logout")) {
+        if (servletPath.equals(UrlPatterns.INFO)
+                || servletPath.equals(UrlPatterns.LOGIN)
+                || servletPath.equals(UrlPatterns.LOGOUT)) {
 
             // todo: here can be created session for general, maybe !
 
@@ -85,7 +89,7 @@ public class SecurityFilter implements Filter {
 
                 //todo: here can be saved redirect id and after success login forward to requested page !
                 System.out.println(" - - - Filter _ security page without login - redirected ! - - - ");
-                response.sendRedirect("/library/login");
+                response.sendRedirect(UrlPatterns.LOGIN);
                 return;
             }
 
@@ -93,7 +97,7 @@ public class SecurityFilter implements Filter {
 
             if (!hasPermission) {
 
-                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/view/general/accessDenied.jsp");
+                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(CommonJSP.ACCESS_DENIED.getPattern());
 
                 System.out.println();
                 System.out.println(" - - - Filter _ has no permission _ request dispatcher - " + dispatcher);
