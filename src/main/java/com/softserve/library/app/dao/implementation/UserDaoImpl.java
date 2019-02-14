@@ -2,6 +2,7 @@ package com.softserve.library.app.dao.implementation;
 
 import com.softserve.library.app.dao.interfaces.UserDao;
 import com.softserve.library.app.dao.statement.UserStatementExecutor;
+import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.model.User;
 import java.sql.SQLException;
 import java.util.List;
@@ -30,6 +31,10 @@ public class UserDaoImpl implements UserDao {
     @Override public boolean add(User user) throws SQLException {
 
         return userStatementExecutor.add(user);
+    }
+    @Override public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
+
+        return userStatementExecutor.getUserStatistic(id);
     }
 
     @Override
