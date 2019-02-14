@@ -1,5 +1,6 @@
 package com.softserve.library.app.controller.servlets.user;
 
+import com.softserve.library.app.constant.UrlPatterns;
 import com.softserve.library.app.dto.BookDto;
 import com.softserve.library.app.enums.patterns.UserJSP;
 import com.softserve.library.app.service.factory.ServiceFactory;
@@ -19,7 +20,7 @@ import java.util.List;
  *
  * @author Roman Berezhnov
  */
-@WebServlet("/library/book_list")
+@WebServlet(UrlPatterns.BOOK_LIST)
 public class BookListServlet extends HttpServlet {
 
     @Override
