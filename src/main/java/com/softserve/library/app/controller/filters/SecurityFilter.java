@@ -1,5 +1,6 @@
-package com.softserve.library.app.controller.mySecurityTest.security;
+package com.softserve.library.app.controller.filters;
 
+import com.softserve.library.app.security.SecurityUtils;
 import com.softserve.library.app.model.Credential;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
