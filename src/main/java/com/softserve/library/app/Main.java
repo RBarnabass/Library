@@ -1,6 +1,7 @@
 package com.softserve.library.app;
 
 import com.softserve.library.app.config.DBConnectivity;
+import com.softserve.library.app.dto.BookDto;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.factory.ServiceFactory;
@@ -10,6 +11,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -21,12 +23,10 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
 
+        ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        List<Boolean> allAvailable = serviceFactory.getBookService().getAllAvailable();
 
-
-
-
-
-
+        System.out.println(allAvailable);
 
         // Credential get
 
