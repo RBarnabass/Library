@@ -5,14 +5,14 @@ package com.softserve.library.app.enums.patterns;
  *
  * @author Roman Berezhnov
  */
-public enum LibrarianPatterns {
+public enum LibrarianJSP {
 
-    BOOK_OPTION ("/library/book_option"),
-    BOOK_STATISTIC ("/library/book_statistic");
+    BOOK_OPTION ("/WEB-INF/view/librarian/book_option.jsp"),
+    BOOK_STATISTIC ("/WEB-INF/view/librarian/book_statistic.jsp");
 
     private String line;
 
-    LibrarianPatterns(String line) {
+    LibrarianJSP(String line) {
 
         this.line = line;
     }
