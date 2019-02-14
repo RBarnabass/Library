@@ -89,7 +89,6 @@ public class BookStatementExecutor {
         return list;
 
     }
-
     public List<Boolean> getAllAvailable(int id) throws SQLException {
 
         List<Boolean> list = new ArrayList<>();
@@ -109,6 +108,44 @@ public class BookStatementExecutor {
         }
 
         return list;
+    }
+    public List<BookDto> getAllByAuthor(String authorName) throws SQLException {
+
+        List<BookDto> list = new ArrayList<>();
+
+        String sql = "SELECT book.id, book.name, book.publish_year, publisher.name, author.full_name, book_by_authors.is_primary FROM book\n" +
+                "  JOIN publisher\n" +
+                "    ON book.publisher_id = publisher.id\n" +
+                "      JOIN book_by_authors\n" +
+                "        ON book.id = book_by_authors.book_id\n" +
+                "          JOIN author\n" +
+                "            ON book_by_authors.author_id = author.id\n" +
+                "              WHERE author.full_name =" + "'" + authorName + "'";
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet set = preparedStatement.getResultSet();
+
+        BookDto bookDto;
+
+        while (set.next()) {
+
+            bookDto = new BookDto();
+            bookDto.setId(set.getInt(BookColumns.ID.getColumn()));
+            bookDto.setBookName(set.getString(BookColumns.NAME.getColumn()));
+            bookDto.setPublishYear(set.getInt(BookColumns.PUBLISH_YEAR.getColumn()));
+
+            bookDto.setPublisherName(set.getString(PublisherColumns.NAME.getColumn()));
+
+            bookDto.setPrimaryAuthor(set.getString(AuthorColumns.FULL_NAME.getColumn()));
+
+            bookDto.setPrimary(set.getBoolean("book_by_authors.is_primary"));
+
+            list.add(bookDto);
+        }
+
+        return list;
+
     }
 
     private String scopesWrapper(int id) {
