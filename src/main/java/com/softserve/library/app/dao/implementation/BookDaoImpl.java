@@ -41,16 +41,22 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public boolean add(Book book) throws SQLException {
+
+        //todo: implement me !
         return false;
     }
 
     @Override
     public boolean delete(int id) throws SQLException {
+
+        //todo: implement me !
         return false;
     }
 
     @Override
     public boolean update(Book book) throws SQLException {
+
+        //todo: implement me !
         return false;
     }
 }
