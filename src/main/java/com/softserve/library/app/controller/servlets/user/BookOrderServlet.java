@@ -1,5 +1,6 @@
 package com.softserve.library.app.controller.servlets.user;
 
+import com.softserve.library.app.constant.UrlPatterns;
 import com.softserve.library.app.enums.patterns.UserJSP;
 
 import javax.servlet.RequestDispatcher;
@@ -15,7 +16,7 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet("/library/book_order")
+@WebServlet(UrlPatterns.BOOK_ORDER)
 public class BookOrderServlet extends HttpServlet {
 
     @Override
