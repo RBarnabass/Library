@@ -1,18 +1,11 @@
 package com.softserve.library.app.controller.servlets.newOne;
 
-import com.softserve.library.app.controller.security.AppUtils;
-import com.softserve.library.app.model.Credential;
-import com.softserve.library.app.service.factory.ServiceFactory;
-import com.softserve.library.app.service.factory.ServiceFactoryImpl;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  *
