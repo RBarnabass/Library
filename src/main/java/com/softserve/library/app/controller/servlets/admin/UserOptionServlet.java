@@ -1,5 +1,7 @@
 package com.softserve.library.app.controller.servlets.admin;
 
+import com.softserve.library.app.enums.patterns.AdminJSP;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +21,7 @@ public class UserOptionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/admin/user_option.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(AdminJSP.USER_OPTION.getPattern());
         dispatcher.forward(req, resp);
     }
 }
