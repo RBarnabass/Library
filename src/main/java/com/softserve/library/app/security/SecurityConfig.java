@@ -1,4 +1,4 @@
-package com.softserve.library.app.controller.mySecurityTest.security;
+package com.softserve.library.app.security;
 
 import java.util.*;
 
