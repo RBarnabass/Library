@@ -1,11 +1,9 @@
 package com.softserve.library.app.controller.servlets.guest;
 
-import com.softserve.library.app.security.SecurityUtils;
-import com.softserve.library.app.controller.security.AppUtils;
 import com.softserve.library.app.model.Credential;
+import com.softserve.library.app.security.SecurityUtils;
 import com.softserve.library.app.service.factory.ServiceFactory;
 import com.softserve.library.app.service.factory.ServiceFactoryImpl;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +19,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/viewTest/login.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/login.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -53,7 +51,7 @@ public class LoginServlet extends HttpServlet {
             System.out.println(" - - - Login servlet _ credential == null or incorrect pass ! - - - ");
             System.out.println();
 
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/viewTest/login.jsp");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/login.jsp");
             dispatcher.forward(request, response);
 
             return;
@@ -61,7 +59,8 @@ public class LoginServlet extends HttpServlet {
 
         SecurityUtils.storeLoggedUser(request.getSession(), credential);
 
-        String redirect = request.getContextPath() + "/library/book_list";
+        // todo: case role - case redirect !!!
+        String redirect = request.getContextPath() + "/library/info";
 
         System.out.println(" - - - Login servlet _ success _ redirect to - " + redirect);
 
