@@ -1,6 +1,10 @@
 package com.softserve.library.app.service.interfaces;
 
+import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.model.User;
+
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -9,4 +13,5 @@ import com.softserve.library.app.model.User;
  */
 public interface UserService extends SimpleCrudService<User> {
 
+    List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
 }
