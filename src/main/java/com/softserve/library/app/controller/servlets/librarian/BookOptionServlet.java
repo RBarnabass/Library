@@ -1,4 +1,4 @@
-package com.softserve.library.app.controller.mySecurityTest.librarianServlets;
+package com.softserve.library.app.controller.servlets.librarian;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
