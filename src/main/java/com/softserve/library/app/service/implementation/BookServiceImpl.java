@@ -44,4 +44,8 @@ public class BookServiceImpl implements BookService {
 
         return bookDao.getAllAvailableByBookId(id);
     }
+    @Override public List<BookDto> getAllByAuthor(String authorName) throws SQLException {
+
+        return bookDao.getAllBooksByAuthor(authorName);
+    }
 }
