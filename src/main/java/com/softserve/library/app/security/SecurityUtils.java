@@ -5,6 +5,11 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 public class SecurityUtils {
 
     public static Credential getLoggedUser(HttpSession session) {
