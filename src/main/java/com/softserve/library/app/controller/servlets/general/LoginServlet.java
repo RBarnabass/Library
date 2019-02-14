@@ -1,5 +1,6 @@
 package com.softserve.library.app.controller.servlets.general;
 
+import com.softserve.library.app.enums.patterns.CommonJSP;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.security.SecurityUtils;
 import com.softserve.library.app.service.factory.ServiceFactory;
@@ -24,7 +25,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/login.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
         dispatcher.forward(request, response);
     }
 
@@ -56,7 +57,7 @@ public class LoginServlet extends HttpServlet {
             System.out.println(" - - - Login servlet _ credential == null or incorrect pass ! - - - ");
             System.out.println();
 
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/login.jsp");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
             dispatcher.forward(request, response);
 
             return;
