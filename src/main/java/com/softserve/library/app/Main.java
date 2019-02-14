@@ -24,9 +24,17 @@ public class Main {
 
 
         ServiceFactory serviceFactory = new ServiceFactoryImpl();
-        List<Boolean> allAvailable = serviceFactory.getBookService().getAllAvailableByBookId(5);
+        List<BookDto> allByAuthor = serviceFactory.getBookService().getAllByAuthor("Author has co - author 2");
 
-        System.out.println(allAvailable);
+        for (BookDto bookDto : allByAuthor) {
+
+            System.out.println(bookDto);
+            System.out.println();
+        }
+
+
+
+
 
         // Credential get
 
