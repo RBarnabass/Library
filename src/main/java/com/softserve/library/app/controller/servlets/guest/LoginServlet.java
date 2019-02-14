@@ -1,6 +1,6 @@
 package com.softserve.library.app.controller.servlets.guest;
 
-import com.softserve.library.app.controller.mySecurityTest.security.SecurityUtils;
+import com.softserve.library.app.security.SecurityUtils;
 import com.softserve.library.app.controller.security.AppUtils;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.service.factory.ServiceFactory;
