@@ -17,8 +17,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao = new UserDaoImpl();
 
-    @Override
-    public User get(int id) throws SQLException {
+    @Override public User get(int id) throws SQLException {
 
         return userDao.get(id);
     }
