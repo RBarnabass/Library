@@ -12,7 +12,7 @@ public class SecurityConfig {
     private static final String ROLE_ADMIN = "admin";
     private static final String ROLE_USER = "user";
     private static final String ROLE_LIBRARIAN = "librarian";
-    private static final String ROLE_GUEST = "guest";
+    private static final String ROLE_GUEST = "general";
     private static final Map<String, List<String>> mapConfig = new HashMap<>();
 
     static {

@@ -1,4 +1,4 @@
-package com.softserve.library.app.controller.servlets.guest;
+package com.softserve.library.app.controller.servlets.general;
 
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.security.SecurityUtils;

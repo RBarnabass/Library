@@ -1,6 +1,5 @@
-package com.softserve.library.app.controller.servlets.guest;
+package com.softserve.library.app.controller.servlets.general;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,13 +12,14 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet({"/library", "/library/info"})
-public class InfoServlet extends HttpServlet {
+@WebServlet("/library/logout")
+public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/info.jsp");
-        dispatcher.forward(request, response);
+        request.getSession().invalidate();
+        System.out.println(" - - - Logout servlet _ session was invalidate and redirect to info page ! - - - ");
+        response.sendRedirect(request.getContextPath() + "/library/info");
     }
 }

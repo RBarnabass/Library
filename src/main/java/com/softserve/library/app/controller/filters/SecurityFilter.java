@@ -60,9 +60,9 @@ public class SecurityFilter implements Filter {
 
         if (servletPath.equals("/library/info") || servletPath.equals("/library/login") || servletPath.equals("/library/logout")) {
 
-            // todo: here can be created session for guest, maybe !
+            // todo: here can be created session for general, maybe !
 
-            System.out.println(" - - - Filter _ request for guest urls - - -");
+            System.out.println(" - - - Filter _ request for general urls - - -");
             System.out.println();
 
             chain.doFilter(request, response);
