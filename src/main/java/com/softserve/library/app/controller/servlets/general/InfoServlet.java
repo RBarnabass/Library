@@ -1,5 +1,7 @@
 package com.softserve.library.app.controller.servlets.general;
 
+import com.softserve.library.app.enums.patterns.CommonJSP;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +21,7 @@ public class InfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/info.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.INFO.getPattern());
         dispatcher.forward(request, response);
     }
 }
