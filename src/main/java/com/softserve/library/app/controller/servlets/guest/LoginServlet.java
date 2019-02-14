@@ -1,4 +1,4 @@
-package com.softserve.library.app.controller.mySecurityTest.freeServlets;
+package com.softserve.library.app.controller.servlets.guest;
 
 import com.softserve.library.app.controller.mySecurityTest.security.SecurityUtils;
 import com.softserve.library.app.controller.security.AppUtils;
