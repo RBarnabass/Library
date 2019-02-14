@@ -30,6 +30,10 @@ public class BookDaoImpl implements BookDao {
 
         return bookStatementExecutor.getAllAvailable(id);
     }
+    @Override public List<BookDto> getAllBooksByAuthor(String authorName) throws SQLException {
+
+        return bookStatementExecutor.getAllByAuthor(authorName);
+    }
 
     @Override
     public boolean add(Book book) throws SQLException {
