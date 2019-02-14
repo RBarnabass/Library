@@ -1,5 +1,6 @@
 package com.softserve.library.app.controller.servlets.admin;
 
+import com.softserve.library.app.constant.UrlPatterns;
 import com.softserve.library.app.enums.patterns.AdminJSP;
 
 import javax.servlet.RequestDispatcher;
@@ -15,7 +16,7 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet("/library/user_option")
+@WebServlet(UrlPatterns.USER_OPTION)
 public class UserOptionServlet extends HttpServlet {
 
     @Override
