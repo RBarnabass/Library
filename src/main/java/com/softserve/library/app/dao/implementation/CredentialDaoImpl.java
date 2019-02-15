@@ -45,19 +45,12 @@ public class CredentialDaoImpl implements CredentialDao {
 
     @Override public Credential getByLogin(String login) throws SQLException {
 
-        // todo: remove this to some util class and adapt it for other similar situations
         List<Credential> list = credentialStatementExecutor.get(login);
 
-        if (list != null && !list.isEmpty()) {
-
-            return list.get(0);
-        }
-
-        return null;
+        return list != null && !list.isEmpty() ? list.get(0) : null;
     }
+    @Override public boolean checkExistence(String login) throws SQLException {
 
-    @Override
-    public boolean checkExistance(String login) {
-        return false;
+        return credentialStatementExecutor.checkExistence(login);
     }
 }
