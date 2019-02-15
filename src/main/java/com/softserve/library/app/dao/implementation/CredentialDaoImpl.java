@@ -55,4 +55,9 @@ public class CredentialDaoImpl implements CredentialDao {
 
         return null;
     }
+
+    @Override
+    public boolean checkExistance(String login) {
+        return false;
+    }
 }
