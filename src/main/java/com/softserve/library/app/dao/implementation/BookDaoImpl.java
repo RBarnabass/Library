@@ -20,7 +20,7 @@ public class BookDaoImpl implements BookDao {
 
         List<Book> list = bookStatementExecutor.get(id);
 
-        return list.size() > 1 ? null : list.get(0);
+        return list != null && !list.isEmpty() ? list.get(0) : null;
     }
     @Override public List<BookDto> getAll() throws SQLException {
 
