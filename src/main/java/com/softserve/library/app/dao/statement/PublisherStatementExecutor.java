@@ -25,7 +25,7 @@ public class PublisherStatementExecutor {
     private boolean isSuccess;
 
     // todo: the same as the author executor !!!
-    public Publisher get(int id) throws SQLException {
+    public List<Publisher> get(int id) throws SQLException {
 
         List<Publisher> list = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public class PublisherStatementExecutor {
         set.close();
         preparedStatement.close();
 
-        return list.get(0);
+        return list;
     }
     public boolean add(Publisher publisher) throws SQLException {
 
