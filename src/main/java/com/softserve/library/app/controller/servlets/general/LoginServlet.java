@@ -49,6 +49,7 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+        // todo: now we use encoder for pass so that should be changed !!!
         if (credential == null || !credential.getPassword().equals(password)) {
 
             String errorMessage = "Invalid userName or Password";
