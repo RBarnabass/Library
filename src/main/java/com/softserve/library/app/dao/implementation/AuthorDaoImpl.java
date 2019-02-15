@@ -5,6 +5,7 @@ import com.softserve.library.app.dao.statement.AuthorStatementExecutor;
 import com.softserve.library.app.model.Author;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -17,7 +18,9 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override public Author get(int id) throws SQLException {
 
-        return authorStatementExecutor.get(id);
+        List<Author> list = authorStatementExecutor.get(id);
+
+        return list.size() > 1 ? null : list.get(0);
     }
     @Override public boolean add(Author author) throws SQLException {
 
