@@ -64,4 +64,24 @@ public class CredentialStatementExecutor {
 
         return true;
     }
+
+    public boolean checkExistence(String login) throws SQLException {
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(CredentialSQL.SELECT.getSQL() + "'" + login + "'");
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet != null) {
+
+            isSuccess = true;
+            resultSet.close();
+
+        } else {
+
+            isSuccess = false;
+        }
+
+        preparedStatement.close();
+
+        return isSuccess;
+    }
 }
