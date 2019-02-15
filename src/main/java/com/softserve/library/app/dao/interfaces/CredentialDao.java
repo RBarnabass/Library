@@ -12,5 +12,5 @@ import java.sql.SQLException;
 public interface CredentialDao extends SimpleCrudDao<Credential> {
 
     Credential getByLogin(String login) throws SQLException;
-    boolean checkExistance(String login);
+    boolean checkExistence(String login) throws SQLException;
 }
