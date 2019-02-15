@@ -20,7 +20,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
         List<Author> list = authorStatementExecutor.get(id);
 
-        return list.size() > 1 ? null : list.get(0);
+        return list != null && !list.isEmpty() ? list.get(0) : null;
     }
     @Override public boolean add(Author author) throws SQLException {
 
