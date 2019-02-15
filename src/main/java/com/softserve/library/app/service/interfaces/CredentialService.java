@@ -12,4 +12,5 @@ import java.sql.SQLException;
 public interface CredentialService extends SimpleCrudService<Credential> {
 
     Credential getByLogin(String login) throws SQLException;
+    boolean checkExistence(String login) throws SQLException;
 }
