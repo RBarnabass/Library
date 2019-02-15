@@ -19,6 +19,10 @@ public class CredentialServiceImpl implements CredentialService {
 
         return credentialDao.getByLogin(login);
     }
+    @Override public boolean checkExistence(String login) throws SQLException {
+
+        return credentialDao.checkExistence(login);
+    }
 
     @Override
     public Credential get(int id) throws SQLException {
