@@ -23,21 +23,18 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-
         ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        Credential credential = new Credential("romik", "qwerty");
+        boolean add = serviceFactory.getCredentialService().add(credential);
+        System.out.println(add);
+
+
+
+
+
+        /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         int bookQuantityPublishedFromYear = serviceFactory.getBookService().getBookQuantityPublishedFromYear(1990);
-        System.out.println(bookQuantityPublishedFromYear);
-
-
-
-
-
-
-
-
-
-
-
+        System.out.println(bookQuantityPublishedFromYear);*/
 
        /* ServiceFactory serviceFactory = new ServiceFactoryImpl();
         List<UserStatisticDto> userStatistic = serviceFactory.getUserService().getUserStatistic(6);
