@@ -53,18 +53,17 @@ public class CredentialStatementExecutor {
         System.out.println(" ---------------------------- I was in db !");
         return list;
     }
+    public boolean add(Credential credential) throws SQLException {
 
-    public boolean add(Credential credential) {
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(CredentialSQL.INSERT.getSQL());
+        preparedStatement.setString(1, credential.getLogin());
+        preparedStatement.setString(2, credential.getPassword());
+        preparedStatement.setInt(3, credential.getRole().getId());
+        isSuccess = preparedStatement.executeUpdate() > 0;
+        preparedStatement.close();
 
-
-
-
-
-
-
-        return true;
+        return isSuccess;
     }
-
     public boolean checkExistence(String login) throws SQLException {
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(CredentialSQL.SELECT.getSQL() + "'" + login + "'");
