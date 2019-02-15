@@ -23,13 +23,6 @@ public class CredentialDaoImpl implements CredentialDao {
     }
 
     @Override
-    public boolean add(Credential credential) throws SQLException {
-
-        //todo: implement me !
-        return false;
-    }
-
-    @Override
     public boolean delete(int id) throws SQLException {
 
         //todo: implement me !
@@ -43,6 +36,10 @@ public class CredentialDaoImpl implements CredentialDao {
         return false;
     }
 
+    @Override public boolean add(Credential credential) throws SQLException {
+
+        return credentialStatementExecutor.add(credential);
+    }
     @Override public Credential getByLogin(String login) throws SQLException {
 
         List<Credential> list = credentialStatementExecutor.get(login);
