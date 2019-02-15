@@ -8,6 +8,8 @@ import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.factory.ServiceFactory;
 import com.softserve.library.app.service.factory.ServiceFactoryImpl;
 import com.softserve.library.app.service.interfaces.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -23,14 +25,15 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        ServiceFactory serviceFactory = new ServiceFactoryImpl();
-        Credential credential = new Credential("romik", "qwerty");
+
+
+
+
+
+        /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        Credential credential = new Credential("romko", "qwerty");
         boolean add = serviceFactory.getCredentialService().add(credential);
-        System.out.println(add);
-
-
-
-
+        System.out.println(add);*/
 
         /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         int bookQuantityPublishedFromYear = serviceFactory.getBookService().getBookQuantityPublishedFromYear(1990);
