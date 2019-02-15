@@ -5,6 +5,9 @@ import com.softserve.library.app.dao.interfaces.CredentialDao;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.model.Role;
 import com.softserve.library.app.service.interfaces.CredentialService;
+import org.apache.commons.codec.digest.DigestUtils;
+
+import java.net.PasswordAuthentication;
 import java.sql.SQLException;
 
 /**
@@ -31,6 +34,7 @@ public class CredentialServiceImpl implements CredentialService {
         Role role = new Role();
         role.setId(1);
         credential.setRole(role);
+        credential.setPassword(DigestUtils.sha512Hex(credential.getPassword()));
 
         return credentialDao.add(credential);
     }
