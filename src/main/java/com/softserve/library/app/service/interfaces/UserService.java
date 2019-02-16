@@ -1,9 +1,11 @@
 package com.softserve.library.app.service.interfaces;
 
+import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.model.User;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,4 +24,6 @@ public interface UserService extends SimpleCrudService<User> {
     int getAverageUserAgeByAuthor(String authorFullName) throws SQLException;
 
     int getUsingLibraryTimeInDays(int userId) throws SQLException;
+
+    List<DebtorDto> getAllDebtors() throws SQLException;
 }
