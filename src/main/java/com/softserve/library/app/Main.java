@@ -27,6 +27,11 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        List<BookDto> list = serviceFactory.getBookService().getAll();
+        for (BookDto bookDto : list) {
+            System.out.println();
+            System.out.println(bookDto);
+        }
 
 //        int numberOfOverallBookUsages = serviceFactory.getBookService().getNumberOfOverallBookUsages(10); // 3
 //        System.out.println(numberOfOverallBookUsages);
