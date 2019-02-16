@@ -1,6 +1,7 @@
 package com.softserve.library.app.dao.statement;
 
 import com.softserve.library.app.config.DBConnectivity;
+import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.enums.sql.UserSQL;
 import com.softserve.library.app.enums.tables.BookColumns;
@@ -181,4 +182,9 @@ public class UserStatementExecutor {
 
         return daysUsing;
     }
+
+    public List<DebtorDto> getAllDebtors() throws SQLException {
+
+        return null;
+    };
 }
