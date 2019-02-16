@@ -16,6 +16,7 @@ public class BookDto {
     private String primaryAuthor;
     private String coAuthor;
     private boolean isPrimary;
+    private int copies;
 
     public int getBookId() {
         return bookId;
@@ -59,6 +60,12 @@ public class BookDto {
     public void setPrimary(boolean primary) {
         isPrimary = primary;
     }
+    public int getCopies() {
+        return copies;
+    }
+    public void setCopies(int copies) {
+        this.copies = copies;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -77,12 +84,13 @@ public class BookDto {
     public String toString() {
         return "BookDto{" +
                 "bookId=" + bookId +
-                ", bookName='" + bookName + '\'' +
+                ", bookName='" + bookName + '\'' + "\n" +
                 ", publishYear=" + publishYear +
-                ", publisherName='" + publisherName + '\'' +
+                ", publisherName='" + publisherName + '\'' + "\n" +
                 ", primaryAuthor='" + primaryAuthor + '\'' +
-                ", coAuthor='" + coAuthor + '\'' +
+                ", coAuthor='" + coAuthor + '\'' + "\n" +
                 ", isPrimary=" + isPrimary +
+                ", copies=" + copies +
                 '}';
     }
 }
