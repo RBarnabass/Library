@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
         Credential credential = null;
 
         // todo: check name and password before go to DB !!!
