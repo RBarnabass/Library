@@ -1,6 +1,5 @@
 package com.softserve.library.app.dao.statement;
 
-import com.mysql.cj.exceptions.NumberOutOfRange;
 import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.dto.BookDto;
 import com.softserve.library.app.dto.CopyDto;
@@ -8,7 +7,6 @@ import com.softserve.library.app.enums.sql.BookSQL;
 import com.softserve.library.app.enums.tables.AuthorColumns;
 import com.softserve.library.app.enums.tables.BookColumns;
 import com.softserve.library.app.enums.tables.PublisherColumns;
-import com.softserve.library.app.model.Author;
 import com.softserve.library.app.model.Book;
 import com.softserve.library.app.model.Publisher;
 
@@ -17,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -26,6 +25,7 @@ public class BookStatementExecutor {
 
     private boolean isSuccess;
 
+    // Simple crud
     public List<Book> get(int id) throws SQLException {
 
         List<Book> list = new ArrayList<>();
@@ -55,18 +55,19 @@ public class BookStatementExecutor {
         return list;
     }
 
+    // Book list for page
     public List<BookDto> getAll() throws SQLException {
 
-        List<BookDto> list = new ArrayList<>();
+        LinkedList<BookDto> list = new LinkedList<>();
 
+        // todo: remove sql to constant or enum !
         String sql = "SELECT book.id, book.name, book.publish_year, publisher.name, author.full_name FROM book\n" +
                 "  JOIN publisher\n" +
                 "    ON book.publisher_id = publisher.id\n" +
                 "      JOIN book_by_authors\n" +
                 "        ON book.id = book_by_authors.book_id\n" +
                 "          JOIN author\n" +
-                "            ON book_by_authors.author_id = author.id\n" +
-                "              WHERE book_by_authors.is_primary = true";
+                "            ON book_by_authors.author_id = author.id\n";
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
         preparedStatement.executeQuery();
@@ -77,19 +78,22 @@ public class BookStatementExecutor {
         while (set.next()) {
 
             bookDto = new BookDto();
-            bookDto.setId(set.getInt(BookColumns.ID.getColumn()));
+            bookDto.setBookId(set.getInt(BookColumns.ID.getColumn()));
             bookDto.setBookName(set.getString(BookColumns.NAME.getColumn()));
             bookDto.setPublishYear(set.getInt(BookColumns.PUBLISH_YEAR.getColumn()));
-
             bookDto.setPublisherName(set.getString(PublisherColumns.NAME.getColumn()));
-
             bookDto.setPrimaryAuthor(set.getString(AuthorColumns.FULL_NAME.getColumn()));
 
-            list.add(bookDto);
+            if (list.contains(bookDto)) {
+
+                BookDto book = list.getLast();
+                book.setCoAuthor(set.getString(AuthorColumns.FULL_NAME.getColumn()));
+
+            } else {
+                list.add(bookDto);
+            }
         }
-
         return list;
-
     }
 
     public List<Boolean> getAllAvailable(int id) throws SQLException {
@@ -135,7 +139,7 @@ public class BookStatementExecutor {
         while (set.next()) {
 
             bookDto = new BookDto();
-            bookDto.setId(set.getInt(BookColumns.ID.getColumn()));
+            bookDto.setBookId(set.getInt(BookColumns.ID.getColumn()));
             bookDto.setBookName(set.getString(BookColumns.NAME.getColumn()));
             bookDto.setPublishYear(set.getInt(BookColumns.PUBLISH_YEAR.getColumn()));
 
