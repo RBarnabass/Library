@@ -3,6 +3,7 @@ package com.softserve.library.app;
 import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.dto.BookDto;
 import com.softserve.library.app.dto.CopyDto;
+import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.model.User;
@@ -52,6 +53,10 @@ public class Main {
 
 //        int averageAgeByAuthor = serviceFactory.getUserService().getAverageUserAgeByAuthor("Пітер Кері");  // 21
 //        System.out.println(averageAgeByAuthor);
+
+//        List<DebtorDto> debtors = serviceFactory.getUserService().getAllDebtors();
+//        System.out.println(debtors.size()); // 4
+
         /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         Credential credential = new Credential("romko", "qwerty");
         boolean add = serviceFactory.getCredentialService().add(credential);
