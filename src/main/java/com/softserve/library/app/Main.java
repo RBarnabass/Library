@@ -27,12 +27,11 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
         List<UserStatisticDto> userStatistic = serviceFactory.getUserService().getUserStatistic(6);
-        for (int i = 0; i < userStatistic.size(); i++) {
+        for (UserStatisticDto userStatisticDto : userStatistic) {
             System.out.println();
-            System.out.println(userStatistic.get(i));
-
+            System.out.println(userStatisticDto);
         }
 
 
