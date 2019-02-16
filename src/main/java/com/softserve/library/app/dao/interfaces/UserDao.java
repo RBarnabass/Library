@@ -14,4 +14,12 @@ import java.util.List;
 public interface UserDao extends SimpleCrudDao<User> {
 
     List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
+
+    int getAverageUserAge() throws SQLException;
+
+    int getAverageUserAgeByBook(int bookId) throws SQLException;
+
+    int getAverageUserAgeByAuthor(String authorFullName) throws SQLException;
+
+    public int getUsingLibraryTimeInDays(int userId) throws SQLException;
 }

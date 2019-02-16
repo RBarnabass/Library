@@ -2,6 +2,7 @@ package com.softserve.library.app;
 
 import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.dto.BookDto;
+import com.softserve.library.app.dto.CopyDto;
 import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.model.User;
@@ -23,21 +24,36 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-
         ServiceFactory serviceFactory = new ServiceFactoryImpl();
-        int bookQuantityPublishedFromYear = serviceFactory.getBookService().getBookQuantityPublishedFromYear(1990);
-        System.out.println(bookQuantityPublishedFromYear);
 
+//        int numberOfOverallBookUsages = serviceFactory.getBookService().getNumberOfOverallBookUsages(10); // 3
+//        System.out.println(numberOfOverallBookUsages);
 
+//        int numberOfBookUsagesByCopy = serviceFactory.getBookService().getNumberOfBookUsagesByCopy(18);   // 5
+//        System.out.println(numberOfBookUsagesByCopy);
 
+//        int averageReadingTime = serviceFactory.getBookService().getAverageReadingTime(4);    // 66
+//        System.out.println(averageReadingTime);
 
+//        int bookQuantityPublishedFromYear = serviceFactory.getBookService().getBookQuantityPublishedFromYear(1990);
+//        System.out.println(bookQuantityPublishedFromYear);
 
+//        int averageUsers=Age = serviceFactory.getUserService().getAverageUserAge();  // 22
+//        System.out.println(averageUserAge);
 
+//        int averageAgeByBook = serviceFactory.getUserService().getAverageUserAgeByBook(1);  // 24
+//        System.out.println(averageAgeByBook);
 
+//        int daysUsing = serviceFactory.getUserService().getUsingLibraryTimeInDays(11);  // 365
+//        System.out.println(daysUsing);
 
+//        int averageAgeByAuthor = serviceFactory.getUserService().getAverageUserAgeByAuthor("Пітер Кері");  // 21
+//        System.out.println(averageAgeByAuthor);
 
-
-
+//        List<CopyDto> copies = serviceFactory.getBookService().getAllCopiesByBookName("Господар у домі");
+//        System.out.println(copies.size());  // 3
+//        System.out.println(copies.get(0).getIsAvailable()); // false
+//        System.out.println(copies.get(1).getIsAvailable()); // true
 
        /* ServiceFactory serviceFactory = new ServiceFactoryImpl();
         List<UserStatisticDto> userStatistic = serviceFactory.getUserService().getUserStatistic(6);

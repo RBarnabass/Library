@@ -1,7 +1,9 @@
 package com.softserve.library.app.dao.statement;
 
+import com.mysql.cj.exceptions.NumberOutOfRange;
 import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.dto.BookDto;
+import com.softserve.library.app.dto.CopyDto;
 import com.softserve.library.app.enums.sql.BookSQL;
 import com.softserve.library.app.enums.tables.AuthorColumns;
 import com.softserve.library.app.enums.tables.BookColumns;
@@ -14,11 +16,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
- *
- *
  * @author Roman Berezhnov
  */
 public class BookStatementExecutor {
@@ -53,6 +54,7 @@ public class BookStatementExecutor {
 
         return list;
     }
+
     public List<BookDto> getAll() throws SQLException {
 
         List<BookDto> list = new ArrayList<>();
@@ -89,6 +91,7 @@ public class BookStatementExecutor {
         return list;
 
     }
+
     public List<Boolean> getAllAvailable(int id) throws SQLException {
 
         List<Boolean> list = new ArrayList<>();
@@ -96,7 +99,7 @@ public class BookStatementExecutor {
         String sql = "SELECT copy.is_available FROM copy\n" +
                 "  JOIN book\n" +
                 "    ON copy.book_id = book.id\n" +
-                "      WHERE book_id = "+ id +" and is_available = true;";
+                "      WHERE book_id = " + id + " and is_available = true;";
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
         preparedStatement.executeQuery();
@@ -109,6 +112,7 @@ public class BookStatementExecutor {
 
         return list;
     }
+
     public List<BookDto> getAllByAuthor(String authorName) throws SQLException {
 
         List<BookDto> list = new ArrayList<>();
@@ -147,6 +151,7 @@ public class BookStatementExecutor {
         return list;
 
     }
+
     public int getAllBooksPublishedFromYear(int year) throws SQLException {
 
         if (year < 0 || year > 2100) {
@@ -168,6 +173,119 @@ public class BookStatementExecutor {
         }
 
         return quantity;
+    }
+
+    public int getNumberOfOverallBookUsages(int bookId) throws SQLException {
+
+        String sql = "SELECT COUNT(book.id) AS bookUsages\n" +
+                "FROM time_period\n" +
+                "  JOIN copy\n" +
+                "    ON time_period.copy_id = copy.id\n" +
+                "  JOIN book\n" +
+                "    ON copy.book_id = book.id\n" +
+                "WHERE book_id =" + bookId;
+
+        int bookUsages = 0;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        while (resultSet.next()) {
+
+            bookUsages = resultSet.getInt("bookUsages");
+        }
+
+        return bookUsages;
+    }
+
+    public int getNumberOfBookUsagesByCopy(int copyId) throws SQLException {
+
+        String sql = "SELECT COUNT(copy.id) AS copyUsages\n" +
+                "FROM time_period\n" +
+                "  JOIN copy\n" +
+                "    ON time_period.copy_id = copy.id\n" +
+                "WHERE copy_id = " + copyId;
+
+        int copyUsages = 0;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        while (resultSet.next()) {
+
+            copyUsages = resultSet.getInt("copyUsages");
+        }
+
+        return copyUsages;
+    }
+
+    public int getAverageReadingTime(int bookId) throws SQLException {
+
+        String sql = "SELECT (FLOOR(SUM(DATEDIFF(time_period.end_date, time_period.start_date)) / COUNT(copy.id))) AS avgReadingTimeInDays\n" +
+                "FROM book\n" +
+                "  JOIN copy\n" +
+                "    ON copy.book_id = book.id\n" +
+                "  JOIN time_period\n" +
+                "    ON copy.id = time_period.copy_id\n" +
+                "WHERE book_id = " + bookId;
+
+        int avgReadingTimeInDays = 0;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        while (resultSet.next()) {
+
+            avgReadingTimeInDays = resultSet.getInt("avgReadingTimeInDays");
+        }
+
+        return avgReadingTimeInDays;
+    }
+
+    public List<CopyDto> getAllCopiesByBookName(String bookName) throws SQLException {
+
+        String sql = "SELECT\n" +
+                "  copy.id           AS copyId,\n" +
+                "  book.id           AS bookId,\n" +
+                "  copy.is_available AS isAvailable\n" +
+                "FROM copy\n" +
+                "  JOIN book on copy.book_id = book.id\n" +
+                "WHERE book.name = " + "'" + bookName + "'";
+
+        List<CopyDto> copies = new ArrayList<>();
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet set = preparedStatement.getResultSet();
+
+        CopyDto copyDto;
+
+        while (set.next()) {
+
+            copyDto = new CopyDto();
+            copyDto.setCopyId(set.getInt("copyId"));
+            copyDto.setBookId(set.getInt("bookId"));
+            copyDto.setIsAvailable(set.getBoolean("isAvailable"));
+
+            copies.add(copyDto);
+        }
+
+        return copies;
+    }
+
+    // TODO: getMostPopularBookWithinPeriod
+    int getMostPopularBookWithinPeriod(Date periodStartDate, Date periodEndDate) throws SQLException {
+
+        return 0;
+    }
+
+    // TODO getMostUnopularBookWithinPeriod
+    int getMostUnopularBookWithinPeriod(Date periodStartDate, Date periodEndDate) throws SQLException {
+
+        return 0;
     }
 
     private String scopesWrapper(int id) {

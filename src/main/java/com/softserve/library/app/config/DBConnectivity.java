@@ -42,7 +42,8 @@ public class DBConnectivity {
         String url = DBConstants.PATH.getValue()
                 + DBConstants.HOST.getValue()
                 + DBConstants.PORT.getValue()
-                + DBConstants.BASE.getValue();
+                + DBConstants.BASE.getValue()
+                + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
 
         return connection = DriverManager.getConnection(url, DBConstants.LOGIN.getValue(), DBConstants.PASSWORD.getValue());
     }

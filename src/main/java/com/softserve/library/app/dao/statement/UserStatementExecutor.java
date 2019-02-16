@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- *
  * @author Roman Berezhnov
  */
 public class UserStatementExecutor {
@@ -95,5 +93,92 @@ public class UserStatementExecutor {
         }
 
         return list;
+    }
+
+    public int getAverageUserAge() throws SQLException {
+
+        String sql = "SELECT FLOOR(AVG(DATEDIFF(CURDATE(), user.birth_date) / 365)) AS avgAge\n" +
+                "FROM user";
+
+        int avgAge = 0;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        while (resultSet.next()) {
+
+            avgAge = resultSet.getInt("avgAge");
+        }
+
+        return avgAge;
+    }
+
+    public int getAverageUserAgeByBook(int bookId) throws SQLException {
+
+        String sql = "SELECT FLOOR(AVG(DATEDIFF(CURDATE(), user.birth_date) / 365)) AS avgAge\n" +
+                "FROM time_period\n" +
+                "  JOIN copy ON time_period.copy_id = copy.id\n" +
+                "  JOIN book ON copy.book_id = book.id\n" +
+                "  JOIN user ON time_period.user_id = user.id\n" +
+                "WHERE book.id = " + bookId;
+
+        int avgAge = 0;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        while (resultSet.next()) {
+
+            avgAge = resultSet.getInt("avgAge");
+        }
+
+        return avgAge;
+    }
+
+    public int getAverageUserAgeByAuthor(String authorFullName) throws SQLException{
+
+        String sql = "SELECT FLOOR(AVG(DATEDIFF(CURDATE(), user.birth_date) / 365)) as avgAge\n" +
+                "FROM author\n" +
+                "  JOIN book_by_authors ON author.id = book_by_authors.author_id\n" +
+                "  JOIN book ON book_by_authors.book_id = book.id\n" +
+                "  JOIN copy ON book.id = copy.book_id\n" +
+                "  JOIN time_period ON copy.id = time_period.copy_id\n" +
+                "  JOIN user ON time_period.user_id = user.id\n" +
+                "WHERE author.full_name = " + "'" + authorFullName + "'";
+
+        int avgAge = 0;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        while (resultSet.next()) {
+
+            avgAge = resultSet.getInt("avgAge");
+        }
+
+        return avgAge;
+    }
+
+    public int getUsingLibraryTimeInDays(int userId) throws SQLException {
+
+        String sql = "SELECT FLOOR(DATEDIFF(CURDATE(), user.registration_date)) AS daysOfUse\n" +
+                "FROM user\n" +
+                "WHERE user.id = " + userId;
+
+        int daysUsing = 0;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        while (resultSet.next()) {
+
+            daysUsing = resultSet.getInt("daysOfUse");
+        }
+
+        return daysUsing;
     }
 }

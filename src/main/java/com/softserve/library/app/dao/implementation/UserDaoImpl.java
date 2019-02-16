@@ -38,6 +38,30 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public int getAverageUserAge() throws SQLException {
+
+        return userStatementExecutor.getAverageUserAge();
+    }
+
+    @Override
+    public int getAverageUserAgeByBook(int bookId) throws SQLException {
+
+        return userStatementExecutor.getAverageUserAgeByBook(bookId);
+    }
+
+    @Override
+    public int getAverageUserAgeByAuthor(String authorFullName) throws SQLException {
+
+        return userStatementExecutor.getAverageUserAgeByAuthor(authorFullName);
+    }
+
+    @Override
+    public int getUsingLibraryTimeInDays(int userId) throws SQLException {
+
+        return userStatementExecutor.getUsingLibraryTimeInDays(userId);
+    }
+
+    @Override
     public boolean delete(int id) throws SQLException {
 
         // todo: realize it

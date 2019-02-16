@@ -48,4 +48,28 @@ public class UserServiceImpl implements UserService {
 
         return userDao.getUserStatistic(id);
     }
+
+    @Override
+    public int getAverageUserAge() throws SQLException {
+
+        return userDao.getAverageUserAge();
+    }
+
+    @Override
+    public int getAverageUserAgeByBook(int bookId) throws SQLException {
+
+        return userDao.getAverageUserAgeByBook(bookId);
+    }
+
+    @Override
+    public int getAverageUserAgeByAuthor(String authorFullName) throws SQLException {
+
+        return userDao.getAverageUserAgeByAuthor(authorFullName);
+    }
+
+    @Override
+    public int getUsingLibraryTimeInDays(int userId) throws SQLException {
+
+        return userDao.getUsingLibraryTimeInDays(userId);
+    }
 }
