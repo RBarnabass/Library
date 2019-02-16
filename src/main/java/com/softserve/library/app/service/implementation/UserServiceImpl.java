@@ -2,6 +2,7 @@ package com.softserve.library.app.service.implementation;
 
 import com.softserve.library.app.dao.implementation.UserDaoImpl;
 import com.softserve.library.app.dao.interfaces.UserDao;
+import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.interfaces.UserService;
@@ -70,5 +71,11 @@ public class UserServiceImpl implements UserService {
     public int getUsingLibraryTimeInDays(int userId) throws SQLException {
 
         return userDao.getUsingLibraryTimeInDays(userId);
+    }
+
+    @Override
+    public List<DebtorDto> getAllDebtors() throws SQLException {
+
+        return userDao.getAllDebtors();
     }
 }
