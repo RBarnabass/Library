@@ -26,7 +26,7 @@ public class BookListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
         List<BookDto> all = null;
         try {
             all = serviceFactory.getBookService().getAll();
