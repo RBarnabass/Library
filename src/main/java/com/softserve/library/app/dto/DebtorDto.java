@@ -9,7 +9,15 @@ public class DebtorDto {
     private String userFullName;
     private String userBirthDate;
     private String userRegistrationDate;
-    private List<String> debtedBookNames = new ArrayList<>();
+    private List<DebtCopyDto> debtCopies = new ArrayList<>();
+
+    public List<DebtCopyDto> getDebtCopies() {
+        return debtCopies;
+    }
+
+    public void setDebtCopies(List<DebtCopyDto> debtCopies) {
+        this.debtCopies = debtCopies;
+    }
 
     public int getUserId() {
         return userId;
@@ -43,11 +51,4 @@ public class DebtorDto {
         this.userRegistrationDate = userRegistrationDate;
     }
 
-    public List<String> getDebtedBookNames() {
-        return debtedBookNames;
-    }
-
-    public void setDebtedBookNames(List<String> debtedBookNames) {
-        this.debtedBookNames = debtedBookNames;
-    }
 }
