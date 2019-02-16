@@ -17,22 +17,17 @@ public class BookDaoImpl implements BookDao {
 
     private final BookStatementExecutor bookStatementExecutor = new BookStatementExecutor();
 
-    @Override
-    public Book get(int id) throws SQLException {
+    @Override public Book get(int id) throws SQLException {
 
         List<Book> list = bookStatementExecutor.get(id);
 
         return list != null && !list.isEmpty() ? list.get(0) : null;
     }
-
-    @Override
-    public List<BookDto> getAll() throws SQLException {
+    @Override public List<BookDto> getAll() throws SQLException {
 
         return bookStatementExecutor.getAll();
     }
-
-    @Override
-    public List<Boolean> getAllAvailableByBookId(int id) throws SQLException {
+    @Override public int getAllAvailableByBookId(int id) throws SQLException {
 
         return bookStatementExecutor.getAllAvailable(id);
     }
