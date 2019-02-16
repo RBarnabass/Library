@@ -1,6 +1,7 @@
 package com.softserve.library.app.dao.statement;
 
 import com.softserve.library.app.config.DBConnectivity;
+import com.softserve.library.app.dto.DebtCopyDto;
 import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.enums.sql.UserSQL;
@@ -138,7 +139,7 @@ public class UserStatementExecutor {
         return avgAge;
     }
 
-    public int getAverageUserAgeByAuthor(String authorFullName) throws SQLException{
+    public int getAverageUserAgeByAuthor(String authorFullName) throws SQLException {
 
         String sql = "SELECT FLOOR(AVG(DATEDIFF(CURDATE(), user.birth_date) / 365)) as avgAge\n" +
                 "FROM author\n" +
@@ -185,6 +186,71 @@ public class UserStatementExecutor {
 
     public List<DebtorDto> getAllDebtors() throws SQLException {
 
-        return null;
-    };
+        String sql = "SELECT\n" +
+                "  u.id                             AS debtorId,\n" +
+                "  u.full_name                      AS debtorFullName,\n" +
+                "  u.birth_date                     AS debtorBirthDate,\n" +
+                "  u.registration_date              AS debtorRegDate,\n" +
+                "  c.id                             AS copyId,\n" +
+                "  b.id                             AS bookId,\n" +
+                "  b.name                           AS bookName,\n" +
+                "  DATEDIFF(CURDATE(), tp.end_date) AS debtDays\n" +
+                "FROM time_period tp\n" +
+                "  JOIN copy c on tp.copy_id = c.id\n" +
+                "  JOIN book b on c.book_id = b.id\n" +
+                "  JOIN user u on tp.user_id = u.id\n" +
+                "WHERE c.is_available = 0 AND tp.end_date < CURDATE()\n" +
+                "ORDER BY debtorId ASC, debtDays";
+
+        List<DebtorDto> debtors = new ArrayList<>();
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        resultSet.next();
+
+        while (!resultSet.isAfterLast()) {
+
+            int userId = resultSet.getInt("debtorId");
+            String debtorFullName = resultSet.getString("debtorFullName");
+            String debtorBirthDate = resultSet.getString("debtorBirthDate");
+            String debtorRegDate = resultSet.getString("debtorRegDate");
+
+            List<DebtCopyDto> debtCopies = new ArrayList<>();
+
+            while (resultSet.getInt("debtorId") == userId) {
+
+                int copyId = resultSet.getInt("copyId");
+                int bookId = resultSet.getInt("bookId");
+                int daysInDebt = resultSet.getInt("debtDays");
+
+                DebtCopyDto debtCopy = new DebtCopyDto();
+
+                debtCopy.setCopyId(copyId);
+                debtCopy.setBookId(bookId);
+                debtCopy.setDaysInDebt(daysInDebt);
+
+                debtCopies.add(debtCopy);
+
+                if (resultSet.isLast()) {
+                    resultSet.next();
+                    break;
+                }
+
+                resultSet.next();
+            }
+
+            DebtorDto debtor = new DebtorDto();
+            debtor.setUserId(userId);
+            debtor.setUserFullName(debtorFullName);
+            debtor.setUserBirthDate(debtorBirthDate);
+            debtor.setUserRegistrationDate(debtorRegDate);
+            debtor.setDebtCopies(debtCopies);
+
+            debtors.add(debtor);
+        }
+
+        return debtors;
+    }
 }
