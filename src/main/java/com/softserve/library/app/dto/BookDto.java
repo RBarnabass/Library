@@ -1,5 +1,7 @@
 package com.softserve.library.app.dto;
 
+import java.util.Objects;
+
 /**
  *
  *
@@ -7,7 +9,7 @@ package com.softserve.library.app.dto;
  */
 public class BookDto {
 
-    private int id;
+    private int bookId;
     private String bookName;
     private int publishYear;
     private String publisherName;
@@ -15,11 +17,11 @@ public class BookDto {
     private String coAuthor;
     private boolean isPrimary;
 
-    public int getId() {
-        return id;
+    public int getBookId() {
+        return bookId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
     public String getBookName() {
         return bookName;
@@ -59,9 +61,22 @@ public class BookDto {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookDto bookDto = (BookDto) o;
+        return bookId == bookDto.bookId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookId);
+    }
+
+    @Override
     public String toString() {
         return "BookDto{" +
-                "id=" + id +
+                "bookId=" + bookId +
                 ", bookName='" + bookName + '\'' +
                 ", publishYear=" + publishYear +
                 ", publisherName='" + publisherName + '\'' +
