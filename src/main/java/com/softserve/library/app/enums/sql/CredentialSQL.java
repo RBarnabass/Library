@@ -11,7 +11,16 @@ import com.softserve.library.app.enums.tables.Tables;
  */
 public enum CredentialSQL {
 
-    INSERT (""),
+    INSERT ("INSERT INTO "
+            + Tables.CREDENTIAL.getTable()
+            + " ("
+            + CredentialColumns.LOGIN.getColumn()
+            + ","
+            + CredentialColumns.PASSWORD.getColumn()
+            + ","
+            + CredentialColumns.ROLE_ID
+            + ")"
+            + "VALUES (?, ?, ?)"),
 
     SELECT ("SELECT * FROM "
             + Tables.CREDENTIAL.getTable()

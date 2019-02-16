@@ -1,5 +1,7 @@
 package com.softserve.library.app.controller.servlets.general;
 
+import com.softserve.library.app.constant.UrlPatterns;
+import com.softserve.library.app.enums.patterns.CommonJSP;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.security.SecurityUtils;
 import com.softserve.library.app.service.factory.ServiceFactory;
@@ -18,13 +20,13 @@ import java.sql.SQLException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet("/library/login")
+@WebServlet(UrlPatterns.LOGIN)
 public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/login.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
         dispatcher.forward(request, response);
     }
 
@@ -47,6 +49,7 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+        // todo: now we use encoder for pass so that should be changed !!!
         if (credential == null || !credential.getPassword().equals(password)) {
 
             String errorMessage = "Invalid userName or Password";
@@ -56,7 +59,7 @@ public class LoginServlet extends HttpServlet {
             System.out.println(" - - - Login servlet _ credential == null or incorrect pass ! - - - ");
             System.out.println();
 
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/login.jsp");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
             dispatcher.forward(request, response);
 
             return;
@@ -65,7 +68,7 @@ public class LoginServlet extends HttpServlet {
         SecurityUtils.storeLoggedUser(request.getSession(), credential);
 
         // todo: case role - case redirect !!!
-        String redirect = request.getContextPath() + "/library/info";
+        String redirect = request.getContextPath() + UrlPatterns.INFO;
 
         System.out.println(" - - - Login servlet _ success _ redirect to - " + redirect);
 

@@ -9,6 +9,8 @@ import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.factory.ServiceFactory;
 import com.softserve.library.app.service.factory.ServiceFactoryImpl;
 import com.softserve.library.app.service.interfaces.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -47,13 +49,22 @@ public class Main {
 //        int daysUsing = serviceFactory.getUserService().getUsingLibraryTimeInDays(11);  // 365
 //        System.out.println(daysUsing);
 
+
 //        int averageAgeByAuthor = serviceFactory.getUserService().getAverageUserAgeByAuthor("Пітер Кері");  // 21
 //        System.out.println(averageAgeByAuthor);
-
+        /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        Credential credential = new Credential("romko", "qwerty");
+        boolean add = serviceFactory.getCredentialService().add(credential);
+        System.out.println(add);*/
 //        List<CopyDto> copies = serviceFactory.getBookService().getAllCopiesByBookName("Господар у домі");
 //        System.out.println(copies.size());  // 3
 //        System.out.println(copies.get(0).getIsAvailable()); // false
 //        System.out.println(copies.get(1).getIsAvailable()); // true
+
+        /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        int bookQuantityPublishedFromYear = serviceFactory.getBookService().getBookQuantityPublishedFromYear(1990);
+        System.out.println(bookQuantityPublishedFromYear);*/
+
 
        /* ServiceFactory serviceFactory = new ServiceFactoryImpl();
         List<UserStatisticDto> userStatistic = serviceFactory.getUserService().getUserStatistic(6);

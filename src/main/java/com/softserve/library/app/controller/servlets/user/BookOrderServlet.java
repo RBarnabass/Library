@@ -1,5 +1,8 @@
 package com.softserve.library.app.controller.servlets.user;
 
+import com.softserve.library.app.constant.UrlPatterns;
+import com.softserve.library.app.enums.patterns.UserJSP;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,13 +16,13 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet("/library/book_order")
+@WebServlet(UrlPatterns.BOOK_ORDER)
 public class BookOrderServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/user/book_order.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(UserJSP.BOOK_ORDER.getPattern());
         dispatcher.forward(req, resp);
     }
 }

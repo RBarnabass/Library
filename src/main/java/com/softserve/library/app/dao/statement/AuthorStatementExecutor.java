@@ -17,7 +17,9 @@ public class AuthorStatementExecutor {
 
     private boolean isSuccess;
 
-    public Author get(int id) throws SQLException {
+    // todo: This one and Publisher are similar !!!
+
+    public List<Author> get(int id) throws SQLException {
 
         List<Author> list = new ArrayList<>();
 
@@ -36,7 +38,7 @@ public class AuthorStatementExecutor {
         set.close();
         preparedStatement.close();
 
-        return list.get(0);
+        return list;
     }
     public boolean add(Author author) throws SQLException {
 

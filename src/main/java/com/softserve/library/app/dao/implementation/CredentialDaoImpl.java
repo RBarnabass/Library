@@ -18,37 +18,36 @@ public class CredentialDaoImpl implements CredentialDao {
     @Override
     public Credential get(int id) throws SQLException {
 
+        //todo: implement me !
         return null;
-    }
-
-    @Override
-    public boolean add(Credential credential) throws SQLException {
-
-        return false;
     }
 
     @Override
     public boolean delete(int id) throws SQLException {
 
+        //todo: implement me !
         return false;
     }
 
     @Override
     public boolean update(Credential credential) throws SQLException {
 
+        //todo: implement me !
         return false;
     }
 
+    @Override public boolean add(Credential credential) throws SQLException {
+
+        return credentialStatementExecutor.add(credential);
+    }
     @Override public Credential getByLogin(String login) throws SQLException {
 
-        // todo: remove this to some util class and adapt it for other similar situations
         List<Credential> list = credentialStatementExecutor.get(login);
 
-        if (list != null && !list.isEmpty()) {
+        return list != null && !list.isEmpty() ? list.get(0) : null;
+    }
+    @Override public boolean checkExistence(String login) throws SQLException {
 
-            return list.get(0);
-        }
-
-        return null;
+        return credentialStatementExecutor.checkExistence(login);
     }
 }

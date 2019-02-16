@@ -1,5 +1,8 @@
 package com.softserve.library.app.controller.servlets.librarian;
 
+import com.softserve.library.app.constant.UrlPatterns;
+import com.softserve.library.app.enums.patterns.LibrarianJSP;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,13 +16,13 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet("/library/book_option")
+@WebServlet(UrlPatterns.BOOK_OPTION)
 public class BookOptionServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/librarian/book_option.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(LibrarianJSP.BOOK_OPTION.getPattern());
         dispatcher.forward(req, resp);
     }
 }

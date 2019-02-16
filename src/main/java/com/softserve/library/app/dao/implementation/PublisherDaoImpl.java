@@ -4,6 +4,7 @@ import com.softserve.library.app.dao.interfaces.PublisherDao;
 import com.softserve.library.app.dao.statement.PublisherStatementExecutor;
 import com.softserve.library.app.model.Publisher;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -16,7 +17,9 @@ public class PublisherDaoImpl implements PublisherDao {
 
     @Override public Publisher get(int id) throws SQLException {
 
-        return publisherStatementExecutor.get(id);
+        List<Publisher> list = publisherStatementExecutor.get(id);
+
+        return list != null && !list.isEmpty() ? list.get(0) : null;
     }
     @Override public boolean add(Publisher publisher) throws SQLException {
 

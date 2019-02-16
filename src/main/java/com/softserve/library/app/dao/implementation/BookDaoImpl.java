@@ -22,7 +22,7 @@ public class BookDaoImpl implements BookDao {
 
         List<Book> list = bookStatementExecutor.get(id);
 
-        return list.size() > 1 ? null : list.get(0);
+        return list != null && !list.isEmpty() ? list.get(0) : null;
     }
 
     @Override
@@ -84,16 +84,22 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public boolean add(Book book) throws SQLException {
+
+        //todo: implement me !
         return false;
     }
 
     @Override
     public boolean delete(int id) throws SQLException {
+
+        //todo: implement me !
         return false;
     }
 
     @Override
     public boolean update(Book book) throws SQLException {
+
+        //todo: implement me !
         return false;
     }
 }
