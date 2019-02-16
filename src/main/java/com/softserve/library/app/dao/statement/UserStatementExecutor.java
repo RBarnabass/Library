@@ -233,12 +233,11 @@ public class UserStatementExecutor {
 
                 debtCopies.add(debtCopy);
 
-                if (resultSet.isLast()) {
-                    resultSet.next();
+                resultSet.next();
+
+                if (resultSet.isAfterLast()) {
                     break;
                 }
-
-                resultSet.next();
             }
 
             DebtorDto debtor = new DebtorDto();
