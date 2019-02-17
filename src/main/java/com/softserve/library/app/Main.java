@@ -28,39 +28,48 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         ServiceFactory serviceFactory = new ServiceFactoryImpl();
-        List<BookDto> list = serviceFactory.getBookService().getAll();
-        for (BookDto bookDto : list) {
-            System.out.println();
-            System.out.println(bookDto);
-        }
 
-//        int numberOfOverallBookUsages = serviceFactory.getBookService().getNumberOfOverallBookUsages(10); // 3
+//        List<BookDto> list = serviceFactory.getBookService().getAll();
+//        for (BookDto bookDto : list) {
+//            System.out.println();
+//            System.out.println(bookDto);
+//        }
+        // OK
+//        int numberOfOverallBookUsages = serviceFactory.getBookService().getNumberOfOverallBookUsages(1); // 2
 //        System.out.println(numberOfOverallBookUsages);
 
-//        int numberOfBookUsagesByCopy = serviceFactory.getBookService().getNumberOfBookUsagesByCopy(18);   // 5
+        // OK
+//        int numberOfBookUsagesByCopy = serviceFactory.getBookService().getNumberOfBookUsagesByCopy(1);   // 1
 //        System.out.println(numberOfBookUsagesByCopy);
 
-//        int averageReadingTime = serviceFactory.getBookService().getAverageReadingTime(4);    // 66
+        // OK
+//        int averageReadingTime = serviceFactory.getBookService().getAverageReadingTime(1);    // 26
 //        System.out.println(averageReadingTime);
 
-//        int bookQuantityPublishedFromYear = serviceFactory.getBookService().getBookQuantityPublishedFromYear(1990);
+        // OK
+//        int bookQuantityPublishedFromYear = serviceFactory.getBookService().getBookQuantityPublishedFromYear(2005); // 1
 //        System.out.println(bookQuantityPublishedFromYear);
 
-//        int averageUsers=Age = serviceFactory.getUserService().getAverageUserAge();  // 22
+        // OK
+//        int averageUserAge = serviceFactory.getUserService().getAverageUserAge();  // 20
 //        System.out.println(averageUserAge);
 
-//        int averageAgeByBook = serviceFactory.getUserService().getAverageUserAgeByBook(1);  // 24
+        // OK
+//        int averageAgeByBook = serviceFactory.getUserService().getAverageUserAgeByBook(2);  // 21
 //        System.out.println(averageAgeByBook);
 
-//        int daysUsing = serviceFactory.getUserService().getUsingLibraryTimeInDays(11);  // 365
+        // OK
+//        int daysUsing = serviceFactory.getUserService().getUsingLibraryTimeInDays(2);  // 31
 //        System.out.println(daysUsing);
 
 
-//        int averageAgeByAuthor = serviceFactory.getUserService().getAverageUserAgeByAuthor("Пітер Кері");  // 21
+        // OK
+//        int averageAgeByAuthor = serviceFactory.getUserService().getAverageUserAgeByAuthor("John Doe");  // 20
 //        System.out.println(averageAgeByAuthor);
 
+        // OK (at least i think so)
 //        List<DebtorDto> debtors = serviceFactory.getUserService().getAllDebtors();
-//        System.out.println(debtors.size()); // 4
+//        System.out.println(debtors.size()); // 1
 
         /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         Credential credential = new Credential("romko", "qwerty");
