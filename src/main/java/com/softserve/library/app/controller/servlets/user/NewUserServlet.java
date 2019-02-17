@@ -8,6 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ *
+ *
+ * @author Roman Berezhnov
+ */
 @WebServlet
 public class NewUserServlet extends HttpServlet {
 
