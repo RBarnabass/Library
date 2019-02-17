@@ -21,6 +21,9 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.getSession().invalidate();
+
+        // todo: there will be some remover from token container !!!
+
         System.out.println(" - - - Logout servlet _ session was invalidate and redirect to info page ! - - - ");
         response.sendRedirect(request.getContextPath() + "/library/info");
     }
