@@ -62,6 +62,7 @@ public class UserStatementExecutor {
         return isSuccess;
     }
 
+    // TODO: refactor or so
     public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
 
         List<UserStatisticDto> list = new ArrayList<>();
@@ -99,8 +100,8 @@ public class UserStatementExecutor {
 
     public int getAverageUserAge() throws SQLException {
 
-        String sql = "SELECT FLOOR(AVG(DATEDIFF(CURDATE(), user.birth_date) / 365)) AS avgAge\n" +
-                "FROM user";
+        String sql = "SELECT FLOOR(AVG(DATEDIFF(CURDATE(), u.birth_date) / 365)) AS avgAge\n" +
+                "FROM user AS u";
 
         int avgAge = 0;
 
@@ -141,14 +142,14 @@ public class UserStatementExecutor {
 
     public int getAverageUserAgeByAuthor(String authorFullName) throws SQLException {
 
-        String sql = "SELECT FLOOR(AVG(DATEDIFF(CURDATE(), user.birth_date) / 365)) as avgAge\n" +
-                "FROM author\n" +
-                "  JOIN book_by_authors ON author.id = book_by_authors.author_id\n" +
-                "  JOIN book ON book_by_authors.book_id = book.id\n" +
-                "  JOIN copy ON book.id = copy.book_id\n" +
-                "  JOIN time_period ON copy.id = time_period.copy_id\n" +
-                "  JOIN user ON time_period.user_id = user.id\n" +
-                "WHERE author.full_name = " + "'" + authorFullName + "'";
+        String sql = "SELECT FLOOR(AVG(DATEDIFF(CURDATE(), u.birth_date) / 365)) as avgAge\n" +
+                "FROM author AS a\n" +
+                "  JOIN book_authors ba on a.id = ba.author_id\n" +
+                "  JOIN book b on ba.book_id = b.id\n" +
+                "  JOIN copy c on b.id = c.book_id\n" +
+                "  JOIN time_period tp on c.id = tp.copy_id\n" +
+                "  JOIN user u on tp.user_id = u.id\n" +
+                "WHERE a.full_name = " + "'" + authorFullName + "'";
 
         int avgAge = 0;
 
@@ -199,7 +200,7 @@ public class UserStatementExecutor {
                 "  JOIN copy c on tp.copy_id = c.id\n" +
                 "  JOIN book b on c.book_id = b.id\n" +
                 "  JOIN user u on tp.user_id = u.id\n" +
-                "WHERE c.is_available = 0 AND tp.end_date < CURDATE()\n" +
+                "WHERE tp.end_date < CURDATE() AND tp.return_date IS NULL\n" +
                 "ORDER BY debtorId ASC, debtDays";
 
         List<DebtorDto> debtors = new ArrayList<>();
