@@ -67,10 +67,10 @@ public class BookStatementExecutor {
         String sql = "SELECT book.id, book.name, book.publish_year, publisher.name, author.full_name FROM book\n" +
                 "  JOIN publisher\n" +
                 "    ON book.publisher_id = publisher.id\n" +
-                "      JOIN book_by_authors\n" +
-                "        ON book.id = book_by_authors.book_id\n" +
+                "      JOIN book_authors\n" +
+                "        ON book.id = book_authors.book_id\n" +
                 "          JOIN author\n" +
-                "            ON book_by_authors.author_id = author.id\n" +
+                "            ON book_authors.author_id = author.id\n" +
                 "               ORDER BY book.name";
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
@@ -138,13 +138,13 @@ public class BookStatementExecutor {
 
         // todo: remove SQL !!!
 
-        String sql = "SELECT book.id, book.name, book.publish_year, publisher.name, author.full_name, book_by_authors.is_primary FROM book\n" +
+        String sql = "SELECT book.id, book.name, book.publish_year, publisher.name, author.full_name, book_authors.is_primary FROM book\n" +
                 "  JOIN publisher\n" +
                 "    ON book.publisher_id = publisher.id\n" +
-                "      JOIN book_by_authors\n" +
-                "        ON book.id = book_by_authors.book_id\n" +
+                "      JOIN book_authors\n" +
+                "        ON book.id = book_authors.book_id\n" +
                 "          JOIN author\n" +
-                "            ON book_by_authors.author_id = author.id\n" +
+                "            ON book_authors.author_id = author.id\n" +
                 "              WHERE author.full_name =" + "'" + authorName + "'\n" +
                 "               ORDER BY book.name";
 
