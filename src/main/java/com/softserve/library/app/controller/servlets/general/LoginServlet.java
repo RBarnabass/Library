@@ -38,10 +38,9 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
+        Credential credential;
 
-        Credential credential = null;
-
-        // todo: check name and password before go to DB !!!
+        // todo: check login and password before go to DB !!!
         try {
 
             credential = serviceFactory.getCredentialService().getByLogin(login);
@@ -55,7 +54,6 @@ public class LoginServlet extends HttpServlet {
         }
 
         // todo: check password here and set null if not correct !!!
-
         // todo: now we use encoder for pass so that should be changed !!!
 
         if (credential == null || !credential.getPassword().equals(password)) {
@@ -76,9 +74,7 @@ public class LoginServlet extends HttpServlet {
 
         // todo: case role - case redirect !!!
         String redirect = request.getContextPath() + UrlPatterns.INFO;
-
         System.out.println(" - - - Login servlet _ success _ redirect to - " + redirect);
-
         response.sendRedirect(redirect);
     }
 }
