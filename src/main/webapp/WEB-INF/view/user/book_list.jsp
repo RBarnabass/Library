@@ -14,9 +14,16 @@
 <body>
 <jsp:include page="../general/_menu.jsp"></jsp:include>
 <h1>Book list</h1>
+
     <div>
         <c:forEach items="${bookList}" var="list">
-            <pre>${list.bookName}    ${list.publishYear}    ${list.publisherName}    ${list.primaryAuthor}</pre>
+
+            <pre>${list.bookId}   ${list.bookName}    ${list.publishYear}    ${list.publisherName}    ${list.primaryAuthor}   ${list.coAuthor}</pre>
+
+            <a href="/library/book_list/is_available/${list.bookId}">is available</a>
+
+            <h5>${available}</h5>
+
         </c:forEach>
     </div>
 
