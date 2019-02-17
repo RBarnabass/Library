@@ -12,7 +12,15 @@ import java.util.Set;
  */
 public class SecurityUtils {
 
+    private static String sessionId;
+
     public static Credential getLoggedUser(HttpSession session) {
+
+        if (session.getId().equals(sessionId)) {
+            System.out.println(" - - - Session id is correct !!! - - - ");
+        } else {
+            System.out.println(" - - - Session id is NOT correct !!! - - - ");
+        }
 
         return (Credential) session.getAttribute("credential");
     }
@@ -20,6 +28,12 @@ public class SecurityUtils {
     public static void storeLoggedUser(HttpSession session, Credential credential) {
 
         System.out.println(" - - - User was saved in session ! - - - ");
+
+        // todo: do not hold pass and login in session !!!
+
+        // todo: create new entity and map container (token) for holding session id and role with last activity touch. And check this container every filtering !!!
+
+        sessionId = session.getId();
 
         session.setAttribute("credential", credential);
     }
