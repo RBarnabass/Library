@@ -155,8 +155,8 @@ public class UserStatementExecutor {
 
         String sql = "SELECT FLOOR(AVG(DATEDIFF(CURDATE(), user.birth_date) / 365)) as avgAge\n" +
                 "FROM author\n" +
-                "  JOIN book_by_authors ON author.id = book_by_authors.author_id\n" +
-                "  JOIN book ON book_by_authors.book_id = book.id\n" +
+                "  JOIN book_authors ON author.id = book_authors.author_id\n" +
+                "  JOIN book ON book_authors.book_id = book.id\n" +
                 "  JOIN copy ON book.id = copy.book_id\n" +
                 "  JOIN time_period ON copy.id = time_period.copy_id\n" +
                 "  JOIN user ON time_period.user_id = user.id\n" +
