@@ -9,6 +9,7 @@ import com.softserve.library.app.service.factory.ServiceFactoryImpl;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,8 +37,6 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        // todo: delete login and pass from request
-
         ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
 
         Credential credential = null;
@@ -50,7 +49,6 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException e) {
 
             System.out.println(" - - - Exception - - - Login servlet");
-
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
             dispatcher.forward(request, response);
             return;
@@ -74,7 +72,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        SecurityUtils.storeLoggedUser(request.getSession(), credential);
+        SecurityUtils.storeLoggedUser(request.getSession(), credential.getRole().getType());
 
         // todo: case role - case redirect !!!
         String redirect = request.getContextPath() + UrlPatterns.INFO;
