@@ -1,5 +1,6 @@
 package com.softserve.library.app.service.factory;
 
+import com.softserve.library.app.enums.tables.Tables;
 import com.softserve.library.app.service.interfaces.*;
 
 /**
@@ -9,28 +10,42 @@ import com.softserve.library.app.service.interfaces.*;
  */
 public class ServiceFactoryImpl implements ServiceFactory {
 
-    private final ServiceManager serviceManager = new ServiceContainer();
+    private ServiceManager serviceManager = new ServiceContainer();
+    private static ServiceFactory serviceFactory;
 
-    // todo: change literals to enum !
+    private ServiceFactoryImpl() { }
+
+    public static ServiceFactory getFactory() {
+
+        if (serviceFactory == null) {
+            init();
+        }
+
+        return serviceFactory;
+    }
+    private static void init() {
+
+        serviceFactory = new ServiceFactoryImpl();
+    }
+
     @Override public AuthorService getAuthorService() {
 
-        return (AuthorService) serviceManager.getService("author");
+        return (AuthorService) serviceManager.getService(Tables.AUTHOR);
     }
     @Override public BookService getBookService() {
 
-        return (BookService) serviceManager.getService("book");
+        return (BookService) serviceManager.getService(Tables.BOOK);
     }
     @Override public PublisherService getPublisherService() {
 
-        return (PublisherService) serviceManager.getService("publisher");
+        return (PublisherService) serviceManager.getService(Tables.PUBLISHER);
     }
     @Override public UserService getUserService() {
 
-        return (UserService) serviceManager.getService("user");
+        return (UserService) serviceManager.getService(Tables.USER);
     }
     @Override public CredentialService getCredentialService() {
 
-        return (CredentialService) serviceManager.getService("credential");
+        return (CredentialService) serviceManager.getService(Tables.CREDENTIAL);
     }
-
 }

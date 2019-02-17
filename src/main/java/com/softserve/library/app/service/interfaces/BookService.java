@@ -15,7 +15,7 @@ public interface BookService extends SimpleCrudService<Book> {
 
     List<BookDto> getAll() throws SQLException;
 
-    List<Boolean> getAllAvailableByBookId(int id) throws SQLException;
+    int getAllAvailableByBookId(int id) throws SQLException;
 
     List<BookDto> getAllByAuthor(String authorName) throws SQLException;
 

@@ -2,8 +2,16 @@ package com.softserve.library.app.security;
 
 import com.softserve.library.app.model.Credential;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.MalformedParameterizedTypeException;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -12,7 +20,19 @@ import java.util.Set;
  */
 public class SecurityUtils {
 
+    private static final Map<String, String> sessions = new ConcurrentHashMap<>();
+    private static final int SESSION_LIFETIME_IN_SECONDS = 1800;
+
     public static Credential getLoggedUser(HttpSession session) {
+
+        if (sessions.containsKey(session.getId())) {
+
+            System.out.println(" - - - Session id is correct !!! - - - ");
+           // return sessions.get(session.getId());
+        } else {
+            System.out.println(" - - - Session id is NOT correct !!! - - - ");
+            //return null;
+        }
 
         return (Credential) session.getAttribute("credential");
     }
@@ -20,6 +40,13 @@ public class SecurityUtils {
     public static void storeLoggedUser(HttpSession session, Credential credential) {
 
         System.out.println(" - - - User was saved in session ! - - - ");
+
+        // todo: do not hold pass and login in session !!!
+
+        // todo: create new entity and map container (token) for holding session id and role with last activity touch. And check this container every filtering !!!
+
+        session.setMaxInactiveInterval(SESSION_LIFETIME_IN_SECONDS);
+        sessions.put(session.getId(), credential.getRole().getType());
 
         session.setAttribute("credential", credential);
     }

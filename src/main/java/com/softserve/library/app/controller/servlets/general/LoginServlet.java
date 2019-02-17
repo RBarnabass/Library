@@ -36,7 +36,10 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        // todo: delete login and pass from request
+
+        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
+
         Credential credential = null;
 
         // todo: check name and password before go to DB !!!
@@ -46,13 +49,20 @@ public class LoginServlet extends HttpServlet {
 
         } catch (SQLException e) {
 
-            e.printStackTrace();
+            System.out.println(" - - - Exception - - - Login servlet");
+
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
+            dispatcher.forward(request, response);
+            return;
         }
 
+        // todo: check password here and set null if not correct !!!
+
         // todo: now we use encoder for pass so that should be changed !!!
+
         if (credential == null || !credential.getPassword().equals(password)) {
 
-            String errorMessage = "Invalid userName or Password";
+            String errorMessage = "Invalid login or password";
             request.setAttribute("errorMessage", errorMessage);
 
             System.out.println();
@@ -61,7 +71,6 @@ public class LoginServlet extends HttpServlet {
 
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
             dispatcher.forward(request, response);
-
             return;
         }
 

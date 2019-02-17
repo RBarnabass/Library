@@ -15,6 +15,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
@@ -27,7 +28,28 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        ServiceFactory serviceFactory = new ServiceFactoryImpl();
+        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
+
+//        ServiceFactory serviceFactory = new ServiceFactoryImpl();
+//        List<BookDto> list = serviceFactory.getBookService().getAll();
+//        for (BookDto bookDto : list) {
+//            System.out.println();
+//            System.out.println(bookDto);
+//        }
+//
+//        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
+//        List<UserStatisticDto> userStatistic = serviceFactory.getUserService().getUserStatistic(6);
+//        for (UserStatisticDto userStatisticDto : userStatistic) {
+//            System.out.println();
+//            System.out.println(userStatisticDto);
+//        }
+
+
+        /*List<BookDto> list = serviceFactory.getBookService().getAll();
+        for (BookDto bookDto : list) {
+            System.out.println();
+            System.out.println(bookDto);
+        }*/
 
 //        List<BookDto> list = serviceFactory.getBookService().getAll();
 //        for (BookDto bookDto : list) {

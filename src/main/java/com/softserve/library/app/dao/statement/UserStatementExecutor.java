@@ -63,9 +63,12 @@ public class UserStatementExecutor {
     }
 
     // TODO: refactor or so
+    // Task 3 - the usage period is repeated in every line!
     public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
 
         List<UserStatisticDto> list = new ArrayList<>();
+
+        // todo: remove SQL !!!
 
         String sql = "SELECT user.full_name, from_days(datediff(curdate(), user.registration_date)) AS usingTime, book.name, book.publish_year, time_period.start_date, time_period.end_date\n" +
                 "  FROM user\n" +
@@ -95,6 +98,9 @@ public class UserStatementExecutor {
             list.add(userStatisticDto);
         }
 
+        resultSet.close();
+        preparedStatement.close();
+
         return list;
     }
 
@@ -113,6 +119,9 @@ public class UserStatementExecutor {
 
             avgAge = resultSet.getInt("avgAge");
         }
+
+        resultSet.close();
+        preparedStatement.close();
 
         return avgAge;
     }
@@ -136,6 +145,9 @@ public class UserStatementExecutor {
 
             avgAge = resultSet.getInt("avgAge");
         }
+
+        resultSet.close();
+        preparedStatement.close();
 
         return avgAge;
     }
@@ -162,6 +174,9 @@ public class UserStatementExecutor {
             avgAge = resultSet.getInt("avgAge");
         }
 
+        resultSet.close();
+        preparedStatement.close();
+
         return avgAge;
     }
 
@@ -181,6 +196,9 @@ public class UserStatementExecutor {
 
             daysUsing = resultSet.getInt("daysOfUse");
         }
+
+        resultSet.close();
+        preparedStatement.close();
 
         return daysUsing;
     }
@@ -250,6 +268,9 @@ public class UserStatementExecutor {
 
             debtors.add(debtor);
         }
+
+        resultSet.close();
+        preparedStatement.close();
 
         return debtors;
     }

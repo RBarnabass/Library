@@ -52,6 +52,9 @@ public class BookStatementExecutor {
             list.add(book);
         }
 
+        set.close();
+        preparedStatement.close();
+
         return list;
     }
 
@@ -67,7 +70,8 @@ public class BookStatementExecutor {
                 "      JOIN book_authors\n" +
                 "        ON book.id = book_authors.book_id\n" +
                 "          JOIN author\n" +
-                "            ON book_authors.author_id = author.id\n";
+                "            ON book_authors.author_id = author.id\n" +
+                "               ORDER BY book.name";
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
         preparedStatement.executeQuery();
@@ -93,17 +97,24 @@ public class BookStatementExecutor {
                 list.add(bookDto);
             }
         }
+
+        set.close();
+        preparedStatement.close();
+
         return list;
     }
 
-    public List<Boolean> getAllAvailable(int id) throws SQLException {
+    // Task 1 - id we will get from book list on the client side (some button by each book)
+    public int getAllAvailable(int id) throws SQLException {
 
         List<Boolean> list = new ArrayList<>();
 
+        // todo: remove sql from here !!!
+
         String sql = "SELECT copy.is_available FROM copy\n" +
-                "  JOIN book\n" +
-                "    ON copy.book_id = book.id\n" +
-                "      WHERE book_id = " + id + " and is_available = true;";
+                "       JOIN book\n" +
+                "           ON copy.book_id = book.id\n" +
+                "            WHERE book_id = " + id + " and is_available = true;";
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
         preparedStatement.executeQuery();
@@ -114,21 +125,28 @@ public class BookStatementExecutor {
             list.add(set.getBoolean("copy.is_available"));
         }
 
-        return list;
+        set.close();
+        preparedStatement.close();
+
+        return list.size();
     }
 
+    // Task 2 - Dto fields with authors can have wrong sing, so you must check isPrimary method for correct author position !
     public List<BookDto> getAllByAuthor(String authorName) throws SQLException {
 
         List<BookDto> list = new ArrayList<>();
 
-        String sql = "SELECT book.id, book.name, book.publish_year, publisher.name, author.full_name, book_by_authors.is_primary FROM book\n" +
+        // todo: remove SQL !!!
+
+        String sql = "SELECT book.id, book.name, book.publish_year, publisher.name, author.full_name, book_authors.is_primary FROM book\n" +
                 "  JOIN publisher\n" +
                 "    ON book.publisher_id = publisher.id\n" +
-                "      JOIN book_by_authors\n" +
-                "        ON book.id = book_by_authors.book_id\n" +
+                "      JOIN book_authors\n" +
+                "        ON book.id = book_authors.book_id\n" +
                 "          JOIN author\n" +
-                "            ON book_by_authors.author_id = author.id\n" +
-                "              WHERE author.full_name =" + "'" + authorName + "'";
+                "            ON book_authors.author_id = author.id\n" +
+                "              WHERE author.full_name =" + "'" + authorName + "'\n" +
+                "               ORDER BY book.name";
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
         preparedStatement.executeQuery();
@@ -142,20 +160,21 @@ public class BookStatementExecutor {
             bookDto.setBookId(set.getInt(BookColumns.ID.getColumn()));
             bookDto.setBookName(set.getString(BookColumns.NAME.getColumn()));
             bookDto.setPublishYear(set.getInt(BookColumns.PUBLISH_YEAR.getColumn()));
-
             bookDto.setPublisherName(set.getString(PublisherColumns.NAME.getColumn()));
-
             bookDto.setPrimaryAuthor(set.getString(AuthorColumns.FULL_NAME.getColumn()));
-
             bookDto.setPrimary(set.getBoolean("book_by_authors.is_primary"));
 
             list.add(bookDto);
         }
 
+        set.close();
+        preparedStatement.close();
+
         return list;
 
     }
 
+    // Task 4 - Not sure about quantity, maybe better return list of books?)
     public int getAllBooksPublishedFromYear(int year) throws SQLException {
 
         if (year < 0 || year > 2100) {
@@ -175,6 +194,9 @@ public class BookStatementExecutor {
 
             quantity = resultSet.getInt("quantity");
         }
+
+        resultSet.close();
+        preparedStatement.close();
 
         return quantity;
     }
@@ -198,6 +220,9 @@ public class BookStatementExecutor {
             bookUsages = resultSet.getInt("bookUsages");
         }
 
+        resultSet.close();
+        preparedStatement.close();
+
         return bookUsages;
     }
 
@@ -220,6 +245,9 @@ public class BookStatementExecutor {
             copyUsages = resultSet.getInt("copyUsages");
         }
 
+        resultSet.close();
+        preparedStatement.close();
+
         return copyUsages;
     }
 
@@ -241,6 +269,9 @@ public class BookStatementExecutor {
 
             avgReadingTimeInDays = resultSet.getInt("avgReadingTimeInDays");
         }
+
+        resultSet.close();
+        preparedStatement.close();
 
         return avgReadingTimeInDays;
     }
@@ -272,6 +303,9 @@ public class BookStatementExecutor {
 
             copies.add(copyDto);
         }
+
+        set.close();
+        preparedStatement.close();
 
         return copies;
     }
