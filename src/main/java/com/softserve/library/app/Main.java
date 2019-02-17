@@ -15,6 +15,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
@@ -33,7 +34,6 @@ public class Main {
             System.out.println();
             System.out.println(userStatisticDto);
         }
-
 
 
         /*List<BookDto> list = serviceFactory.getBookService().getAll();
