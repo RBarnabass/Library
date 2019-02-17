@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -28,11 +29,13 @@ public class BookListServlet extends HttpServlet {
 
         ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
         List<BookDto> all = null;
+
         try {
             all = serviceFactory.getBookService().getAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         req.getSession().setAttribute("bookList", all);
 
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(UserJSP.BOOK_LIST.getPattern());
