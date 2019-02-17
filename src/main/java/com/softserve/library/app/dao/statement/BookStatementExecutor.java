@@ -64,10 +64,10 @@ public class BookStatementExecutor {
         String sql = "SELECT book.id, book.name, book.publish_year, publisher.name, author.full_name FROM book\n" +
                 "  JOIN publisher\n" +
                 "    ON book.publisher_id = publisher.id\n" +
-                "      JOIN book_by_authors\n" +
-                "        ON book.id = book_by_authors.book_id\n" +
+                "      JOIN book_authors\n" +
+                "        ON book.id = book_authors.book_id\n" +
                 "          JOIN author\n" +
-                "            ON book_by_authors.author_id = author.id\n";
+                "            ON book_authors.author_id = author.id\n";
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
         preparedStatement.executeQuery();
@@ -164,8 +164,8 @@ public class BookStatementExecutor {
 
         int quantity = 0;
 
-        String sql = "SELECT COUNT(book.id) AS quantity FROM book\n" +
-                "  WHERE book.publish_year >=" + "'" + year + "'";
+        String sql = "SELECT COUNT(b.id) AS quantity FROM book AS b\n" +
+                "  WHERE b.publish_year >=" + "'" + year + "'";
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
         preparedStatement.executeQuery();
@@ -181,13 +181,11 @@ public class BookStatementExecutor {
 
     public int getNumberOfOverallBookUsages(int bookId) throws SQLException {
 
-        String sql = "SELECT COUNT(book.id) AS bookUsages\n" +
-                "FROM time_period\n" +
-                "  JOIN copy\n" +
-                "    ON time_period.copy_id = copy.id\n" +
-                "  JOIN book\n" +
-                "    ON copy.book_id = book.id\n" +
-                "WHERE book_id =" + bookId;
+        String sql = "SELECT COUNT(b.id) AS bookUsages\n" +
+                "FROM time_period AS tp\n" +
+                "  JOIN copy AS c ON tp.copy_id = c.id\n" +
+                "  JOIN book AS b  ON c.book_id = b.id\n" +
+                "WHERE b.id =" + bookId;
 
         int bookUsages = 0;
 
@@ -227,13 +225,11 @@ public class BookStatementExecutor {
 
     public int getAverageReadingTime(int bookId) throws SQLException {
 
-        String sql = "SELECT (FLOOR(SUM(DATEDIFF(time_period.end_date, time_period.start_date)) / COUNT(copy.id))) AS avgReadingTimeInDays\n" +
-                "FROM book\n" +
-                "  JOIN copy\n" +
-                "    ON copy.book_id = book.id\n" +
-                "  JOIN time_period\n" +
-                "    ON copy.id = time_period.copy_id\n" +
-                "WHERE book_id = " + bookId;
+        String sql = "SELECT (FLOOR(SUM(DATEDIFF(tp.return_date, tp.start_date)) / COUNT(c.id))) AS avgReadingTimeInDays\n" +
+                "FROM book AS b\n" +
+                "  JOIN copy AS c ON c.book_id = b.id\n" +
+                "  JOIN time_period AS tp ON c.id = tp.copy_id\n" +
+                "WHERE tp.return_date IS NOT NULL AND b.id = " + bookId;
 
         int avgReadingTimeInDays = 0;
 
