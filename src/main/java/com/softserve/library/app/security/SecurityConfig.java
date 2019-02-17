@@ -19,7 +19,6 @@ public class SecurityConfig {
 
     static {
         initialization();
-        System.out.println(" - - - Security config initialization - - - ");
     }
 
     private static void initialization() {
