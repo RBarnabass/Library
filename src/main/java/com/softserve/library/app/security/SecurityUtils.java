@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class SecurityUtils {
 
-    private static final Map<String, Sess> sessions = new ConcurrentHashMap<>();
+    private static final Map<String, Token> sessions = new ConcurrentHashMap<>();
     private static final int SESSION_LIFETIME_IN_SECONDS = 30;
 
     public static String getLoggedUser(HttpSession session) {
@@ -34,8 +34,8 @@ public class SecurityUtils {
     public static void storeLoggedUser(HttpSession session, String role) {
 
         session.setMaxInactiveInterval(SESSION_LIFETIME_IN_SECONDS);
-        Sess sess = new Sess(session.getId(), session.getLastAccessedTime(), role);
-        sessions.put(session.getId(), sess);
+        Token token = new Token(session.getId(), session.getLastAccessedTime(), role);
+        sessions.put(session.getId(), token);
     }
 
     public static boolean isSecurityPage(String servletPath) {
@@ -80,14 +80,14 @@ public class SecurityUtils {
         }
     }
 
-    static class Sess {
+    static class Token {
 
         private String sessionId;
         private long lastTouch;
         private String role;
 
-        public Sess() { }
-        Sess(String sessionId, long lastTouch, String role) {
+        public Token() { }
+        Token(String sessionId, long lastTouch, String role) {
             this.sessionId = sessionId;
             this.lastTouch = lastTouch;
             this.role = role;
