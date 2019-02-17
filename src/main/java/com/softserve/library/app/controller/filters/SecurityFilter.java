@@ -27,10 +27,7 @@ public class SecurityFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
 
         final String servletPath = request.getServletPath();
-        System.out.println(" - - - Filter _ servlet path - " + servletPath);
-
         final HttpSession session = request.getSession(false);
-        System.out.println(" - - - Filter _ session - " + session);
 
         final String requestedSessionId = request.getRequestedSessionId();
         System.out.println(" - - - Filter _ session id - " + requestedSessionId);
@@ -44,7 +41,6 @@ public class SecurityFilter implements Filter {
 
         if (session != null) {
 
-            System.out.println(" - - - Filter _ session _ is new - " + session.isNew());
             System.out.println(" - - - Filter _ session _ get id - " + session.getId());
             System.out.println();
 
