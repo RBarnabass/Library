@@ -3,7 +3,8 @@ package com.softserve.library.app.dao.implementation;
 import com.softserve.library.app.dao.interfaces.UserDao;
 import com.softserve.library.app.dao.statement.UserStatementExecutor;
 import com.softserve.library.app.dto.DebtorDto;
-import com.softserve.library.app.dto.UserDto;
+import com.softserve.library.app.dto.CreateUserDto;
+import com.softserve.library.app.dto.FullUserDto;
 import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
@@ -62,8 +63,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public CustomResponseEntity<?> add(UserDto userDto) throws SQLException {
-        return userStatementExecutor.addUser(userDto);
+    public CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException {
+        return userStatementExecutor.addUser(createUserDto);
+    }
+
+    @Override
+    public FullUserDto getByLogin(String login) throws SQLException, NullPointerException {
+
+        return userStatementExecutor.getUserByLogin(login);
     }
 
     @Override
