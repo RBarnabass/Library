@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author Roman Berezhnov
  */
-public interface UserDao extends SimpleCrudDao<User> {
+public interface UserDao extends SimpleCrudDao<User, UserDto> {
 
     List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
 
