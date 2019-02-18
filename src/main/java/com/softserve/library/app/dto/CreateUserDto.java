@@ -2,7 +2,7 @@ package com.softserve.library.app.dto;
 
 import java.time.LocalDate;
 
-public class UserDto {
+public class CreateUserDto {
 
     private String fullName;
     private LocalDate birthDate;
