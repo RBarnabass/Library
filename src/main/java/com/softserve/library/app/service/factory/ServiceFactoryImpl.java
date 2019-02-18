@@ -44,8 +44,4 @@ public class ServiceFactoryImpl implements ServiceFactory {
 
         return (UserService) serviceManager.getService(Tables.USER);
     }
-    @Override public CredentialService getCredentialService() {
-
-        return (CredentialService) serviceManager.getService(Tables.CREDENTIAL);
-    }
 }
