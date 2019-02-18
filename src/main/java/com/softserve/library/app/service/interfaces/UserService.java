@@ -1,13 +1,14 @@
 package com.softserve.library.app.service.interfaces;
 
 import com.softserve.library.app.dto.DebtorDto;
-import com.softserve.library.app.dto.UserDto;
+import com.softserve.library.app.dto.CreateUserDto;
+import com.softserve.library.app.dto.FullUserDto;
 import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
+import org.springframework.http.ResponseEntity;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author Roman Berezhnov
  */
-public interface UserService extends SimpleCrudService<User, UserDto> {
+public interface UserService extends SimpleCrudService<User, CreateUserDto> {
 
     List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
 
@@ -29,7 +30,9 @@ public interface UserService extends SimpleCrudService<User, UserDto> {
 
     List<DebtorDto> getAllDebtors() throws SQLException;
 
-    CustomResponseEntity<?> add(UserDto userDto) throws SQLException;
+    CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException;
 
     CustomResponseEntity<?> checkLoginPasswordEquality(String login, String password);
+
+    CustomResponseEntity<?> getByLogin(String login);
 }
