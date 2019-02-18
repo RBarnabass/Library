@@ -2,25 +2,23 @@ package com.softserve.library.app.service.implementation;
 
 import com.softserve.library.app.dao.implementation.UserDaoImpl;
 import com.softserve.library.app.dao.interfaces.UserDao;
-import com.softserve.library.app.dto.DebtorDto;
-import com.softserve.library.app.dto.UserDto;
-import com.softserve.library.app.dto.UserStatisticDto;
+import com.softserve.library.app.dto.*;
 import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.interfaces.UserService;
+
 import java.sql.SQLException;
 import java.util.List;
 
 /**
- *
- *
  * @author Roman Berezhnov
  */
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao = new UserDaoImpl();
 
-    @Override public User get(int id) throws SQLException {
+    @Override
+    public User get(int id) throws SQLException {
 
         return userDao.get(id);
     }
@@ -39,7 +37,8 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Override public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
+    @Override
+    public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
 
         return userDao.getUserStatistic(id);
     }
@@ -75,12 +74,67 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CustomResponseEntity<?> add(UserDto userDto) throws SQLException {
-        return userDao.add(userDto);
+    public CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException {
+        return userDao.add(createUserDto);
     }
 
     @Override
     public CustomResponseEntity<?> checkLoginPasswordEquality(String login, String password) {
-        return null;
+
+        CustomResponseEntity<?> getByLoginEntity = getByLogin(login);
+
+        // TODO: status codes enum
+        if (getByLogin(login).getHttpStatusCode() != 200) {
+
+            return getByLoginEntity;
+        }
+
+        FullUserDto responseBody = (FullUserDto) getByLoginEntity.getResponseBody();
+
+        if (!responseBody.getPassword().equals(password)) {
+
+            ErrorDto errorDto = new ErrorDto();
+            errorDto.setErrorMessage("Password and login are not matching.");
+
+            // TODO: status codes enum
+            return new CustomResponseEntity<>(errorDto, 403);
+        }
+
+        SuccessfulLoginUserDto successfulLoginUserDto = new SuccessfulLoginUserDto();
+        successfulLoginUserDto.setUserId(responseBody.getId());
+        successfulLoginUserDto.setIsAdmin(responseBody.isAdmin());
+
+        // TODO: status codes enum
+        return new CustomResponseEntity<>(successfulLoginUserDto, 200);
+    }
+
+    @Override
+    public CustomResponseEntity<?> getByLogin(String login) {
+
+        FullUserDto fullUserDto;
+
+        try {
+
+            fullUserDto = userDao.getByLogin(login);
+        } catch (SQLException e) {
+
+            ErrorDto errorDto = new ErrorDto();
+            errorDto.setErrorMessage("Internal server error during retrieving user from database.");
+
+            // TODO: status codes enum
+            return new CustomResponseEntity<>(errorDto, 500);
+        } catch (NullPointerException e) {
+
+            ErrorDto errorDto = new ErrorDto();
+            errorDto.setErrorMessage("User with such login was not found.");
+
+            // TODO: status codes enum
+            return new CustomResponseEntity<>(errorDto, 404);
+        }
+
+        // TODO: status codes enum
+        return new CustomResponseEntity<>(fullUserDto, 200);
     }
 }
+
+
