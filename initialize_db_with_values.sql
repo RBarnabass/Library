@@ -76,32 +76,17 @@ create table user
 (
   id                int auto_increment
     primary key,
-  full_name         varchar(255) not null,
-  birth_date        date         not null,
-  registration_date date         not null
-);
-
-create table credential
-(
-  id       int auto_increment
-    primary key,
-  login    varchar(100) not null,
-  password varchar(255) not null,
-  role_id  int          not null,
-  user_id  int          not null,
-  constraint credential_login_uindex
+  full_name         varchar(255)    not null,
+  birth_date        date            not null,
+  registration_date date            not null,
+  login             varchar(16)     not null,
+  password          varchar(512)    not null,
+  role_id           int default '1' not null,
+  constraint user_login_uindex
   unique (login),
-  constraint credential_role_id_fk
-  foreign key (role_id) references role (id),
-  constraint credential_user_id_fk
-  foreign key (user_id) references user (id)
+  constraint user_role_id_fk
+  foreign key (role_id) references role (id)
 );
-
-create index credential_role_id_fk
-  on credential (role_id);
-
-create index credential_user_id_fk
-  on credential (user_id);
 
 create table time_period
 (
@@ -128,33 +113,34 @@ create index time_period_copy_id_fk
 create index time_period_user_id_fk
   on time_period (user_id);
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+create index user_role_id_fk
+  on user (role_id);
 
-INSERT INTO library.user (id, full_name, birth_date, registration_date) VALUES (1, 'Emmett Brown', '1999-10-04', '2019-02-17');
-INSERT INTO library.user (id, full_name, birth_date, registration_date) VALUES (2, 'Mety Slav', '1997-10-04', '2019-01-17');
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-INSERT INTO library.role (id, type) VALUES (1, 'user');
-INSERT INTO library.role (id, type) VALUES (2, 'admin');
+INSERT INTO library.author (full_name) VALUES ('John Doe');
+INSERT INTO library.author (full_name) VALUES ('Hello Kitty');
 
-INSERT INTO library.credential (id, login, password, role_id, user_id) VALUES (1, 'md1guy', 'password', 1, 1);
-INSERT INTO library.credential (id, login, password, role_id, user_id) VALUES (2, 'metyslav', 'userPassword', 2, 2);
+INSERT INTO library.book (name, publisher_id, publish_year) VALUES ('Great book', 1, 2007);
+INSERT INTO library.book (name, publisher_id, publish_year) VALUES ('Maybe a little worse book', 1, 1998);
 
-INSERT INTO library.publisher (id, name) VALUES (1, 'Cool Publisher');
+INSERT INTO library.book_authors (book_id, author_id, is_primary) VALUES (1, 1, 1);
+INSERT INTO library.book_authors (book_id, author_id, is_primary) VALUES (2, 1, 0);
+INSERT INTO library.book_authors (book_id, author_id, is_primary) VALUES (2, 2, 1);
 
-INSERT INTO library.book (id, name, publisher_id, publish_year) VALUES (1, 'Great book', 1, 2007);
-INSERT INTO library.book (id, name, publisher_id, publish_year) VALUES (2, 'Maybe a little worse book', 1, 1998);
+INSERT INTO library.copy (book_id) VALUES (1);
+INSERT INTO library.copy (book_id) VALUES (1);
+INSERT INTO library.copy (book_id) VALUES (2);
 
-INSERT INTO library.copy (id, book_id) VALUES (1, 1);
-INSERT INTO library.copy (id, book_id) VALUES (2, 1);
-INSERT INTO library.copy (id, book_id) VALUES (3, 2);
+INSERT INTO library.publisher (name) VALUES ('Cool Publisher');
 
-INSERT INTO library.author (id, full_name) VALUES (1, 'John Doe');
-INSERT INTO library.author (id, full_name) VALUES (2, 'Hello Kitty');
+INSERT INTO library.role (type) VALUES ('user');
+INSERT INTO library.role (type) VALUES ('admin');
 
-INSERT INTO library.book_authors (id, book_id, author_id, is_primary) VALUES (1, 1, 1, 1);
-INSERT INTO library.book_authors (id, book_id, author_id, is_primary) VALUES (2, 2, 1, 0);
-INSERT INTO library.book_authors (id, book_id, author_id, is_primary) VALUES (3, 2, 2, 1);
+INSERT INTO library.time_period (copy_id, user_id, start_date, end_date, return_date) VALUES (1, 2, '2016-05-10', '2016-06-15', '2016-06-05');
+INSERT INTO library.time_period (copy_id, user_id, start_date, end_date, return_date) VALUES (3, 2, '2019-02-17', '2019-02-17', null);
+INSERT INTO library.time_period (copy_id, user_id, start_date, end_date, return_date) VALUES (2, 1, '2019-01-05', '2019-02-05', null);
 
-INSERT INTO library.time_period (id, copy_id, user_id, start_date, end_date, return_date) VALUES (3, 1, 2, '2016-05-10', '2016-06-15', '2016-06-05');
-INSERT INTO library.time_period (id, copy_id, user_id, start_date, end_date, return_date) VALUES (4, 3, 2, '2019-02-17', '2019-02-17', null);
-INSERT INTO library.time_period (id, copy_id, user_id, start_date, end_date, return_date) VALUES (5, 2, 1, '2019-01-05', '2019-02-05', null);
+INSERT INTO library.user (full_name, birth_date, registration_date, login, password, role_id) VALUES ('Emmett Brown', '1999-10-04', '2019-02-17', 'md1guy', 'qwerty', 2);
+INSERT INTO library.user (full_name, birth_date, registration_date, login, password, role_id) VALUES ('Mety Slav', '1997-10-04', '2019-01-17', 'metyslav', 'pass1234', 1);
+INSERT INTO library.user (full_name, birth_date, registration_date, login, password, role_id) VALUES ('Johnny Cash', '1932-02-26', '2019-02-18', 'johnnyc', 'ihurtmyselftoday', 1);
