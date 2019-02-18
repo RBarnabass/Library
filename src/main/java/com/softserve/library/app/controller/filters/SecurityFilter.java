@@ -3,10 +3,9 @@ package com.softserve.library.app.controller.filters;
 import com.softserve.library.app.constant.UrlPatterns;
 import com.softserve.library.app.enums.patterns.CommonJSP;
 import com.softserve.library.app.security.SecurityUtils;
-import com.softserve.library.app.model.Credential;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -46,7 +45,7 @@ public class SecurityFilter implements Filter {
         if (session != null) {
 
             System.out.println(" - - - Filter _ session _ get id - " + session.getId());
-            role = SecurityUtils.getLoggedUser(session);
+            role = SecurityUtils.getRoleOfLoggedUser(session);
         }
 
         if (SecurityUtils.isSecurityPage(servletPath)) {
@@ -64,9 +63,7 @@ public class SecurityFilter implements Filter {
             if (!hasPermission) {
 
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(CommonJSP.ACCESS_DENIED.getPattern());
-
                 System.out.println(" - - - Filter _ has no permission _ request dispatcher - " + dispatcher);
-
                 dispatcher.forward(request, response);
                 return;
             }
