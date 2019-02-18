@@ -43,6 +43,7 @@ public class LoginServlet extends HttpServlet {
         // todo: check login and password before go to DB !!!
         try {
 
+            // todo: save user id some where !!!
             credential = serviceFactory.getCredentialService().getByLogin(login);
 
         } catch (SQLException e) {
@@ -70,7 +71,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        SecurityUtils.storeLoggedUser(request.getSession(), credential.getRole().getType());
+        SecurityUtils.storeLoggedUser(request.getSession(), credential);
 
         // todo: case role - case redirect !!!
         String redirect = request.getContextPath() + UrlPatterns.INFO;
