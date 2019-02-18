@@ -26,13 +26,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean add(User user) throws SQLException {
-
-        //todo: Add role and credential and their relationships !
-        return userDao.add(user);
-    }
-
-    @Override
     public boolean delete(int id) throws SQLException {
 
         // todo: realize it
