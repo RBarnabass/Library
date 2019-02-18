@@ -25,10 +25,7 @@ public class UserDaoImpl implements UserDao {
 
         return list != null && !list.isEmpty() ? list.get(0) : null;
     }
-    @Override public boolean add(User user) throws SQLException {
 
-        return userStatementExecutor.add(user);
-    }
     @Override public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
 
         return userStatementExecutor.getUserStatistic(id);

@@ -2,6 +2,8 @@ package com.softserve.library.app.dao.implementation;
 
 import com.softserve.library.app.dao.interfaces.PublisherDao;
 import com.softserve.library.app.dao.statement.PublisherStatementExecutor;
+import com.softserve.library.app.dto.PublisherDto;
+import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.Publisher;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,10 +23,17 @@ public class PublisherDaoImpl implements PublisherDao {
 
         return list != null && !list.isEmpty() ? list.get(0) : null;
     }
-    @Override public boolean add(Publisher publisher) throws SQLException {
 
-        return publisherStatementExecutor.add(publisher);
+    @Override
+    public CustomResponseEntity<?> add(PublisherDto publisherDto) throws SQLException {
+        return null;
     }
+
+//    @Override public boolean add(Publisher publisher) throws SQLException {
+//
+//        return publisherStatementExecutor.add(publisher);
+//    }
+
     @Override public boolean delete(int id) throws SQLException {
 
         return publisherStatementExecutor.delete(id);
