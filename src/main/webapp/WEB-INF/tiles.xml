@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="library" template="/WEB-INF/appearance/tiles/layouts/classic.jsp">
+        <put-attribute name="title" value="Homepage"/>
+        <put-attribute name="menu" value="/WEB-INF/appearance/tiles/default/main_menu.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/appearance/tiles/default/header.jsp"/>
+        <!--<put-attribute name="menu" value="/tiles/menu.jsp" />-->
+        <put-attribute name="body" value="/WEB-INF/appearance/tiles/default/home_body.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/appearance/tiles/default/footer.jsp"/>
+    </definition>
+    <!--login page-->
+    <definition name="login" extends="library">
+        <put-attribute name="title" value="Login"/>
+        <put-attribute name="body" value="/WEB-INF/appearance/tiles/pages/login.jsp"/>
+    </definition>
+
+</tiles-definitions>

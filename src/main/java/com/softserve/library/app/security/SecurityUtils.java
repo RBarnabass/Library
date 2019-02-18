@@ -1,11 +1,8 @@
 package com.softserve.library.app.security;
 
 import com.softserve.library.app.model.Credential;
+
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.MalformedParameterizedTypeException;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,37 +17,36 @@ import java.util.concurrent.TimeUnit;
  */
 public class SecurityUtils {
 
-    private static final Map<String, String> sessions = new ConcurrentHashMap<>();
-    private static final int SESSION_LIFETIME_IN_SECONDS = 1800;
+    private static final Map<String, Token> tokens = new ConcurrentHashMap<>();
+    private static final int SESSION_LIFETIME_IN_SECONDS = 30;
 
-    public static Credential getLoggedUser(HttpSession session) {
+    public static String getRoleOfLoggedUser(HttpSession session) {
 
-        if (sessions.containsKey(session.getId())) {
+        if (tokens.containsKey(session.getId())) {
 
             System.out.println(" - - - Session id is correct !!! - - - ");
-           // return sessions.get(session.getId());
-        } else {
-            System.out.println(" - - - Session id is NOT correct !!! - - - ");
-            //return null;
+            setTokenLastAccessTime(session.getId(), session.getLastAccessedTime());
+            return tokens.get(session.getId()).getRole();
         }
 
-        return (Credential) session.getAttribute("credential");
+        System.out.println(" - - - Session id is NOT correct !!! - - - ");
+        return null;
     }
+    public static int getUserIdOfLoggedUser(HttpSession session) {
 
+        if (tokens.containsKey(session.getId())) {
+
+            setTokenLastAccessTime(session.getId(), session.getLastAccessedTime());
+            return tokens.get(session.getId()).getUserId();
+        }
+        return 0;
+    }
     public static void storeLoggedUser(HttpSession session, Credential credential) {
 
-        System.out.println(" - - - User was saved in session ! - - - ");
-
-        // todo: do not hold pass and login in session !!!
-
-        // todo: create new entity and map container (token) for holding session id and role with last activity touch. And check this container every filtering !!!
-
         session.setMaxInactiveInterval(SESSION_LIFETIME_IN_SECONDS);
-        sessions.put(session.getId(), credential.getRole().getType());
-
-        session.setAttribute("credential", credential);
+        Token token = new Token(session.getId(), session.getLastAccessedTime(), credential.getRole().getType(), credential.getUserId());
+        tokens.put(session.getId(), token);
     }
-
     public static boolean isSecurityPage(String servletPath) {
 
         final Set<String> allRoles = SecurityConfig.getAllRoles();
@@ -68,38 +64,72 @@ public class SecurityUtils {
         System.out.println(" - - - SecurityUtils - - - (isSecurityPage) - (false) - " + servletPath);
         return false;
     }
-
     public static boolean hasPermission(String servletPath, String role) {
-
-        System.out.println(" - - - SecurityUtils - - - ask for permission - - - ");
 
         Set<String> allRoles = SecurityConfig.getAllRoles();
 
         if (allRoles.contains(role)) {
 
             List<String> urlPatternsForRole = SecurityConfig.getUrlPatternsForRole(role);
-
             return urlPatternsForRole.contains(servletPath);
         }
+        return false;
+    }
+    public static void checkSessionLife() {
 
-        /*for (String role : allRoles) {
+        for (String line : tokens.keySet()) {
 
-            if (!request.isUserInRole(role)) {
+            long time = TimeUnit.MILLISECONDS.toSeconds(new Date().getTime() - tokens.get(line).getLastTouch());
 
-                System.out.println(" - - - SecurityUtils - - - (hasPermission) - (continue) - " + role);
-                continue;
-            }
-
-            List<String> urlPatterns = SecurityConfig.getUrlPatternsForRole(role);
-
-            if (urlPatterns != null && urlPatterns.contains(urlPattern)) {
-
-                System.out.println(" - - - SecurityUtils - - - (hasPermission) - (true)");
-                return true;
+            if (time > SESSION_LIFETIME_IN_SECONDS) {
+                tokens.remove(line);
             }
         }
-        System.out.println(" - - - SecurityUtils - - - (hasPermission) - (false)");*/
+    }
 
-        return false;
+    private static void setTokenLastAccessTime(String sessionId, long lastTime) {
+
+        tokens.get(sessionId).setLastTouch(lastTime);
+    }
+
+    static class Token {
+
+        private String sessionId;
+        private long lastTouch;
+        private String role;
+        private int userId;
+
+        public Token() { }
+        Token(String sessionId, long lastTouch, String role, int userId) {
+            this.sessionId = sessionId;
+            this.lastTouch = lastTouch;
+            this.role = role;
+            this.userId = userId;
+        }
+
+        public String getSessionId() {
+            return sessionId;
+        }
+        public void setSessionId(String sessionId) {
+            this.sessionId = sessionId;
+        }
+        long getLastTouch() {
+            return lastTouch;
+        }
+        void setLastTouch(long lastTouch) {
+            this.lastTouch = lastTouch;
+        }
+        public String getRole() {
+            return role;
+        }
+        public void setRole(String role) {
+            this.role = role;
+        }
+        public int getUserId() {
+            return userId;
+        }
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
     }
 }

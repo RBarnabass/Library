@@ -39,6 +39,7 @@ public class CredentialStatementExecutor {
             credential.setId(set.getInt(CredentialColumns.ID.getColumn()));
             credential.setLogin(set.getString(CredentialColumns.LOGIN.getColumn()));
             credential.setPassword(set.getString(CredentialColumns.PASSWORD.getColumn()));
+            credential.setUserId(set.getInt(CredentialColumns.USER_ID.getColumn()));
 
             role = new Role();
             role.setId(set.getInt(RoleColumns.ID.getColumn()));
@@ -50,7 +51,6 @@ public class CredentialStatementExecutor {
 
         set.close();
         preparedStatement.close();
-        System.out.println(" ---------------------------- I was in db !");
         return list;
     }
     public boolean add(Credential credential) throws SQLException {
