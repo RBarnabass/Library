@@ -78,4 +78,9 @@ public class UserServiceImpl implements UserService {
     public CustomResponseEntity<?> add(UserDto userDto) throws SQLException {
         return userDao.add(userDto);
     }
+
+    @Override
+    public CustomResponseEntity<?> checkLoginPasswordEquality(String login, String password) {
+        return null;
+    }
 }
