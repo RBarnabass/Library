@@ -3,7 +3,9 @@ package com.softserve.library.app.service.implementation;
 import com.softserve.library.app.dao.implementation.UserDaoImpl;
 import com.softserve.library.app.dao.interfaces.UserDao;
 import com.softserve.library.app.dto.DebtorDto;
+import com.softserve.library.app.dto.UserDto;
 import com.softserve.library.app.dto.UserStatisticDto;
+import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.interfaces.UserService;
 import java.sql.SQLException;
@@ -77,5 +79,10 @@ public class UserServiceImpl implements UserService {
     public List<DebtorDto> getAllDebtors() throws SQLException {
 
         return userDao.getAllDebtors();
+    }
+
+    @Override
+    public CustomResponseEntity<?> add(UserDto userDto) throws SQLException {
+        return userDao.add(userDto);
     }
 }

@@ -1,17 +1,18 @@
 package com.softserve.library.app.dao.statement;
 
 import com.softserve.library.app.config.DBConnectivity;
-import com.softserve.library.app.dto.DebtCopyDto;
-import com.softserve.library.app.dto.DebtorDto;
-import com.softserve.library.app.dto.UserStatisticDto;
+import com.softserve.library.app.dto.*;
 import com.softserve.library.app.enums.sql.UserSQL;
 import com.softserve.library.app.enums.tables.BookColumns;
 import com.softserve.library.app.enums.tables.UserColumns;
+import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -273,5 +274,49 @@ public class UserStatementExecutor {
         preparedStatement.close();
 
         return debtors;
+    }
+
+    public CustomResponseEntity<?> addUser(UserDto userDto) throws SQLException {
+
+        String fullName = userDto.getFullName();
+        LocalDate birthDate = userDto.getBirthDate();
+        String login = userDto.getLogin();
+        String password = userDto.getPassword();
+
+        String addUserSql = "INSERT INTO user (full_name, birth_date, registration_date, login, password, role_id)\n" +
+                "VALUES ('" + fullName + "', DATE '" + birthDate + "', CURDATE(),\n" +
+                "'" + login + "', '" + password + "', " + (userDto.isAdmin() ? 2 : 1) + ")";
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(addUserSql, Statement.RETURN_GENERATED_KEYS);
+        int count = preparedStatement.executeUpdate();
+
+        // demonstration
+//        try {
+//            count = preparedStatement.executeUpdate();
+//        } catch (Exception e) {
+//            System.out.println("oh yeah exceprion just like you wanted hehe");
+//        }
+
+        if (count < 1) {
+
+            ErrorDto errorDto = new ErrorDto();
+            errorDto.setErrorMessage("Internal server error occurred during creating new user.");
+
+            // TODO: create HttpStatus enum with status codes
+            return new CustomResponseEntity<>(errorDto, 500);
+        }
+
+        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+        resultSet.next();
+
+        CreatedUserDto createdUserDto = new CreatedUserDto();
+        createdUserDto.setId(resultSet.getInt(1));
+        createdUserDto.setFullName(fullName);
+        createdUserDto.setBirthDate(birthDate);
+        createdUserDto.setRegDate(LocalDate.now());
+        createdUserDto.setLogin(login);
+
+        // TODO: create HttpStatus enum with status codes
+        return new CustomResponseEntity<>(userDto, 200);
     }
 }

@@ -1,7 +1,9 @@
 package com.softserve.library.app.service.interfaces;
 
 import com.softserve.library.app.dto.DebtorDto;
+import com.softserve.library.app.dto.UserDto;
 import com.softserve.library.app.dto.UserStatisticDto;
+import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
 
 import java.sql.SQLException;
@@ -26,4 +28,6 @@ public interface UserService extends SimpleCrudService<User> {
     int getUsingLibraryTimeInDays(int userId) throws SQLException;
 
     List<DebtorDto> getAllDebtors() throws SQLException;
+
+    CustomResponseEntity<?> add(UserDto userDto) throws SQLException;
 }

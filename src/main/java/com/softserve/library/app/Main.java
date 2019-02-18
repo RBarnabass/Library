@@ -1,10 +1,8 @@
 package com.softserve.library.app;
 
 import com.softserve.library.app.config.DBConnectivity;
-import com.softserve.library.app.dto.BookDto;
-import com.softserve.library.app.dto.CopyDto;
-import com.softserve.library.app.dto.DebtorDto;
-import com.softserve.library.app.dto.UserStatisticDto;
+import com.softserve.library.app.dto.*;
+import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.factory.ServiceFactory;
@@ -92,6 +90,16 @@ public class Main {
         // OK (at least i think so)
 //        List<DebtorDto> debtors = serviceFactory.getUserService().getAllDebtors();
 //        System.out.println(debtors.size()); // 1
+
+        UserDto userDto = new UserDto();
+        userDto.setFullName("Darth Vader");
+        userDto.setBirthDate(LocalDate.parse("1970-03-02"));
+        userDto.setLogin("darthisagoodboi");
+        userDto.setPassword("anakin1337");
+        userDto.setIsAdmin(false);
+
+        CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().add(userDto);
+        customResponseEntity.getResponseBody();
 
         /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         Credential credential = new Credential("romko", "qwerty");
