@@ -276,26 +276,19 @@ public class UserStatementExecutor {
         return debtors;
     }
 
-    public CustomResponseEntity<?> addUser(UserDto userDto) throws SQLException {
+    public CustomResponseEntity<?> addUser(CreateUserDto createUserDto) throws SQLException {
 
-        String fullName = userDto.getFullName();
-        LocalDate birthDate = userDto.getBirthDate();
-        String login = userDto.getLogin();
-        String password = userDto.getPassword();
+        String fullName = createUserDto.getFullName();
+        LocalDate birthDate = createUserDto.getBirthDate();
+        String login = createUserDto.getLogin();
+        String password = createUserDto.getPassword();
 
         String addUserSql = "INSERT INTO user (full_name, birth_date, registration_date, login, password, role_id)\n" +
                 "VALUES ('" + fullName + "', DATE '" + birthDate + "', CURDATE(),\n" +
-                "'" + login + "', '" + password + "', " + (userDto.isAdmin() ? 2 : 1) + ")";
+                "'" + login + "', '" + password + "', " + (createUserDto.isAdmin() ? 2 : 1) + ")";
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(addUserSql, Statement.RETURN_GENERATED_KEYS);
         int count = preparedStatement.executeUpdate();
-
-        // demonstration
-//        try {
-//            count = preparedStatement.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println("oh yeah exceprion just like you wanted hehe");
-//        }
 
         if (count < 1) {
 
@@ -317,6 +310,63 @@ public class UserStatementExecutor {
         createdUserDto.setLogin(login);
 
         // TODO: create HttpStatus enum with status codes
-        return new CustomResponseEntity<>(userDto, 200);
+        return new CustomResponseEntity<>(createUserDto, 200);
+    }
+
+    public FullUserDto getUserByLogin(String login) throws SQLException, NullPointerException {
+
+        String sql = "SELECT\n" +
+                "  u.id                AS id,\n" +
+                "  u.full_name         AS fullName,\n" +
+                "  u.birth_date        as birthDate,\n" +
+                "  u.registration_date AS regDate,\n" +
+                "  u.login             AS login,\n" +
+                "  u.password          AS password,\n" +
+                "  u.role_id           AS roleId\n" +
+                "FROM user AS u\n" +
+                "WHERE u.login = '" + login + "'";
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        FullUserDto fullUserDto = new FullUserDto();
+
+        if (!resultSet.next()) {
+
+            throw new NullPointerException();
+        }
+
+        boolean isAdmin = resultSet.getInt("roleId") == 2;
+
+        while(!resultSet.isAfterLast()) {
+
+            fullUserDto.setId(resultSet.getInt("id"));
+            fullUserDto.setFullName(resultSet.getString("fullName"));
+            fullUserDto.setBirthDate(LocalDate.parse(resultSet.getDate("birthDate").toString()));
+            fullUserDto.setRegDate(LocalDate.parse(resultSet.getDate("regDate").toString()));
+            fullUserDto.setLogin(resultSet.getString("login"));
+            fullUserDto.setPassword(resultSet.getString("password"));
+            fullUserDto.setIsAdmin(isAdmin);
+
+            resultSet.next();
+        }
+
+        return fullUserDto;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
