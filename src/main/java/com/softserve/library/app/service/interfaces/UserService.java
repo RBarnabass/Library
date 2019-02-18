@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Roman Berezhnov
  */
-public interface UserService extends SimpleCrudService<User> {
+public interface UserService extends SimpleCrudService<User, UserDto> {
 
     List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
 

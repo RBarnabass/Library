@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Roman Berezhnov
  */
-public interface BookService extends SimpleCrudService<Book> {
+public interface BookService extends SimpleCrudService<Book, BookDto> {
 
     List<BookDto> getAll() throws SQLException;
 
