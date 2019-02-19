@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
 
         SuccessfulLoginUserDto successfulLoginUserDto = new SuccessfulLoginUserDto();
         successfulLoginUserDto.setUserId(responseBody.getId());
-        successfulLoginUserDto.setIsAdmin(responseBody.isAdmin());
+        successfulLoginUserDto.setRole(responseBody.isAdmin());
 
         // TODO: status codes enum
         return new CustomResponseEntity<>(successfulLoginUserDto, 200);
