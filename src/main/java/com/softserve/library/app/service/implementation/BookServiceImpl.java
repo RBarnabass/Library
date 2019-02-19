@@ -4,6 +4,7 @@ import com.softserve.library.app.dao.implementation.BookDaoImpl;
 import com.softserve.library.app.dao.interfaces.BookDao;
 import com.softserve.library.app.dto.BookDto;
 import com.softserve.library.app.dto.CopyDto;
+import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.Book;
 import com.softserve.library.app.service.interfaces.BookService;
 import java.sql.SQLException;
@@ -19,12 +20,12 @@ public class BookServiceImpl implements BookService {
 
     private final BookDao bookDao = new BookDaoImpl();
 
-    @Override
-    public boolean add(Book book) throws SQLException {
-
-        //todo: implement me !
-        return false;
-    }
+//    @Override
+//    public boolean add(Book book) throws SQLException {
+//
+//        //todo: implement me !
+//        return false;
+//    }
 
     @Override
     public boolean delete(int id) throws SQLException {
@@ -44,6 +45,17 @@ public class BookServiceImpl implements BookService {
 
         return bookDao.get(id);
     }
+
+    @Override
+    public void add(Book book) throws SQLException {
+
+    }
+
+//    @Override
+//    public CustomResponseEntity<?> add(BookDto bookDto) throws SQLException {
+//        return null;
+//    }
+
     @Override public List<BookDto> getAll() throws SQLException {
 
         return bookDao.getAll();

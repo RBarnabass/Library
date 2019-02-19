@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public interface SimpleCrudDao<E> {
 
     E get(int id) throws SQLException;
-    boolean add(E e) throws SQLException;
+    boolean add(E t) throws SQLException;
     boolean delete(int id) throws SQLException;
     boolean update(E e) throws SQLException;
 }

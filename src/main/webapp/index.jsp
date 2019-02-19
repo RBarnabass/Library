@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
-<body>
-<tiles:insertDefinition name="base-definition"/>
+<body><tiles:insertDefinition name="base-definition"/>
+
 </body>
 </html>

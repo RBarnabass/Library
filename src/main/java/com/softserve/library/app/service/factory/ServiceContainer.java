@@ -46,10 +46,6 @@ public class ServiceContainer implements ServiceManager {
                 service = new UserServiceImpl();
                 break;
             }
-            case CREDENTIAL: {
-                service = new CredentialServiceImpl();
-                break;
-            }
         }
         return service;
     }

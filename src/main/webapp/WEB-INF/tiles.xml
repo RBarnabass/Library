@@ -24,6 +24,7 @@
         <put-attribute name="body" value="/WEB-INF/appearance/tiles/pages/login.jsp"/>
     </definition>
 
+
     <!--accessDenied page-->
     <definition name="accessDenied" extends="base-definition">
         <put-attribute name="title" value="accessDenied"/>
@@ -46,6 +47,5 @@
         <put-attribute name="title" value="book"/>
         <put-attribute name="body" value="/WEB-INF/appearance/tiles/pages/books.jsp"/>
     </definition>
-
 
 </tiles-definitions>

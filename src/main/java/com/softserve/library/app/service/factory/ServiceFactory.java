@@ -13,5 +13,4 @@ public interface ServiceFactory {
     BookService getBookService();
     PublisherService getPublisherService();
     UserService getUserService();
-    CredentialService getCredentialService();
 }
