@@ -1,7 +1,5 @@
 package com.softserve.library.app.dao.interfaces;
 
-import com.softserve.library.app.http.CustomResponseEntity;
-
 import java.sql.SQLException;
 
 /**
@@ -9,10 +7,10 @@ import java.sql.SQLException;
  *
  * @author Roman Berezhnov
  */
-public interface SimpleCrudDao<E, T> {
+public interface SimpleCrudDao<E> {
 
     E get(int id) throws SQLException;
-    CustomResponseEntity<?> add(T t) throws SQLException;
+    boolean add(E t) throws SQLException;
     boolean delete(int id) throws SQLException;
     boolean update(E e) throws SQLException;
 }
