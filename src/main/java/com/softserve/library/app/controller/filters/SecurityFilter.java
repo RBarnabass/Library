@@ -23,15 +23,18 @@ public class SecurityFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
 
         System.out.println(" ----------------------------------------------- Do filtering ... ");
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) resp;
+        final HttpServletRequest request = (HttpServletRequest) req;
+        final HttpServletResponse response = (HttpServletResponse) resp;
+
+        System.out.println("Request login - " + request.getAttribute("login"));
+        System.out.println("Request pass - " + request.getAttribute("login"));
 
         final String servletPath = request.getServletPath();
         final HttpSession session = request.getSession(false);
         final String requestedSessionId = request.getRequestedSessionId();
         System.out.println(" - - - Filter _ session id - " + requestedSessionId);
 
-        SecurityUtils.checkSessionLife();
+        SecurityUtils.checkSessionsLife();
         String role = null;
 
         if (servletPath.equals(UrlPatterns.INFO)
@@ -46,6 +49,8 @@ public class SecurityFilter implements Filter {
 
             System.out.println(" - - - Filter _ session _ get id - " + session.getId());
             role = SecurityUtils.getRoleOfLoggedUser(session);
+            System.out.println("Session login - " + session.getAttribute("login"));
+            System.out.println("Session pass - " + session.getAttribute("password"));
         }
 
         if (SecurityUtils.isSecurityPage(servletPath)) {
@@ -58,11 +63,11 @@ public class SecurityFilter implements Filter {
                 return;
             }
 
-            boolean hasPermission = SecurityUtils.hasPermission(servletPath, role);
+            final boolean hasPermission = SecurityUtils.hasPermission(servletPath, role);
 
             if (!hasPermission) {
 
-                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(CommonJSP.ACCESS_DENIED.getPattern());
+                final RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(CommonJSP.ACCESS_DENIED.getPattern());
                 System.out.println(" - - - Filter _ has no permission _ request dispatcher - " + dispatcher);
                 dispatcher.forward(request, response);
                 return;
