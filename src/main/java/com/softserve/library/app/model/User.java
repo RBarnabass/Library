@@ -2,6 +2,7 @@ package com.softserve.library.app.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -13,7 +14,7 @@ public class User {
 
     private int id;
     private String fullName;
-    private Date birthDate;
+    private LocalDate birthDate;
     private Date regDate;
     private String login;
     private String password;
@@ -37,11 +38,11 @@ public class User {
         this.fullName = fullName;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
