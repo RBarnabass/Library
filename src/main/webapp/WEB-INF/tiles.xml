@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="base-definition" template="/WEB-INF/appearance/tiles/layouts/classic.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="menu" value="/WEB-INF/appearance/tiles/default/main_menu.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/appearance/tiles/default/header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/appearance/tiles/pages/home.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/appearance/tiles/default/footer.jsp"/>
+    </definition>
+    <!--home page-->
+
+    <definition name="home" extends="base-definition">
+        <put-attribute name="title" value="Home"/>
+        <put-attribute name="body" value="/WEB-INF/appearance/tiles/pages/home.jsp"/>
+    </definition>
+
+    <!--login page-->
+    <definition name="login" extends="base-definition">
+        <put-attribute name="title" value="Login"/>
+        <put-attribute name="body" value="/WEB-INF/appearance/tiles/pages/login.jsp"/>
+    </definition>
+
+    <!--accessDenied page-->
+    <definition name="accessDenied" extends="base-definition">
+        <put-attribute name="title" value="accessDenied"/>
+        <put-attribute name="body" value="/WEB-INF/appearance/tiles/pages/accessDenied.jsp"/>
+    </definition>
+
+    <!--profile page-->
+    <definition name="profile" extends="base-definition">
+        <put-attribute name="title" value="Admin"/>
+        <put-attribute name="body" value="/WEB-INF/appearance/tiles/pages/profile.jsp"/>
+    </definition>
+
+    <!--book page-->
+    <definition name="book" extends="base-definition">
+        <put-attribute name="title" value="book"/>
+        <put-attribute name="body" value="/WEB-INF/appearance/tiles/pages/book.jsp"/>
+    </definition>
+    <!--books page-->
+    <definition name="books" extends="base-definition">
+        <put-attribute name="title" value="book"/>
+        <put-attribute name="body" value="/WEB-INF/appearance/tiles/pages/books.jsp"/>
+    </definition>
+
+
+</tiles-definitions>

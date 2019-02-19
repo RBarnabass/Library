@@ -1,0 +1,21 @@
+
+body {
+     height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: yellowgreen;
+}
+#menu{
+    color: blue;
+    text-align: right;
+}
+#header{
+    text-align: center;
+}
+footer{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    background-color: #d0fff5;
+}
+
