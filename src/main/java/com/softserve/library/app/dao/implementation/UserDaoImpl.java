@@ -1,13 +1,18 @@
 package com.softserve.library.app.dao.implementation;
 
+import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.dao.interfaces.UserDao;
 import com.softserve.library.app.dao.statement.UserStatementExecutor;
-import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.CreateUserDto;
+import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.FullUserDto;
 import com.softserve.library.app.dto.UserStatisticDto;
+import com.softserve.library.app.enums.tables.Tables;
 import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
+
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,6 +24,31 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
 
     private final UserStatementExecutor userStatementExecutor = new UserStatementExecutor();
+    private boolean isSuccess;
+
+    @Override public boolean add(User user) throws SQLException {
+
+        String sql = "INSERT INTO " + Tables.USER.getTable()
+                + " (full_name, birth_date, registration_date, login, password, role_id)"
+                + " VALUES(?,?,CURDATE(),?,?,?)";
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.setString(1, user.getFullName());
+        preparedStatement.setDate(2, Date.valueOf(user.getBirthDate()));
+        preparedStatement.setString(3, user.getLogin());
+        preparedStatement.setString(4, user.getPassword());
+        preparedStatement.setInt(5, user.getRole_id());
+        isSuccess = preparedStatement.executeUpdate() > 0;
+        preparedStatement.close();
+
+        return isSuccess;
+    }
+
+
+
+
+
+
 
     @Override public User get(int id) throws SQLException {
 
@@ -69,8 +99,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public FullUserDto getByLogin(String login) throws SQLException, NullPointerException {
-
-        return userStatementExecutor.getUserByLogin(login);
+        return null;
     }
 
     @Override
