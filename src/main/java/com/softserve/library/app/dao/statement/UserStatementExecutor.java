@@ -6,6 +6,7 @@ import com.softserve.library.app.enums.sql.UserSQL;
 import com.softserve.library.app.enums.tables.BookColumns;
 import com.softserve.library.app.enums.tables.UserColumns;
 import com.softserve.library.app.http.CustomResponseEntity;
+import com.softserve.library.app.http.HttpStatus;
 import com.softserve.library.app.model.User;
 
 import java.sql.PreparedStatement;
@@ -295,8 +296,7 @@ public class UserStatementExecutor {
             ErrorDto errorDto = new ErrorDto();
             errorDto.setErrorMessage("Internal server error occurred during creating new user.");
 
-            // TODO: create HttpStatus enum with status codes
-            return new CustomResponseEntity<>(errorDto, 500);
+            return new CustomResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -309,8 +309,7 @@ public class UserStatementExecutor {
         createdUserDto.setRegDate(LocalDate.now());
         createdUserDto.setLogin(login);
 
-        // TODO: create HttpStatus enum with status codes
-        return new CustomResponseEntity<>(createUserDto, 200);
+        return new CustomResponseEntity<>(createUserDto, HttpStatus.OK);
     }
 
     public FullUserDto getUserByLogin(String login) throws SQLException, NullPointerException {

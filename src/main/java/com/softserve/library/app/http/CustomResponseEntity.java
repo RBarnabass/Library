@@ -5,34 +5,34 @@ import javax.annotation.Nullable;
 public class CustomResponseEntity<T> {
 
     private T responseBody;
-    private int httpStatusCode;
+    private HttpStatus httpStatus;
 
     /**
      * Create a new {@code CustomResponseEntity} with the given status code, and no body.
      *
-     * @param httpStatusCode the http status code
+     * @param httpStatus the http status code
      */
-    public CustomResponseEntity(int httpStatusCode) {
-        this(null, httpStatusCode);
+    public CustomResponseEntity(HttpStatus httpStatus) {
+        this(null, httpStatus);
     }
 
     /**
      * Create a new {@code CustomResponseEntity} with the given body and status code.
      *
      * @param responseBody   the entity body
-     * @param httpStatusCode the http status code
+     * @param httpStatus the http status code
      */
-    public CustomResponseEntity(@Nullable T responseBody, int httpStatusCode) {
+    public CustomResponseEntity(@Nullable T responseBody, HttpStatus httpStatus) {
         this.responseBody = responseBody;
-        this.httpStatusCode = httpStatusCode;
+        this.httpStatus = httpStatus;
     }
 
     public T getResponseBody() {
         return responseBody;
     }
 
-    public int getHttpStatusCode() {
-        return httpStatusCode;
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
     }
 }
 

@@ -4,6 +4,7 @@ import com.softserve.library.app.dao.implementation.UserDaoImpl;
 import com.softserve.library.app.dao.interfaces.UserDao;
 import com.softserve.library.app.dto.*;
 import com.softserve.library.app.http.CustomResponseEntity;
+import com.softserve.library.app.http.HttpStatus;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.interfaces.UserService;
 
@@ -83,8 +84,7 @@ public class UserServiceImpl implements UserService {
 
         CustomResponseEntity<?> getByLoginEntity = getByLogin(login);
 
-        // TODO: status codes enum
-        if (getByLogin(login).getHttpStatusCode() != 200) {
+        if (getByLoginEntity.getHttpStatus().isError()) {
 
             return getByLoginEntity;
         }
@@ -96,16 +96,14 @@ public class UserServiceImpl implements UserService {
             ErrorDto errorDto = new ErrorDto();
             errorDto.setErrorMessage("Password and login are not matching.");
 
-            // TODO: status codes enum
-            return new CustomResponseEntity<>(errorDto, 403);
+            return new CustomResponseEntity<>(errorDto, HttpStatus.FORBIDDEN);
         }
 
         SuccessfulLoginUserDto successfulLoginUserDto = new SuccessfulLoginUserDto();
         successfulLoginUserDto.setUserId(responseBody.getId());
         successfulLoginUserDto.setRole(responseBody.isAdmin());
 
-        // TODO: status codes enum
-        return new CustomResponseEntity<>(successfulLoginUserDto, 200);
+        return new CustomResponseEntity<>(successfulLoginUserDto, HttpStatus.OK);
     }
 
     @Override
@@ -121,19 +119,16 @@ public class UserServiceImpl implements UserService {
             ErrorDto errorDto = new ErrorDto();
             errorDto.setErrorMessage("Internal server error during retrieving user from database.");
 
-            // TODO: status codes enum
-            return new CustomResponseEntity<>(errorDto, 500);
+            return new CustomResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (NullPointerException e) {
 
             ErrorDto errorDto = new ErrorDto();
             errorDto.setErrorMessage("User with such login was not found.");
 
-            // TODO: status codes enum
-            return new CustomResponseEntity<>(errorDto, 404);
+            return new CustomResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
         }
 
-        // TODO: status codes enum
-        return new CustomResponseEntity<>(fullUserDto, 200);
+        return new CustomResponseEntity<>(fullUserDto, HttpStatus.OK);
     }
 }
 
