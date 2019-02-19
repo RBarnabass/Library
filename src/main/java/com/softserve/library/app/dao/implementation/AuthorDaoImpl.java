@@ -26,9 +26,14 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public CustomResponseEntity<?> add(AuthorDto authorDto) throws SQLException {
-        return null;
+    public boolean add(Author t) throws SQLException {
+        return false;
     }
+
+//    @Override
+//    public CustomResponseEntity<?> add(AuthorDto authorDto) throws SQLException {
+//        return null;
+//    }
 
 //    @Override public boolean add(Author author) throws SQLException {
 //

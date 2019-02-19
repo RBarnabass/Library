@@ -8,6 +8,6 @@ import com.softserve.library.app.model.Author;
  *
  * @author Roman Berezhnov
  */
-public interface AuthorDao extends SimpleCrudDao<Author, AuthorDto> {
+public interface AuthorDao extends SimpleCrudDao<Author> {
 
 }

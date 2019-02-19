@@ -25,9 +25,14 @@ public class PublisherDaoImpl implements PublisherDao {
     }
 
     @Override
-    public CustomResponseEntity<?> add(PublisherDto publisherDto) throws SQLException {
-        return null;
+    public boolean add(Publisher t) throws SQLException {
+        return false;
     }
+
+//    @Override
+//    public CustomResponseEntity<?> add(PublisherDto publisherDto) throws SQLException {
+//        return null;
+//    }
 
 //    @Override public boolean add(Publisher publisher) throws SQLException {
 //

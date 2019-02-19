@@ -11,9 +11,12 @@ import com.softserve.library.app.enums.tables.Tables;
 import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -25,6 +28,43 @@ public class UserDaoImpl implements UserDao {
 
     private final UserStatementExecutor userStatementExecutor = new UserStatementExecutor();
     private boolean isSuccess;
+
+    @Override
+    public User get(int id) throws SQLException {
+
+        String sql = "SELECT\n" +
+                "  u.id                AS id,\n" +
+                "  u.full_name         AS fullName,\n" +
+                "  u.birth_date        as birthDate,\n" +
+                "  u.registration_date AS regDate,\n" +
+                "  u.login             AS login,\n" +
+                "  u.password          AS password,\n" +
+                "  u.role_id           AS roleId\n" +
+                "FROM user AS u\n" +
+                "WHERE u.id = " + id;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        User user = new User();
+
+        while(resultSet.next()) {
+
+            user.setId(resultSet.getInt("id"));
+            user.setFullName(resultSet.getString("fullName"));
+            user.setBirthDate(LocalDate.parse((resultSet.getDate("birthDate").toString())));
+            user.setRegDate(LocalDate.parse((resultSet.getDate("regDate").toString())));
+            user.setLogin(resultSet.getString("login"));
+            user.setPassword(resultSet.getString("password"));
+            user.setRole_id(resultSet.getInt("roleId"));
+        }
+
+        preparedStatement.close();
+        resultSet.close();
+
+        return user;
+    }
 
     @Override public boolean add(User user) throws SQLException {
 
@@ -44,17 +84,49 @@ public class UserDaoImpl implements UserDao {
         return isSuccess;
     }
 
+//    @Override public User get(int id) throws SQLException {
+//
+//        List<User> list = userStatementExecutor.get(id);
+//
+//        return list != null && !list.isEmpty() ? list.get(0) : null;
+//    }
 
+    @Override
+    public User getUserByLogin(String login) throws SQLException {
 
+        String sql = "SELECT\n" +
+                "  u.id                AS id,\n" +
+                "  u.full_name         AS fullName,\n" +
+                "  u.birth_date        as birthDate,\n" +
+                "  u.registration_date AS regDate,\n" +
+                "  u.login             AS login,\n" +
+                "  u.password          AS password,\n" +
+                "  u.role_id           AS roleId\n" +
+                "FROM user AS u\n" +
+                "WHERE u.login = '" + login + "'";
 
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
 
+        User user = new User();
 
+        // TODO: extract(?)
+        while(resultSet.next()) {
 
-    @Override public User get(int id) throws SQLException {
+            user.setId(resultSet.getInt("id"));
+            user.setFullName(resultSet.getString("fullName"));
+            user.setBirthDate(LocalDate.parse((resultSet.getDate("birthDate").toString())));
+            user.setRegDate(LocalDate.parse((resultSet.getDate("regDate").toString())));
+            user.setLogin(resultSet.getString("login"));
+            user.setPassword(resultSet.getString("password"));
+            user.setRole_id(resultSet.getInt("roleId"));
+        }
 
-        List<User> list = userStatementExecutor.get(id);
+        preparedStatement.close();
+        resultSet.close();
 
-        return list != null && !list.isEmpty() ? list.get(0) : null;
+        return user;
     }
 
     @Override public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
@@ -97,10 +169,10 @@ public class UserDaoImpl implements UserDao {
         return userStatementExecutor.addUser(createUserDto);
     }
 
-    @Override
-    public FullUserDto getByLogin(String login) throws SQLException, NullPointerException {
-        return null;
-    }
+//    @Override
+//    public FullUserDto getByLogin(String login) throws SQLException, NullPointerException {
+//        return null;
+//    }
 
     @Override
     public boolean delete(int id) throws SQLException {
