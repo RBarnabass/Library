@@ -8,6 +8,6 @@ import com.softserve.library.app.model.Publisher;
  *
  * @author Roman Berezhnov
  */
-public interface PublisherService extends SimpleCrudService<Publisher, PublisherDto> {
+public interface PublisherService extends SimpleCrudService<Publisher> {
 
 }

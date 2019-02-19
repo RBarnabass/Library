@@ -24,9 +24,14 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public CustomResponseEntity<?> add(AuthorDto authorDto) throws SQLException {
-        return null;
+    public void add(Author author) throws SQLException {
+
     }
+
+//    @Override
+//    public CustomResponseEntity<?> add(AuthorDto authorDto) throws SQLException {
+//        return null;
+//    }
 
     //    @Override public boolean add(Author author) throws SQLException {
 //
@@ -36,6 +41,7 @@ public class AuthorServiceImpl implements AuthorService {
 
         return authorDao.delete(id);
     }
+
     @Override public boolean update(Author author) throws SQLException {
 
         return authorDao.update(author);
