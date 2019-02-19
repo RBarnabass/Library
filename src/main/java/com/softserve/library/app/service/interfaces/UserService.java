@@ -20,6 +20,8 @@ public interface UserService extends SimpleCrudService<User> {
 
     List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
 
+    User getByLogin(String login) throws SQLException;
+
     int getAverageUserAge() throws SQLException;
 
     int getAverageUserAgeByBook(int bookId) throws SQLException;
@@ -30,9 +32,9 @@ public interface UserService extends SimpleCrudService<User> {
 
     List<DebtorDto> getAllDebtors() throws SQLException;
 
-    CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException;
+//    CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException;
 
     //CustomResponseEntity<?> checkLoginPasswordEquality(String login, String password);
 
-    CustomResponseEntity<?> getByLogin(String login);
+//    CustomResponseEntity<?> getByLogin(String login);
 }
