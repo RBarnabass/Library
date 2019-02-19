@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Roman Berezhnov
  */
-public interface UserService extends SimpleCrudService<User, CreateUserDto> {
+public interface UserService extends SimpleCrudService<User> {
 
     List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
 
@@ -32,7 +32,7 @@ public interface UserService extends SimpleCrudService<User, CreateUserDto> {
 
     CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException;
 
-    CustomResponseEntity<?> checkLoginPasswordEquality(String login, String password);
+    //CustomResponseEntity<?> checkLoginPasswordEquality(String login, String password);
 
     CustomResponseEntity<?> getByLogin(String login);
 }

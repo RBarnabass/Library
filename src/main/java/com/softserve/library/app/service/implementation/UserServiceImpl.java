@@ -25,6 +25,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void add(User user) throws SQLException, NullPointerException {
+
+        userDao.add(user);
+    }
+
+    @Override
     public boolean delete(int id) throws SQLException {
 
         // todo: realize it
@@ -79,32 +85,32 @@ public class UserServiceImpl implements UserService {
         return userDao.add(createUserDto);
     }
 
-    @Override
-    public CustomResponseEntity<?> checkLoginPasswordEquality(String login, String password) {
-
-        CustomResponseEntity<?> getByLoginEntity = getByLogin(login);
-
-        if (getByLoginEntity.getHttpStatus().isError()) {
-
-            return getByLoginEntity;
-        }
-
-        FullUserDto responseBody = (FullUserDto) getByLoginEntity.getResponseBody();
-
-        if (!responseBody.getPassword().equals(password)) {
-
-            ErrorDto errorDto = new ErrorDto();
-            errorDto.setErrorMessage("Password and login are not matching.");
-
-            return new CustomResponseEntity<>(errorDto, HttpStatus.FORBIDDEN);
-        }
-
-        SuccessfulLoginUserDto successfulLoginUserDto = new SuccessfulLoginUserDto();
-        successfulLoginUserDto.setUserId(responseBody.getId());
-        successfulLoginUserDto.setRole(responseBody.isAdmin());
-
-        return new CustomResponseEntity<>(successfulLoginUserDto, HttpStatus.OK);
-    }
+//    @Override
+//    public CustomResponseEntity<?> checkLoginPasswordEquality(String login, String password) {
+//
+//        CustomResponseEntity<?> getByLoginEntity = getByLogin(login);
+//
+//        if (getByLoginEntity.getHttpStatus().isError()) {
+//
+//            return getByLoginEntity;
+//        }
+//
+//        FullUserDto responseBody = (FullUserDto) getByLoginEntity.getResponseBody();
+//
+//        if (!responseBody.getPassword().equals(password)) {
+//
+//            ErrorDto errorDto = new ErrorDto();
+//            errorDto.setErrorMessage("Password and login are not matching.");
+//
+//            return new CustomResponseEntity<>(errorDto, HttpStatus.FORBIDDEN);
+//        }
+//
+//        SuccessfulLoginUserDto successfulLoginUserDto = new SuccessfulLoginUserDto();
+//        successfulLoginUserDto.setUserId(responseBody.getId());
+//        successfulLoginUserDto.setRole(responseBody.isAdmin());
+//
+//        return new CustomResponseEntity<>(successfulLoginUserDto, HttpStatus.OK);
+//    }
 
     @Override
     public CustomResponseEntity<?> getByLogin(String login) {
