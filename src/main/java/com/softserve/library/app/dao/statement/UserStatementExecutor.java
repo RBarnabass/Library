@@ -4,6 +4,7 @@ import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.dto.*;
 import com.softserve.library.app.enums.sql.UserSQL;
 import com.softserve.library.app.enums.tables.BookColumns;
+import com.softserve.library.app.enums.tables.Tables;
 import com.softserve.library.app.enums.tables.UserColumns;
 import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.http.HttpStatus;
@@ -22,8 +23,6 @@ import java.util.List;
  */
 public class UserStatementExecutor {
 
-    private boolean isSuccess;
-
     public List<User> get(int id) throws SQLException {
 
         List<User> list = new ArrayList<>();
@@ -38,7 +37,7 @@ public class UserStatementExecutor {
             user.setId(set.getInt(UserColumns.ID.getColumn()));
             user.setFullName(set.getString(UserColumns.FULL_NAME.getColumn()));
             user.setBirthDate(set.getDate(UserColumns.BIRTH_DATE.getColumn()));
-            user.setRegistrationDate(set.getTimestamp(UserColumns.REGISTRATION_DATE.getColumn()));
+            user.setRegDate(set.getDate(UserColumns.REGISTRATION_DATE.getColumn()));
 
             list.add(user);
         }
@@ -47,21 +46,6 @@ public class UserStatementExecutor {
         preparedStatement.close();
 
         return list;
-    }
-
-    // todo: about role should it be here or separated sql in service?
-    public boolean add(User user) throws SQLException {
-
-        System.out.println(UserSQL.INSERT.getSQL());
-
-        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(UserSQL.INSERT.getSQL());
-        preparedStatement.setString(1, user.getFullName());
-        preparedStatement.setDate(2, user.getBirthDate());
-        preparedStatement.setTimestamp(3, user.getRegistrationDate());
-        isSuccess = preparedStatement.executeUpdate() > 0;
-        preparedStatement.close();
-
-        return isSuccess;
     }
 
     // TODO: refactor or so
@@ -312,7 +296,7 @@ public class UserStatementExecutor {
         return new CustomResponseEntity<>(createUserDto, HttpStatus.OK);
     }
 
-    public FullUserDto getUserByLogin(String login) throws SQLException, NullPointerException {
+    public User getUserByLogin(String login) throws SQLException, NullPointerException {
 
         String sql = "SELECT\n" +
                 "  u.id                AS id,\n" +
