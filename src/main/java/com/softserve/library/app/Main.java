@@ -3,19 +3,12 @@ package com.softserve.library.app;
 import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.dto.*;
 import com.softserve.library.app.http.CustomResponseEntity;
-import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.factory.ServiceFactory;
 import com.softserve.library.app.service.factory.ServiceFactoryImpl;
-import com.softserve.library.app.service.interfaces.UserService;
-import org.apache.commons.codec.digest.DigestUtils;
 
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  *
@@ -27,29 +20,6 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
-
-        User user = new User();
-        user.setFullName("AAA");
-        user.setBirthDate(LocalDate.parse("1989-01-01"));
-        user.setLogin("qwer");
-        user.setPassword("qwer");
-        user.setRole_id(1);
-
-        serviceFactory.getUserService().add(user);
-
-//        ServiceFactory serviceFactory = new ServiceFactoryImpl();
-//        List<BookDto> list = serviceFactory.getBookService().getAll();
-//        for (BookDto bookDto : list) {
-//            System.out.println();
-//            System.out.println(bookDto);
-//        }
-//
-//        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
-//        List<UserStatisticDto> userStatistic = serviceFactory.getUserService().getUserStatistic(6);
-//        for (UserStatisticDto userStatisticDto : userStatistic) {
-//            System.out.println();
-//            System.out.println(userStatisticDto);
-//        }
 
 
         /*List<BookDto> list = serviceFactory.getBookService().getAll();
@@ -100,6 +70,21 @@ public class Main {
 //        List<DebtorDto> debtors = serviceFactory.getUserService().getAllDebtors();
 //        System.out.println(debtors.size()); // 1
 
+//        CreateUserDto createUserDto = new CreateUserDto();
+//        createUserDto.setFullName("Darth Vader");
+//        createUserDto.setBirthDate(LocalDate.parse("1970-03-02"));
+//        createUserDto.setLogin("darthisagoodboi");
+//        createUserDto.setPassword("anakin1337");
+//        createUserDto.setIsAdmin(false);
+//
+//        CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().add(createUserDto);
+//        customResponseEntity.getResponseBody();
+
+//        CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().getByLogin("md1guy");
+//        customResponseEntity.getResponseBody();
+
+//        CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().checkLoginPasswordEquality("md1guyq", "qwerty");
+//        System.out.println(customResponseEntity.getHttpStatus().isError()); // true
 
 
         /*ServiceFactory serviceFactory = new ServiceFactoryImpl();

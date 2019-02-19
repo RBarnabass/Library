@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-@WebFilter(UrlPatterns.ABSOLUTE)
+//@WebFilter(UrlPatterns.ABSOLUTE)
 public class SecurityFilter implements Filter {
 
     @Override

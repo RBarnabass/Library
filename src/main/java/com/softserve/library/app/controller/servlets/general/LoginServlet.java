@@ -24,7 +24,7 @@ import java.sql.SQLException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet(UrlPatterns.LOGIN)
+//@WebServlet(UrlPatterns.LOGIN)
 public class LoginServlet extends HttpServlet {
 
     @Override

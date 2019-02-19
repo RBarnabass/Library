@@ -8,6 +8,6 @@ import com.softserve.library.app.model.Publisher;
  *
  * @author Roman Berezhnov
  */
-public interface PublisherDao extends SimpleCrudDao<Publisher, PublisherDto> {
+public interface PublisherDao extends SimpleCrudDao<Publisher> {
 
 }

@@ -13,7 +13,9 @@ import java.util.List;
 /**
  * @author Roman Berezhnov
  */
-public interface UserDao extends SimpleCrudDao<User, CreateUserDto> {
+public interface UserDao extends SimpleCrudDao<User> {
+
+    User getUserByLogin(String login) throws SQLException;
 
     List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
 
@@ -29,5 +31,5 @@ public interface UserDao extends SimpleCrudDao<User, CreateUserDto> {
 
     CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException;
 
-    FullUserDto getByLogin(String login) throws SQLException, NullPointerException;
+//    FullUserDto getByLogin(String login) throws SQLException, NullPointerException;
 }

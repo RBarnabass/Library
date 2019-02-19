@@ -26,9 +26,14 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public CustomResponseEntity<?> add(BookDto bookDto) throws SQLException {
-        return null;
+    public boolean add(Book t) throws SQLException {
+        return false;
     }
+
+//    @Override
+//    public CustomResponseEntity<?> add(BookDto bookDto) throws SQLException {
+//        return null;
+//    }
 
     @Override public List<BookDto> getAll() throws SQLException {
 

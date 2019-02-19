@@ -23,9 +23,14 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
-    public CustomResponseEntity<?> add(PublisherDto publisherDto) throws SQLException {
-        return null;
+    public void add(Publisher publisher) throws SQLException {
+
     }
+
+//    @Override
+//    public CustomResponseEntity<?> add(PublisherDto publisherDto) throws SQLException {
+//        return null;
+//    }
 
 //    @Override public boolean add(Publisher publisher) throws SQLException {
 //

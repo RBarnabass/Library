@@ -1,51 +1,61 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Barnabass
-  Date: 14.02.2019
-  Time: 9:07
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+    <link href="<c:url value='../../../resources/css/loginPageStyle.css' />" rel="stylesheet" type="text/css">
 </head>
+
+<header>
+    <nav>
+        <a href="#">Previous</a>
+        <a href="#">Next</a>
+        <a href="#">Sign in</a>
+        <a href="#">Sign out</a>
+    </nav>
+    <h1>Library</h1>
+</header>
+
 <body>
-
-<jsp:include page="_menu.jsp"></jsp:include>
-
-<h3>Login Page</h3>
-
-<p style="color: red;">${errorString}</p>
-
-<form method="POST" action="${pageContext.request.contextPath}/library/login">
-
-    <%--<input type="hidden" name="redirectId" value="${param.redirectId}" />--%>
-
-    <table border="0">
-        <tr>
-            <td>Login</td>
-            <td><input type="text" name="login" value= "${user.login}" /> </td>
-        </tr>
-
-        <tr>
-            <td>Password</td>
-            <td><input type="password" name="password" value= "${user.password}" /> </td>
-        </tr>
-
-        <tr>
-            <td colspan ="2">
-                <input type="submit" value= "Submit" />
-                <a href="${pageContext.request.contextPath}/">Cancel</a>
-            </td>
-        </tr>
-    </table>
-
-</form>
-
-<p style="color:blue;">Login with:</p>
-
+<div class="login-page">
+    <div class="form">
+        <form class="register-form">
+            <input type="text" placeholder="username"/>
+            <input type="password" placeholder="password"/>
+            <button>login</button>
+            <p class="message">Not registered? <a href="#">Create an account</a></p>
+        </form>
+    </div>
+</div>
 </body>
+
+<footer>
+    Copyright by
+</footer>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

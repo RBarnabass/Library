@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author Roman Berezhnov
  */
-public interface BookDao extends SimpleCrudDao<Book, BookDto> {
+public interface BookDao extends SimpleCrudDao<Book> {
 
     List<BookDto> getAll() throws SQLException;
 

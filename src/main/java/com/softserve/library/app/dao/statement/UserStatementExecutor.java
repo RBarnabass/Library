@@ -48,6 +48,7 @@ public class UserStatementExecutor {
         return list;
     }
 
+    private boolean isSuccess;
     // TODO: refactor or so
     // Task 3 - the usage period is repeated in every line!
     public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {

@@ -8,6 +8,6 @@ import com.softserve.library.app.model.Author;
  *
  * @author Roman Berezhnov
  */
-public interface AuthorService extends SimpleCrudService<Author, AuthorDto> {
+public interface AuthorService extends SimpleCrudService<Author> {
 
 }

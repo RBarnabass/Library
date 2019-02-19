@@ -15,7 +15,7 @@ public class User {
     private int id;
     private String fullName;
     private LocalDate birthDate;
-    private Date regDate;
+    private LocalDate regDate;
     private String login;
     private String password;
     private int role_id;
@@ -46,11 +46,11 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public Date getRegDate() {
+    public LocalDate getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Date regDate) {
+    public void setRegDate(LocalDate regDate) {
         this.regDate = regDate;
     }
 

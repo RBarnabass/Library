@@ -47,9 +47,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public CustomResponseEntity<?> add(BookDto bookDto) throws SQLException {
-        return null;
+    public void add(Book book) throws SQLException {
+
     }
+
+//    @Override
+//    public CustomResponseEntity<?> add(BookDto bookDto) throws SQLException {
+//        return null;
+//    }
 
     @Override public List<BookDto> getAll() throws SQLException {
 
