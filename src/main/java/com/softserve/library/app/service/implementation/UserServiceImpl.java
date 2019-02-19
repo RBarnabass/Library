@@ -51,6 +51,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getByLogin(String login) throws SQLException {
+
+        return userDao.getUserByLogin(login);
+    }
+
+    @Override
     public int getAverageUserAge() throws SQLException {
 
         return userDao.getAverageUserAge();
@@ -80,10 +86,10 @@ public class UserServiceImpl implements UserService {
         return userDao.getAllDebtors();
     }
 
-    @Override
-    public CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException {
-        return userDao.add(createUserDto);
-    }
+//    @Override
+//    public CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException {
+//        return userDao.add(createUserDto);
+//    }
 
 //    @Override
 //    public CustomResponseEntity<?> checkLoginPasswordEquality(String login, String password) {
@@ -112,30 +118,30 @@ public class UserServiceImpl implements UserService {
 //        return new CustomResponseEntity<>(successfulLoginUserDto, HttpStatus.OK);
 //    }
 
-    @Override
-    public CustomResponseEntity<?> getByLogin(String login) {
-
-        FullUserDto fullUserDto;
-
-        try {
-
-            fullUserDto = userDao.getByLogin(login);
-        } catch (SQLException e) {
-
-            ErrorDto errorDto = new ErrorDto();
-            errorDto.setErrorMessage("Internal server error during retrieving user from database.");
-
-            return new CustomResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (NullPointerException e) {
-
-            ErrorDto errorDto = new ErrorDto();
-            errorDto.setErrorMessage("User with such login was not found.");
-
-            return new CustomResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
-        }
-
-        return new CustomResponseEntity<>(fullUserDto, HttpStatus.OK);
-    }
+//    @Override
+//    public CustomResponseEntity<?> getByLogin(String login) {
+//
+//        FullUserDto fullUserDto;
+//
+//        try {
+//
+//            fullUserDto = userDao.getByLogin(login);
+//        } catch (SQLException e) {
+//
+//            ErrorDto errorDto = new ErrorDto();
+//            errorDto.setErrorMessage("Internal server error during retrieving user from database.");
+//
+//            return new CustomResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
+//        } catch (NullPointerException e) {
+//
+//            ErrorDto errorDto = new ErrorDto();
+//            errorDto.setErrorMessage("User with such login was not found.");
+//
+//            return new CustomResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+//        }
+//
+//        return new CustomResponseEntity<>(fullUserDto, HttpStatus.OK);
+//    }
 }
 
 
