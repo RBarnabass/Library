@@ -14,21 +14,12 @@ public class User {
     private int id;
     private String fullName;
     private Date birthDate;
-    private transient Timestamp registrationDate;
+    private Date regDate;
+    private String login;
+    private String password;
+    private int role_id;
 
     public User() { }
-
-    public User(String fullName, Date birthDate) {
-        this.fullName = fullName;
-        this.birthDate = birthDate;
-    }
-
-    public User(int id, String fullName, Date birthDate, Timestamp registrationDate) {
-        this.id = id;
-        this.fullName = fullName;
-        this.birthDate = birthDate;
-        this.registrationDate = registrationDate;
-    }
 
     public int getId() {
         return id;
@@ -54,37 +45,61 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public Timestamp getRegistrationDate() {
-        return registrationDate;
+    public Date getRegDate() {
+        return regDate;
     }
 
-    public void setRegistrationDate(Timestamp registrationDate) {
-        this.registrationDate = registrationDate;
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                Objects.equals(fullName, user.fullName) &&
-                Objects.equals(birthDate, user.birthDate) &&
-                Objects.equals(registrationDate, user.registrationDate);
+    public String getLogin() {
+        return login;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fullName, birthDate, registrationDate);
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", birthDate=" + birthDate +
-                ", registrationDate=" + registrationDate +
-                '}';
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
+    }
+
+    //    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        User user = (User) o;
+//        return id == user.id &&
+//                Objects.equals(fullName, user.fullName) &&
+//                Objects.equals(birthDate, user.birthDate) &&
+//                Objects.equals(registrationDate, user.registrationDate);
+//    }
+
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, fullName, birthDate, registrationDate);
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", fullName='" + fullName + '\'' +
+//                ", birthDate=" + birthDate +
+//                ", registrationDate=" + registrationDate +
+//                '}';
     }
 }
