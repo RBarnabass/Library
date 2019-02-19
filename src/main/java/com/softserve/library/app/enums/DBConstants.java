@@ -12,7 +12,7 @@ public enum DBConstants {
     PORT (":3306"),
     BASE ("/library"),
     LOGIN ("root"),
-    PASSWORD ("java");
+    PASSWORD ("123ab");
 
     private String line;
 
