@@ -28,6 +28,15 @@ public class Main {
 
         ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
 
+        User user = new User();
+        user.setFullName("AAA");
+        user.setBirthDate(LocalDate.parse("1989-01-01"));
+        user.setLogin("qwer");
+        user.setPassword("qwer");
+        user.setRole_id(1);
+
+        serviceFactory.getUserService().add(user);
+
 //        ServiceFactory serviceFactory = new ServiceFactoryImpl();
 //        List<BookDto> list = serviceFactory.getBookService().getAll();
 //        for (BookDto bookDto : list) {
@@ -91,15 +100,7 @@ public class Main {
 //        List<DebtorDto> debtors = serviceFactory.getUserService().getAllDebtors();
 //        System.out.println(debtors.size()); // 1
 
-        UserDto userDto = new UserDto();
-        userDto.setFullName("Darth Vader");
-        userDto.setBirthDate(LocalDate.parse("1970-03-02"));
-        userDto.setLogin("darthisagoodboi");
-        userDto.setPassword("anakin1337");
-        userDto.setIsAdmin(false);
 
-        CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().add(userDto);
-        customResponseEntity.getResponseBody();
 
         /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         Credential credential = new Credential("romko", "qwerty");
