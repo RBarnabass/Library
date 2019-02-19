@@ -3,19 +3,12 @@ package com.softserve.library.app;
 import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.dto.*;
 import com.softserve.library.app.http.CustomResponseEntity;
-import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.factory.ServiceFactory;
 import com.softserve.library.app.service.factory.ServiceFactoryImpl;
-import com.softserve.library.app.service.interfaces.UserService;
-import org.apache.commons.codec.digest.DigestUtils;
 
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  *
@@ -27,6 +20,18 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
+//
+//        User user = new User();
+//        user.setFullName("Bruce Wayne");
+//        user.setBirthDate(LocalDate.parse("1980-02-02"));
+//        user.setLogin("notbatman");
+//        user.setPassword("ilovealphred");
+//        user.setRole_id(1);
+//
+//        serviceFactory.getUserService().add(user);
+
+        User user = serviceFactory.getUserService().get(1);
+        user.getLogin();
 
 //        ServiceFactory serviceFactory = new ServiceFactoryImpl();
 //        List<BookDto> list = serviceFactory.getBookService().getAll();
@@ -91,15 +96,21 @@ public class Main {
 //        List<DebtorDto> debtors = serviceFactory.getUserService().getAllDebtors();
 //        System.out.println(debtors.size()); // 1
 
-        UserDto userDto = new UserDto();
-        userDto.setFullName("Darth Vader");
-        userDto.setBirthDate(LocalDate.parse("1970-03-02"));
-        userDto.setLogin("darthisagoodboi");
-        userDto.setPassword("anakin1337");
-        userDto.setIsAdmin(false);
+//        CreateUserDto createUserDto = new CreateUserDto();
+//        createUserDto.setFullName("Darth Vader");
+//        createUserDto.setBirthDate(LocalDate.parse("1970-03-02"));
+//        createUserDto.setLogin("darthisagoodboi");
+//        createUserDto.setPassword("anakin1337");
+//        createUserDto.setIsAdmin(false);
+//
+//        CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().add(createUserDto);
+//        customResponseEntity.getResponseBody();
 
-        CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().add(userDto);
-        customResponseEntity.getResponseBody();
+//        CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().getByLogin("md1guy");
+//        customResponseEntity.getResponseBody();
+
+//        CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().checkLoginPasswordEquality("md1guyq", "qwerty");
+//        System.out.println(customResponseEntity.getHttpStatus().isError()); // true
 
         /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         Credential credential = new Credential("romko", "qwerty");

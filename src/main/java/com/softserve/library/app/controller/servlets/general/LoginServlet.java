@@ -40,38 +40,38 @@ public class LoginServlet extends HttpServlet {
         ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
         Credential credential;
 
-        // todo: check login and password before go to DB !!!
-        try {
-
-            // todo: save user id some where !!!
-            credential = serviceFactory.getCredentialService().getByLogin(login);
-
-        } catch (SQLException e) {
-
-            System.out.println(" - - - Exception - - - Login servlet");
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
-            dispatcher.forward(request, response);
-            return;
-        }
+//        // todo: check login and password before go to DB !!!
+//        try {
+//
+//            // todo: save user id some where !!!
+//            credential = serviceFactory.getCredentialService().getByLogin(login);
+//
+//        } catch (SQLException e) {
+//
+//            System.out.println(" - - - Exception - - - Login servlet");
+//            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
+//            dispatcher.forward(request, response);
+//            return;
+//        }
 
         // todo: check password here and set null if not correct !!!
         // todo: now we use encoder for pass so that should be changed !!!
 
-        if (credential == null || !credential.getPassword().equals(password)) {
+//        if (credential == null || !credential.getPassword().equals(password)) {
+//
+//            String errorMessage = "Invalid login or password";
+//            request.setAttribute("errorMessage", errorMessage);
+//
+//            System.out.println();
+//            System.out.println(" - - - Login servlet _ credential == null or incorrect pass ! - - - ");
+//            System.out.println();
+//
+//            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
+//            dispatcher.forward(request, response);
+//            return;
+//        }
 
-            String errorMessage = "Invalid login or password";
-            request.setAttribute("errorMessage", errorMessage);
-
-            System.out.println();
-            System.out.println(" - - - Login servlet _ credential == null or incorrect pass ! - - - ");
-            System.out.println();
-
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
-            dispatcher.forward(request, response);
-            return;
-        }
-
-        SecurityUtils.storeLoggedUser(request.getSession(), credential);
+//        SecurityUtils.storeLoggedUser(request.getSession(), credential);
 
         // todo: case role - case redirect !!!
         String redirect = request.getContextPath() + UrlPatterns.INFO;
