@@ -26,13 +26,13 @@
 <body data-serverSalt="${serverSalt}">
 <div class="login-page">
     <div class="form">
-        <form class="register-form">
+        <form class="login-form" method="POST" action="${pageContext.request.contextPath}/library/signin">
             <input type="text" placeholder="username" name="login" id="loginText"/>
-            <input type="password" placeholder="password" name="password" id="passwordText"/>
-            <input id="data-clientSalt" type="hidden" value="">
-            <input id="data-hashResult" type="hidden" value="">
+            <input type="password" placeholder="password" id="passwordText"/>
+            <input id="data-clientSalt" name="data-clientSalt" type="hidden" value="">
+            <input id="data-hashResult" name="data-hashResult" type="hidden" value="">
             <button id="loginButton">log in</button>
-            <p class="message">Not registered? <a href="#">Sign up</a></p>
+            <p class="message">Not registered? <a href="${pageContext.request.contextPath}/library/signup">Sign up</a></p>
         </form>
     </div>
 </div>

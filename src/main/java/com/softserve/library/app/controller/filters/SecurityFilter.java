@@ -34,7 +34,7 @@ public class SecurityFilter implements Filter {
         final String requestedSessionId = request.getRequestedSessionId();
         System.out.println(" - - - Filter _ session id - " + requestedSessionId);
 
-        SecurityUtils.checkSessionsLife();
+        //SecurityUtils.checkSessionsLife();
         String role = null;
 
         if (servletPath.equals(UrlPatterns.INFO)
