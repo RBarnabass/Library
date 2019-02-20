@@ -70,6 +70,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByLoginAndPassword(String login, String password) {
+        return null;
+    }
+
+    @Override
     public int getAverageUserAge() throws SQLException {
 
         return userDao.getAverageUserAge();
