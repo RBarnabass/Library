@@ -35,7 +35,8 @@ public class SecurityFilter implements Filter {
 
         if (servletPath.equals(UrlPatterns.INFO)
                 || servletPath.equals(UrlPatterns.SIGNIN)
-                || servletPath.equals(UrlPatterns.LOGOUT)) {
+                || servletPath.equals(UrlPatterns.LOGOUT)
+                || servletPath.equals(UrlPatterns.SIGNUP)) {
 
             chain.doFilter(request, response);
             return;
