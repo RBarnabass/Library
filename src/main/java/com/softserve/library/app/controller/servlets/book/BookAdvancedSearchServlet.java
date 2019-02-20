@@ -1,5 +1,7 @@
 package com.softserve.library.app.controller.servlets.book;
 
+import com.softserve.library.app.dto.BookParametersDto;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,12 +23,16 @@ public class BookAdvancedSearchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        System.out.println(req.getParameter("book"));
-        System.out.println(req.getParameter("author"));
-        System.out.println(req.getParameter("publisher"));
-        System.out.println(req.getParameter("from"));
-        System.out.println(req.getParameter("to"));
-        System.out.println(req.getParameter("available"));
+        BookParametersDto bookParametersDto = new BookParametersDto();
+
+        boolean isAvailable = req.getParameter("available") != null;
+
+        bookParametersDto.setName(req.getParameter("book"));
+        bookParametersDto.setAuthor(req.getParameter("author"));
+        bookParametersDto.setPublisher(req.getParameter("publisher"));
+        bookParametersDto.setYearPublishedFrom(Integer.parseInt(req.getParameter("from")));
+        bookParametersDto.setYearPublishedTo(Integer.parseInt(req.getParameter("to")));
+        bookParametersDto.setAvailable(isAvailable);
 
         final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/advancedBookSearch.jsp");
         dispatcher.forward(req, resp);
