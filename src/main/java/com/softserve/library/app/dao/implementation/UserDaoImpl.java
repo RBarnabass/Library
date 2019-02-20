@@ -309,12 +309,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserEntity getAllUserByName(String name) throws SQLException {
+    public UserEntity getAllUsersByName(String name) throws SQLException {
         return getByOption("user.full_name=" + "'" + name + "'");
     }
 
     @Override
-    public UserEntity getAllUserByLogin(String login) throws SQLException {
+    public UserEntity getAllUsersByLogin(String login) throws SQLException {
         return getByOption("user.login=" + "'" + login + "'");
     }
 
