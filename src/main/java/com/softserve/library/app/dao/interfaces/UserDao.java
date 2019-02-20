@@ -1,12 +1,9 @@
 package com.softserve.library.app.dao.interfaces;
 
-import com.softserve.library.app.dto.DebtorDto;
-import com.softserve.library.app.dto.CreateUserDto;
 import com.softserve.library.app.dto.UserStatisticDto;
-import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.model.UserEntity;
-
+import com.softserve.library.app.dto.DebtorDto;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -27,7 +24,7 @@ public interface UserDao extends SimpleCrudDao<User> {
 
     List<DebtorDto> getAllDebtors() throws SQLException;
 
-    CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException;
+//    CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException;
 
     UserEntity getByOption(String option) throws SQLException;
 

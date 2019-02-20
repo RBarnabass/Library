@@ -34,20 +34,19 @@
 <body>
 <div class="login-page">
     <div class="form">
-        <form class="register-form" method="POST" action="${pageContext.request.contextPath}/library/signUp">
+        <form class="register-form" method="POST" action="${pageContext.request.contextPath}/library/signup">
             <input type="text" placeholder="name" name="fullName"/>
             <input type="date" placeholder="birth date" name="birthDate"/>
             <input type="text" placeholder="username" name="login"/>
-            <input type="password" placeholder="password" name="password"/>
-            <div class="checkbox">
-                <input type="checkbox" id="admin" name="isAdmin" checked="checked" value="true"/>
-                <label for="admin">Administrator</label>
-            </div>
-            <button>create</button>
+            <input id="passwordBox" type="password" placeholder="password"/>
+            <input id="data-hashedPassword" name="data-hashedPassword" type="hidden" value="">
+            <button id="signupButton">create</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>
         </form>
     </div>
 </div>
+<script type="text/javascript" src="../../../resources/js/sjcl.js"></script>
+<script type="text/javascript" src="../../../resources/js/hashPassword.js"></script>
 </body>
 
 <footer>

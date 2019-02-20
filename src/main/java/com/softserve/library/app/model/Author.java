@@ -11,6 +11,7 @@ public class Author {
 
     private int id;
     private String name;
+    private boolean isPrimary;
 
     public Author() { }
     public Author(String name) {
@@ -33,6 +34,12 @@ public class Author {
     public void setName(String name) {
         this.name = name;
     }
+    public boolean isPrimary() {
+        return isPrimary;
+    }
+    public void setPrimary(boolean primary) {
+        isPrimary = primary;
+    }
 
     @Override public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,6 +55,7 @@ public class Author {
         return "Author{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", isPrimary=" + isPrimary +
                 '}';
     }
 }
