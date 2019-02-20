@@ -20,8 +20,8 @@
         </div>
         <div class="header-right">
             <a class="active" href="#">Home</a>
-            <a href="#">Login</a>
-            <a href="#">Logout</a>
+            <a href="${pageContext.request.contextPath}/library/signin">Login</a>
+            <a href="${pageContext.request.contextPath}/library/logout">Logout</a>
         </div>
     </div>
 </header>
