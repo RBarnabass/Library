@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -262,5 +263,35 @@ public class UserDaoImpl implements UserDao {
         preparedStatement.close();
 
         return userEntity;
+    }
+    private List<UserEntity> getByOptionList(String option) throws SQLException {
+        List<UserEntity> userEntityList = new ArrayList<>();
+        UserEntity userEntity = new UserEntity();
+        Role role = new Role();
+
+        String sql = "SELECT * FROM user JOIN role ON user.role_id = role.id WHERE " + option;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.execute();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+
+        while (resultSet.next()) {
+            userEntity.setId(resultSet.getInt("user.id"));
+            userEntity.setFullName(resultSet.getString("user.full_name"));
+            userEntity.setBirthDate(LocalDate.parse(resultSet.getDate("user.birth_date").toString()));
+            userEntity.setRegistrationDate(LocalDate.parse(resultSet.getDate("user.registration_date").toString()));
+            userEntity.setLogin(resultSet.getString("user.login"));
+            userEntity.setPassword(resultSet.getString("user.password"));
+            role.setId(resultSet.getInt("role.id"));
+            role.setType(resultSet.getString("role.type"));
+            userEntity.setRole(role);
+            userEntityList.add(userEntity);
+        }
+
+        resultSet.close();
+        preparedStatement.close();
+
+        return userEntityList;
     }
 }
