@@ -5,6 +5,7 @@ import com.softserve.library.app.dao.interfaces.UserDao;
 import com.softserve.library.app.dto.*;
 import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.http.HttpStatus;
+import com.softserve.library.app.model.Role;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.interfaces.UserService;
 
@@ -28,13 +29,17 @@ public class UserServiceImpl implements UserService {
     }
     @Override public boolean add(User user) throws SQLException, NullPointerException {
 
-        if (user.getFullName() == null || user.getBirthDate() == null || user.getLogin() == null || user.getPassword() == null || user.getRole() == null || user.getRole().getType() == null) {
+        if (user.getFullName() == null || user.getBirthDate() == null || user.getLogin() == null || user.getPassword() == null) {
             return false;
         }
 
-        if (user.getFullName().isEmpty() || user.getLogin().isEmpty() || user.getPassword().isEmpty() || user.getRole().getType().isEmpty()) {
+        if (user.getFullName().isEmpty() || user.getLogin().isEmpty() || user.getPassword().isEmpty()) {
             return false;
         }
+
+        Role role = new Role();
+        role.setType("user");
+        user.setRole(role);
 
         return userDao.add(user);
     }
