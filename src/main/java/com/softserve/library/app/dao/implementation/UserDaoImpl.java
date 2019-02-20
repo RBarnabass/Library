@@ -5,9 +5,9 @@ import com.softserve.library.app.dao.interfaces.UserDao;
 import com.softserve.library.app.dao.statement.UserStatementExecutor;
 import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.UserStatisticDto;
-import com.softserve.library.app.enums.tables.Tables;
 import com.softserve.library.app.model.Role;
 import com.softserve.library.app.model.User;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -126,7 +126,7 @@ public class UserDaoImpl implements UserDao {
 
         return null;
     }
-    
+
 
     @Override
     public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
