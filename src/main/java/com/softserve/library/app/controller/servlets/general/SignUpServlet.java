@@ -1,7 +1,10 @@
 package com.softserve.library.app.controller.servlets.general;
 
 import com.softserve.library.app.constant.UrlPatterns;
+import com.softserve.library.app.enums.UserRole;
+import com.softserve.library.app.model.Role;
 import com.softserve.library.app.model.User;
+import com.softserve.library.app.model.UserEntity;
 import com.softserve.library.app.service.factory.ServiceFactory;
 import com.softserve.library.app.service.factory.ServiceFactoryImpl;
 
@@ -35,17 +38,40 @@ public class SignUpServlet extends HttpServlet {
         user.setFullName(request.getParameter("fullName"));
         user.setBirthDate(LocalDate.parse(request.getParameter("birthDate")));
         user.setLogin(request.getParameter("login"));
-        user.setPassword(request.getParameter("password"));
-        user.setRole_id((request.getParameter("isAdmin") == null) ? 1 : 2);
+        user.setPassword(request.getParameter("data-hashedPassword"));
+        user.setRole_id(UserRole.USER.getValue());
 
-        // TODO: handle exception
+        // TODO: send error page with error message
         try {
-            serviceFactory.getUserService().add(user);
-        } catch (SQLException e) {
-            System.out.println("whoa exception xd");
-        }
 
-        String redirect = request.getContextPath() + UrlPatterns.LOGIN;
-        response.sendRedirect(redirect);
+            System.out.println("adding");
+            serviceFactory.getUserService().add(user);
+            response.setStatus(response.SC_CREATED);
+            String redirect = request.getContextPath() + UrlPatterns.SIGNIN;
+            response.sendRedirect(redirect);
+        } catch (SQLException e) {
+
+            System.out.println("500");
+            response.setStatus(response.SC_INTERNAL_SERVER_ERROR);
+        } catch (NullPointerException e) {
+
+            System.out.println("404");
+            response.setStatus(response.SC_NOT_FOUND);
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
