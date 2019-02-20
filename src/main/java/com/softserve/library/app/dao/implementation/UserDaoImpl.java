@@ -42,7 +42,7 @@ public class UserDaoImpl implements UserDao {
         if (list.size() > 0) {
             return list.get(0);
         } else {
-            throw new NullPointerException();
+            return null;
         }
     }
 

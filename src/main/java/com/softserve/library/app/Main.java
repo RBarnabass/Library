@@ -20,9 +20,7 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
-
-        serviceFactory.getUserService().getByLogin("login");
-        System.out.println();
+        System.out.println(serviceFactory.getUserService().getByLogin("login"));
 
         /*List<BookDto> list = serviceFactory.getBookService().getAll();
         for (BookDto bookDto : list) {
