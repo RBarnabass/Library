@@ -42,27 +42,27 @@ public class LoginServlet extends HttpServlet {
 
         final ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
 
-        final CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().checkLoginPasswordEquality(login, password);
+        //final CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().checkLoginPasswordEquality(login, password);
 
-        if (!customResponseEntity.getHttpStatus().isError()) {
+        /*if (!customResponseEntity.getHttpStatus().isError()) {
 
-            final SuccessfulLoginUserDto responseBody = (SuccessfulLoginUserDto) customResponseEntity.getResponseBody();
-            SecurityUtils.storeLoggedUser(request.getSession(), responseBody);
+           // final SuccessfulLoginUserDto responseBody = (SuccessfulLoginUserDto) customResponseEntity.getResponseBody();
+            //SecurityUtils.storeLoggedUser(request.getSession(), responseBody);
 
-            if (responseBody.getRole().equals("user")) {
+           *//* if (responseBody.getRole().equals("user")) {
                 System.out.println("___ user is logged ___");
             } else {
                 System.out.println("___ else is logged ___");
-            }
+            }*//*
 
         } else {
 
-            final ErrorDto responseBody = (ErrorDto) customResponseEntity.getResponseBody();
+            //final ErrorDto responseBody = (ErrorDto) customResponseEntity.getResponseBody();
             request.setAttribute("errorMessage", responseBody.getErrorMessage());
             final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
             dispatcher.forward(request, response);
             return;
-        }
+        }*/
 
         String redirect = request.getContextPath() + UrlPatterns.INFO;
         System.out.println(" - - - Login servlet _ success _ redirect to - " + redirect);
