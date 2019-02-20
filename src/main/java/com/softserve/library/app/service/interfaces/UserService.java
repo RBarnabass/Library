@@ -29,9 +29,4 @@ public interface UserService extends SimpleCrudService<User> {
 
     List<DebtorDto> getAllDebtors() throws SQLException;
 
-//    CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException;
-
-    //CustomResponseEntity<?> checkLoginPasswordEquality(String login, String password);
-
-//    CustomResponseEntity<?> getByLogin(String login);
 }
