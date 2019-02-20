@@ -37,7 +37,6 @@ public class SignUpServlet extends HttpServlet {
         user.setBirthDate(LocalDate.parse(request.getParameter("birthDate")));
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("data-hashedPassword"));
-        //user.setRole_id(UserRole.USER.getValue());
 
         // TODO: send error page with error message
         try {
