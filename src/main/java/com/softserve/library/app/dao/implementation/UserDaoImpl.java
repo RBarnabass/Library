@@ -23,23 +23,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- *
  * @author Roman Berezhnov
  */
 public class UserDaoImpl implements UserDao {
 
+
     private final UserStatementExecutor userStatementExecutor = new UserStatementExecutor();
+
     private boolean isSuccess;
 
     public UserEntity getUserEntity(int id) throws SQLException {
 
         return getByOption("user.id=" + id);
     }
+
     public UserEntity getUserEntityByLogin(String login) throws SQLException {
 
         return getByOption("user.login='" + login + "'");
     }
+
     public boolean addUserEntity(UserEntity userEntity) throws SQLException {
 
         String sql = "INSERT INTO user (user.full_name, user.birth_date, user.registration_date, user.login, user.password, user.role_id)" +
@@ -54,6 +56,7 @@ public class UserDaoImpl implements UserDao {
         isSuccess = preparedStatement.executeUpdate() > 0;
         return isSuccess;
     }
+
     public boolean updateUserEntity(UserEntity userEntity) throws SQLException {
 
         String sql = "UPDATE user SET user.full_name=?, user.birth_date=?, user.login=?, user.password=?, user.role_id=(SELECT role.id FROM role WHERE role.type=?) WHERE user.id=" + userEntity.getId();
@@ -67,6 +70,7 @@ public class UserDaoImpl implements UserDao {
         isSuccess = preparedStatement.executeUpdate() > 0;
         return isSuccess;
     }
+
     public boolean deleteUserEntity(int id) throws SQLException {
 
         String sql = "DELETE FROM user WHERE user.id=" + id;
@@ -77,8 +81,8 @@ public class UserDaoImpl implements UserDao {
     }
 
 
-
-    @Override public User get(int id) throws SQLException {
+    @Override
+    public User get(int id) throws SQLException {
 
         String sql = "SELECT\n" +
                 "  u.id                AS id,\n" +
@@ -97,7 +101,7 @@ public class UserDaoImpl implements UserDao {
 
         User user = new User();
 
-        while(resultSet.next()) {
+        while (resultSet.next()) {
 
             user.setId(resultSet.getInt("id"));
             user.setFullName(resultSet.getString("fullName"));
@@ -113,7 +117,10 @@ public class UserDaoImpl implements UserDao {
 
         return user;
     }
-    @Override public boolean add(User user) throws SQLException {
+
+
+    @Override
+    public boolean add(User user) throws SQLException {
 
         String sql = "INSERT INTO " + Tables.USER.getTable()
                 + " (full_name, birth_date, registration_date, login, password, role_id)"
@@ -130,53 +137,55 @@ public class UserDaoImpl implements UserDao {
 
         return isSuccess;
     }
-
 //    @Override public User getAllByOption(int id) throws SQLException {
 //
 //        List<User> list = userStatementExecutor.getAllByOption(id);
 //
 //        return list != null && !list.isEmpty() ? list.getAllByOption(0) : null;
+
+//    }
+
+
+//    @Override
+//    public User getAllUserByLogin(String login) throws SQLException {
+//
+//        String sql = "SELECT\n" +
+//                "  u.id                AS id,\n" +
+//                "  u.full_name         AS fullName,\n" +
+//                "  u.birth_date        as birthDate,\n" +
+//                "  u.registration_date AS regDate,\n" +
+//                "  u.login             AS login,\n" +
+//                "  u.password          AS password,\n" +
+//                "  u.role_id           AS roleId\n" +
+//                "FROM user AS u\n" +
+//                "WHERE u.login = '" + login + "'";
+//
+//        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+//        preparedStatement.executeQuery();
+//        ResultSet resultSet = preparedStatement.getResultSet();
+//
+//        User user = new User();
+//
+//        // TODO: extract(?)
+//        while (resultSet.next()) {
+//
+//            user.setId(resultSet.getInt("id"));
+//            user.setFullName(resultSet.getString("fullName"));
+//            user.setBirthDate(LocalDate.parse((resultSet.getDate("birthDate").toString())));
+//            user.setRegDate(LocalDate.parse((resultSet.getDate("regDate").toString())));
+//            user.setLogin(resultSet.getString("login"));
+//            user.setPassword(resultSet.getString("password"));
+//            user.setRole_id(resultSet.getInt("roleId"));
+//        }
+//
+//        preparedStatement.close();
+//        resultSet.close();
+//
+//        return user;
 //    }
 
     @Override
-    public User getUserByLogin(String login) throws SQLException {
-
-        String sql = "SELECT\n" +
-                "  u.id                AS id,\n" +
-                "  u.full_name         AS fullName,\n" +
-                "  u.birth_date        as birthDate,\n" +
-                "  u.registration_date AS regDate,\n" +
-                "  u.login             AS login,\n" +
-                "  u.password          AS password,\n" +
-                "  u.role_id           AS roleId\n" +
-                "FROM user AS u\n" +
-                "WHERE u.login = '" + login + "'";
-
-        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
-        preparedStatement.executeQuery();
-        ResultSet resultSet = preparedStatement.getResultSet();
-
-        User user = new User();
-
-        // TODO: extract(?)
-        while(resultSet.next()) {
-
-            user.setId(resultSet.getInt("id"));
-            user.setFullName(resultSet.getString("fullName"));
-            user.setBirthDate(LocalDate.parse((resultSet.getDate("birthDate").toString())));
-            user.setRegDate(LocalDate.parse((resultSet.getDate("regDate").toString())));
-            user.setLogin(resultSet.getString("login"));
-            user.setPassword(resultSet.getString("password"));
-            user.setRole_id(resultSet.getInt("roleId"));
-        }
-
-        preparedStatement.close();
-        resultSet.close();
-
-        return user;
-    }
-
-    @Override public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
+    public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
 
         return userStatementExecutor.getUserStatistic(id);
     }
@@ -215,10 +224,10 @@ public class UserDaoImpl implements UserDao {
     public CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException {
         return userStatementExecutor.addUser(createUserDto);
     }
-
 //    @Override
 //    public FullUserDto getByLogin(String login) throws SQLException, NullPointerException {
 //        return null;
+
 //    }
 
     @Override
@@ -235,7 +244,8 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
-    private UserEntity getByOption(String option) throws SQLException {
+    @Override
+    public UserEntity getByOption(String option) throws SQLException {
 
         String sql = "SELECT * FROM user JOIN role ON user.role_id = role.id WHERE " + option;
 
@@ -264,7 +274,9 @@ public class UserDaoImpl implements UserDao {
 
         return userEntity;
     }
-    private List<UserEntity> getByOptionList(String option) throws SQLException {
+
+    @Override
+    public List<UserEntity> getByOptionList(String option) throws SQLException {
         List<UserEntity> userEntityList = new ArrayList<>();
         UserEntity userEntity = new UserEntity();
         Role role = new Role();
@@ -293,5 +305,23 @@ public class UserDaoImpl implements UserDao {
         preparedStatement.close();
 
         return userEntityList;
+
     }
+
+    @Override
+    public UserEntity getAllUserByName(String name) throws SQLException {
+        return getByOption("user.full_name=" + "'" + name + "'");
+    }
+
+    @Override
+    public UserEntity getAllUserByLogin(String login) throws SQLException {
+        return getByOption("user.login=" + "'" + login + "'");
+    }
+
+    @Override
+    public UserEntity getUserByNameAndLogin(String name, String login) throws SQLException {
+        String input = "user.full_name=" + "'" + name + "'" + " AND " + "user.login=" + "'" + login + "'";
+        return getByOption(input);
+    }
+
 }
