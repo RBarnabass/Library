@@ -29,6 +29,5 @@ public interface UserDao extends SimpleCrudDao<User> {
 
     User getUserByLogin(String login) throws SQLException;
 
-    User getUserByNameAndLogin(String name, String login) throws SQLException;
-
+    User getUserByLoginAndPassword(String login, String password) throws SQLException;
 }
