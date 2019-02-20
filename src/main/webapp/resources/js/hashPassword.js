@@ -7,7 +7,4 @@ signupButton.addEventListener('click', function () {
 
     let hashedPassword = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(password));
     hashedPasswordElement.value = hashedPassword;
-
-    // alert(hashedPassword);
-    // alert(hashedPasswordElement.value);
 });
