@@ -115,9 +115,9 @@ public class UserDaoImpl implements UserDao {
 
         return getByOption("user.full_name=" + "'" + name + "'");
     }
-    @Override public User getUserByNameAndLogin(String name, String login) throws SQLException {
+    @Override public User getUserByLoginAndPassword(String login, String password) throws SQLException {
 
-        String input = "user.full_name=" + "'" + name + "'" + " AND " + "user.login=" + "'" + login + "'";
+        String input = "user.login=" + "'" + login + "'" + " AND " + "user.password=" + "'" + password + "'";
         List<User> list = getByOption(input);
 
         if (list != null) {
