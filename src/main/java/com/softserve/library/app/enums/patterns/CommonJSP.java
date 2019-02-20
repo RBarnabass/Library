@@ -7,8 +7,7 @@ package com.softserve.library.app.enums.patterns;
  */
 public enum CommonJSP {
 
-    INFO ("/index.jsp"),
-    LOGIN ("/WEB-INF/appearance/pages/login.jsp"),
+    INFO ("/WEB-INF/view/general/homepage.jsp"),
     ACCESS_DENIED ("/WEB-INF/view/general/accessDenied.jsp");
 
     private String line;
