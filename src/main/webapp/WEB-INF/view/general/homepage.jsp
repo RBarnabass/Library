@@ -9,21 +9,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>welcome</title>
     <link href="<c:url value='/resources/css/homepageStyle.css' />" rel="stylesheet" type="text/css">
-
 </head>
 <header>
-    <nav>
-        <a href="#">Sign in</a>
-        <a href="#">Sign out</a>
-    </nav>
-    <h1>Library</h1>
+    <div class="header">
+        <a href="#default" class="logo">
+            <img src="<c:url value='/resources/image/logo.jpg' />" alt="logo">
+        </a>
+        <div class="title">
+            <h1>Library</h1>
+        </div>
+        <div class="header-right">
+            <a class="active" href="#">Home</a>
+            <a href="#">Login</a>
+            <a href="#">Logout</a>
+        </div>
+    </div>
 </header>
 
 <body>
-<div class="hero-image">
-    <div class="hero-text">
-        <h2 style="font-size:55px">It's a nice day for reading ;)</h2>
-
+<div class="body-image">
+    <div class="body-text">
+        <h2>It's a nice day for reading ;)</h2>
     </div>
 </div>
 
