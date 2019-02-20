@@ -31,15 +31,15 @@
             <table>
                 <tr>
                     <td>Name:</td>
-                    <td>jsp name</td>
+                    <td>${user.fullName}</td>
                 </tr>
                 <tr>
                     <td>Age:</td>
-                    <td>jsp age</td>
+                    <td>${user.birthDate}</td>
                 </tr>
                 <tr>
                     <td>Login:</td>
-                    <td>jsp login</td>
+                    <td>${user.login}</td>
                 </tr>
             </table>
             <p class="title">Still reading:</p>
