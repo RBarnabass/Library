@@ -1,0 +1,56 @@
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+nav {
+    text-align: right;
+}
+
+.body_info {
+    display: inline-block;
+    padding: 10% 0 0;
+    margin: auto;
+}
+
+.inline-block {
+    display: inline-block;
+    height: auto;
+}
+
+.image {
+    flex: left;
+    width: 22%;
+}
+
+table {
+    padding-left: 10px;
+    flex: right;
+    width: 100%;
+}
+
+td:nth-child(1) {
+    width: 20%;
+    font-weight: bold;
+}
+
+td {
+    font-size: 20px;
+}
+
+td:nth-child(2) {
+    padding: 5px;
+    padding-right: 5px;
+    width: 100%;
+}
+
+img {
+    width: 220px;
+}
+
+footer {
+    text-align: center;
+}
