@@ -19,11 +19,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- *
  * @author Roman Berezhnov
  */
 public class UserDaoImpl implements UserDao {
@@ -31,14 +30,16 @@ public class UserDaoImpl implements UserDao {
     private final UserStatementExecutor userStatementExecutor = new UserStatementExecutor();
     private boolean isSuccess;
 
-    public UserEntity getUserEntity(int id) throws SQLException {
+//    public UserEntity getUserEntity(int id) throws SQLException {
+//
+//        return getByOption("user.id=" + id);
+//    }
+//
+//    public UserEntity getUserEntityByLogin(String login) throws SQLException {
+//
+//        return getByOption("user.login='" + login + "'");
+//    }
 
-        return getByOption("user.id=" + id);
-    }
-    public UserEntity getUserEntityByLogin(String login) throws SQLException {
-
-        return getByOption("user.login='" + login + "'");
-    }
     public boolean addUserEntity(UserEntity userEntity) throws SQLException {
 
         String sql = "INSERT INTO user (user.full_name, user.birth_date, user.registration_date, user.login, user.password, user.role_id)" +
@@ -53,6 +54,7 @@ public class UserDaoImpl implements UserDao {
         isSuccess = preparedStatement.executeUpdate() > 0;
         return isSuccess;
     }
+
     public boolean updateUserEntity(UserEntity userEntity) throws SQLException {
 
         String sql = "UPDATE user SET user.full_name=?, user.birth_date=?, user.login=?, user.password=?, user.role_id=(SELECT role.id FROM role WHERE role.type=?) WHERE user.id=" + userEntity.getId();
@@ -66,6 +68,7 @@ public class UserDaoImpl implements UserDao {
         isSuccess = preparedStatement.executeUpdate() > 0;
         return isSuccess;
     }
+
     public boolean deleteUserEntity(int id) throws SQLException {
 
         String sql = "DELETE FROM user WHERE user.id=" + id;
@@ -76,8 +79,8 @@ public class UserDaoImpl implements UserDao {
     }
 
 
-
-    @Override public User get(int id) throws SQLException {
+    @Override
+    public User get(int id) throws SQLException {
 
         String sql = "SELECT\n" +
                 "  u.id                AS id,\n" +
@@ -96,7 +99,7 @@ public class UserDaoImpl implements UserDao {
 
         User user = new User();
 
-        while(resultSet.next()) {
+        while (resultSet.next()) {
 
             user.setId(resultSet.getInt("id"));
             user.setFullName(resultSet.getString("fullName"));
@@ -112,7 +115,9 @@ public class UserDaoImpl implements UserDao {
 
         return user;
     }
-    @Override public boolean add(User user) throws SQLException {
+
+    @Override
+    public boolean add(User user) throws SQLException {
 
         String sql = "INSERT INTO " + Tables.USER.getTable()
                 + " (full_name, birth_date, registration_date, login, password, role_id)"
@@ -158,7 +163,7 @@ public class UserDaoImpl implements UserDao {
         User user = new User();
 
         // TODO: extract(?)
-        while(resultSet.next()) {
+        while (resultSet.next()) {
 
             user.setId(resultSet.getInt("id"));
             user.setFullName(resultSet.getString("fullName"));
@@ -175,7 +180,8 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
-    @Override public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
+    @Override
+    public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
 
         return userStatementExecutor.getUserStatistic(id);
     }
@@ -234,7 +240,7 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
-    private UserEntity getByOption(String option) throws SQLException {
+        private UserEntity getByOption(String option) throws SQLException {
 
         String sql = "SELECT * FROM user JOIN role ON user.role_id = role.id WHERE " + option;
 
@@ -262,5 +268,35 @@ public class UserDaoImpl implements UserDao {
         preparedStatement.close();
 
         return userEntity;
+    }
+    private List<UserEntity> getByOptionList(String option) throws SQLException {
+        List<UserEntity> userEntityList = new ArrayList<>();
+        UserEntity userEntity = new UserEntity();
+        Role role = new Role();
+
+        String sql = "SELECT * FROM user JOIN role ON user.role_id = role.id WHERE " + option;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.execute();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+
+        while (resultSet.next()) {
+            userEntity.setId(resultSet.getInt("user.id"));
+            userEntity.setFullName(resultSet.getString("user.full_name"));
+            userEntity.setBirthDate(LocalDate.parse(resultSet.getDate("user.birth_date").toString()));
+            userEntity.setRegistrationDate(LocalDate.parse(resultSet.getDate("user.registration_date").toString()));
+            userEntity.setLogin(resultSet.getString("user.login"));
+            userEntity.setPassword(resultSet.getString("user.password"));
+            role.setId(resultSet.getInt("role.id"));
+            role.setType(resultSet.getString("role.type"));
+            userEntity.setRole(role);
+            userEntityList.add(userEntity);
+        }
+
+        resultSet.close();
+        preparedStatement.close();
+
+        return userEntityList;
     }
 }
