@@ -27,5 +27,5 @@ public interface BookDao extends SimpleCrudDao<Book> {
     List<Book> getAllByPublisherAndYearPeriodAndAuthor(String publisher, int start, int end, String author) throws SQLException;
     List<Book> getAllByYearPeriod(int start, int end) throws SQLException;
     List<Book> getAllByYearPeriodAndAuthor(int start, int end, String author) throws SQLException;
-    int addBook(Book book) throws SQLException;
+    int addBookAndGetIdBack(Book book) throws SQLException;
 }

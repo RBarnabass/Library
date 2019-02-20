@@ -2,9 +2,7 @@ package com.softserve.library.app.controller.servlets.general;
 
 import com.softserve.library.app.constant.UrlPatterns;
 import com.softserve.library.app.enums.UserRole;
-import com.softserve.library.app.model.Role;
 import com.softserve.library.app.model.User;
-import com.softserve.library.app.model.UserEntity;
 import com.softserve.library.app.service.factory.ServiceFactory;
 import com.softserve.library.app.service.factory.ServiceFactoryImpl;
 
@@ -39,7 +37,7 @@ public class SignUpServlet extends HttpServlet {
         user.setBirthDate(LocalDate.parse(request.getParameter("birthDate")));
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("data-hashedPassword"));
-        user.setRole_id(UserRole.USER.getValue());
+        //user.setRole_id(UserRole.USER.getValue());
 
         // TODO: send error page with error message
         try {

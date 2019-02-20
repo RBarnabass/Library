@@ -142,7 +142,7 @@ public class BookDaoImpl implements BookDao {
 
         return getAllByOption("WHERE author.full_name=" + wrapper(author) + " AND book.publish_year BETWEEN " + start + " AND " + end);
     }
-    @Override public int addBook(Book book) throws SQLException {
+    @Override public int addBookAndGetIdBack(Book book) throws SQLException {
 
         String sql = "INSERT INTO book (book.name, book.publish_year, book.publisher_id) VALUES(?,?,(SELECT id FROM publisher WHERE publisher.name=?))";
 
@@ -173,7 +173,7 @@ public class BookDaoImpl implements BookDao {
     }
     @Override public boolean add(Book book) throws SQLException {
 
-        return addBook(book) >= 1;
+        return addBookAndGetIdBack(book) >= 1;
     }
 
     @Override
