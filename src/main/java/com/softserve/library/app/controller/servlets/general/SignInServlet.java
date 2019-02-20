@@ -75,7 +75,6 @@ public class SignInServlet extends HttpServlet {
         }
 
         SecurityUtils.storeLoggedUser(session, user);
-        final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/signIn.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect("/library/user");
     }
 }

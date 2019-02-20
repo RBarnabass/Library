@@ -2,18 +2,14 @@ package com.softserve.library.app.service.implementation;
 
 import com.softserve.library.app.dao.implementation.BookDaoImpl;
 import com.softserve.library.app.dao.interfaces.BookDao;
-import com.softserve.library.app.dto.BookDto;
-import com.softserve.library.app.dto.CopyDto;
-import com.softserve.library.app.http.CustomResponseEntity;
+import com.softserve.library.app.dto.BookParametersDto;
 import com.softserve.library.app.model.Book;
 import com.softserve.library.app.service.interfaces.BookService;
+
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 /**
- *
- *
  * @author Roman Berezhnov
  */
 public class BookServiceImpl implements BookService {
@@ -41,7 +37,8 @@ public class BookServiceImpl implements BookService {
         return false;
     }
 
-    @Override public Book get(int id) throws SQLException {
+    @Override
+    public Book get(int id) throws SQLException {
 
         return bookDao.get(id);
     }
@@ -51,6 +48,136 @@ public class BookServiceImpl implements BookService {
 
         return false;
     }
+
+    @Override
+    public List<Book> getAllByParameters(BookParametersDto bookParametersDto) throws SQLException {
+
+        List<Book> books;
+
+        if (bookParametersDto.getName() == null &&
+                bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() == null &&
+                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+
+            books = bookDao.getAllBooks();
+
+        } else if (bookParametersDto.getName() == null &&
+                bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() != null &&
+                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+
+            books = bookDao.getAllByPublisher(bookParametersDto.getPublisher());
+
+        } else if (bookParametersDto.getName() == null &&
+                bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() == null &&
+                (bookParametersDto.getYearPublishedFrom() != 0 && bookParametersDto.getYearPublishedTo() != 0)) {
+
+            books = bookDao.getAllByPublishYearPeriod(bookParametersDto.getYearPublishedFrom(),
+                    bookParametersDto.getYearPublishedTo());
+
+        } else if (bookParametersDto.getName() == null && bookParametersDto.getAuthor() != null
+                && bookParametersDto.getPublisher() == null && (bookParametersDto.getYearPublishedFrom() == 0 ||
+                bookParametersDto.getYearPublishedTo() == 0)) {
+
+            books = bookDao.getAllByAuthor(bookParametersDto.getPublisher());
+
+        } else if (bookParametersDto.getName() != null &&
+                bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() == null &&
+                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+
+            books = bookDao.getAllByBookName(bookParametersDto.getName());
+
+        } else if (bookParametersDto.getName() != null &&
+                bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() != null &&
+                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+
+            books = bookDao.getAllByBookNameAndPublisher(bookParametersDto.getName(), bookParametersDto.getPublisher());
+
+        } else if (bookParametersDto.getName() != null &&
+                bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() == null &&
+                (bookParametersDto.getYearPublishedFrom() != 0 && bookParametersDto.getYearPublishedTo() != 0)) {
+
+            books = bookDao.getAllByBookNameAndYearPeriod(bookParametersDto.getName(),
+                    bookParametersDto.getYearPublishedFrom(), bookParametersDto.getYearPublishedTo());
+
+        } else if (bookParametersDto.getName() != null &&
+                bookParametersDto.getAuthor() != null && bookParametersDto.getPublisher() == null &&
+                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+
+            books = bookDao.getAllByBookNameAndAuthor(bookParametersDto.getName(), bookParametersDto.getAuthor());
+
+        } else if (bookParametersDto.getName() != null &&
+                bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() != null &&
+                (bookParametersDto.getYearPublishedFrom() != 0 && bookParametersDto.getYearPublishedTo() != 0)) {
+
+            books = bookDao.getAllByBookNameAndPublisherAndYearPeriod(bookParametersDto.getName(),
+                    bookParametersDto.getPublisher(), bookParametersDto.getYearPublishedFrom(),
+                    bookParametersDto.getYearPublishedTo());
+
+        } else if (bookParametersDto.getName() != null &&
+                bookParametersDto.getAuthor() != null && bookParametersDto.getPublisher() != null &&
+                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+
+            books = bookDao.getAllByBookNameAndPublisherAndAuthor(bookParametersDto.getName(),
+                    bookParametersDto.getPublisher(), bookParametersDto.getAuthor());
+
+        } else if (bookParametersDto.getName() != null &&
+                bookParametersDto.getAuthor() != null && bookParametersDto.getPublisher() == null &&
+                (bookParametersDto.getYearPublishedFrom() != 0 && bookParametersDto.getYearPublishedTo() != 0)) {
+
+            books = bookDao.getAllByBookNameAndYearPeriodAndAuthor(bookParametersDto.getName(),
+                    bookParametersDto.getYearPublishedFrom(), bookParametersDto.getYearPublishedTo(),
+                    bookParametersDto.getAuthor());
+
+        } else if (bookParametersDto.getName() != null &&
+                bookParametersDto.getAuthor() != null && bookParametersDto.getPublisher() != null &&
+                (bookParametersDto.getYearPublishedFrom() != 0 && bookParametersDto.getYearPublishedTo() != 0)) {
+
+            books = bookDao.getAllByBookNameAndPublisherAndYearPeriodAndAuthor(bookParametersDto.getName(),
+                    bookParametersDto.getPublisher(), bookParametersDto.getYearPublishedFrom(),
+                    bookParametersDto.getYearPublishedTo(), bookParametersDto.getAuthor());
+
+        } else if (bookParametersDto.getName() == null &&
+                bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() != null &&
+                (bookParametersDto.getYearPublishedFrom() != 0 && bookParametersDto.getYearPublishedTo() != 0)) {
+
+            books = bookDao.getAllByPublisherAndYearPeriod(bookParametersDto.getPublisher(),
+                    bookParametersDto.getYearPublishedFrom(), bookParametersDto.getYearPublishedTo());
+
+        } else if (bookParametersDto.getName() == null &&
+                bookParametersDto.getAuthor() != null && bookParametersDto.getPublisher() != null &&
+                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+
+            books = bookDao.getAllByPublisherAndAuthor(bookParametersDto.getPublisher(), bookParametersDto.getAuthor());
+
+        } else if (bookParametersDto.getName() == null &&
+                bookParametersDto.getAuthor() != null && bookParametersDto.getPublisher() != null &&
+                (bookParametersDto.getYearPublishedFrom() != 0 && bookParametersDto.getYearPublishedTo() != 0)) {
+
+            books = bookDao.getAllByPublisherAndYearPeriodAndAuthor(bookParametersDto.getPublisher(),
+                    bookParametersDto.getYearPublishedFrom(), bookParametersDto.getYearPublishedTo(),
+                    bookParametersDto.getAuthor());
+
+        } else if (bookParametersDto.getName() == null &&
+                bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() == null &&
+                (bookParametersDto.getYearPublishedFrom() != 0 && bookParametersDto.getYearPublishedTo() != 0)) {
+
+            books = bookDao.getAllByYearPeriod(bookParametersDto.getYearPublishedFrom(),
+                    bookParametersDto.getYearPublishedTo());
+
+        } else if (bookParametersDto.getName() == null &&
+                bookParametersDto.getAuthor() != null && bookParametersDto.getPublisher() == null &&
+                (bookParametersDto.getYearPublishedFrom() != 0 && bookParametersDto.getYearPublishedTo() != 0)) {
+
+            books = bookDao.getAllByYearPeriodAndAuthor(bookParametersDto.getYearPublishedFrom(),
+                    bookParametersDto.getYearPublishedTo(), bookParametersDto.getAuthor());
+
+        } else {
+
+            return null;
+        }
+
+        return books;
+    }
+
 
 //    @Override
 //    public CustomResponseEntity<?> add(BookDto bookDto) throws SQLException {

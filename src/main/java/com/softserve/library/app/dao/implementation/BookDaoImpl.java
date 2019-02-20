@@ -7,6 +7,7 @@ import com.softserve.library.app.enums.tables.PublisherColumns;
 import com.softserve.library.app.model.Author;
 import com.softserve.library.app.model.Book;
 import com.softserve.library.app.model.Publisher;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -69,80 +70,116 @@ public class BookDaoImpl implements BookDao {
 
         return list;
     }
+
     private String wrapper(String parameter) {
 
         return "'" + parameter + "'";
     }
 
-    @Override public List<Book> getAllBooks() throws SQLException {
+    @Override
+    public List<Book> getAllBooks() throws SQLException {
 
         return getAllByOption("");
     }
-    @Override public List<Book> getAllByPublisher(String publisher) throws SQLException {
+
+    @Override
+    public List<Book> getAllByPublisher(String publisher) throws SQLException {
 
         return getAllByOption("WHERE publisher.name=" + wrapper(publisher));
     }
-    @Override public List<Book> getAllByPublishYearPeriod(int start, int end) throws SQLException {
+
+    @Override
+    public List<Book> getAllByPublishYearPeriod(int start, int end) throws SQLException {
 
         return getAllByOption("WHERE book.publish_year BETWEEN " + start + " AND " + end);
     }
-    @Override public List<Book> getAllByAuthor(String author) throws SQLException {
+
+    @Override
+    public List<Book> getAllByAuthor(String author) throws SQLException {
 
         return getAllByOption("WHERE author.full_name=" + wrapper(author));
     }
-    @Override public List<Book> getAllByBookName(String bookName) throws SQLException {
+
+    @Override
+    public List<Book> getAllByBookName(String bookName) throws SQLException {
 
         return getAllByOption("WHERE book.name=" + wrapper(bookName));
     }
-    @Override public List<Book> getAllByBookNameAndPublisher(String bookName, String publisher) throws SQLException {
+
+    @Override
+    public List<Book> getAllByBookNameAndPublisher(String bookName, String publisher) throws SQLException {
 
         return getAllByOption("WHERE book.name=" + wrapper(bookName) + " AND " + "publisher.name=" + wrapper(publisher));
     }
-    @Override public List<Book> getAllByBookNameAndYearPeriod(String bookName, int start, int end) throws SQLException {
+
+    @Override
+    public List<Book> getAllByBookNameAndYearPeriod(String bookName, int start, int end) throws SQLException {
 
         return getAllByOption("WHERE book.name=" + wrapper(bookName) + " AND book.publish_year BETWEEN " + start + " AND " + end);
     }
-    @Override public List<Book> getAllByBookNameAndAuthor(String bookName, String author) throws SQLException {
+
+    @Override
+    public List<Book> getAllByBookNameAndAuthor(String bookName, String author) throws SQLException {
 
         return getAllByOption("WHERE book.name=" + wrapper(bookName) + " AND author.full_name=" + wrapper(author));
     }
-    @Override public List<Book> getAllByBookNameAndPublisherAndYearPeriod(String bookName, String publisher, int start, int end) throws SQLException {
+
+    @Override
+    public List<Book> getAllByBookNameAndPublisherAndYearPeriod(String bookName, String publisher, int start, int end) throws SQLException {
 
         return getAllByOption("WHERE book.name=" + wrapper(bookName) + " AND publisher.name=" + wrapper(publisher) + " AND book.publish_year BETWEEN " + start + " AND " + end);
     }
-    @Override public List<Book> getAllByBookNameAndPublisherAndAuthor(String bookName, String publisher, String author) throws SQLException {
+
+    @Override
+    public List<Book> getAllByBookNameAndPublisherAndAuthor(String bookName, String publisher, String author) throws SQLException {
 
         return getAllByOption("WHERE book.name=" + wrapper(bookName) + " AND publisher.name=" + wrapper(publisher) + " AND author.full_name=" + wrapper(author));
     }
-    @Override public List<Book> getAllByBookNameAndYearPeriodAndAuthor(String bookName, int start, int end, String author) throws SQLException {
+
+    @Override
+    public List<Book> getAllByBookNameAndYearPeriodAndAuthor(String bookName, int start, int end, String author) throws SQLException {
 
         return getAllByOption("WHERE book.name=" + wrapper(bookName) + " AND author.name=" + wrapper(author) + " AND book.publish_year BETWEEN " + start + " AND " + end);
     }
-    @Override public List<Book> getAllByBookNameAndPublisherYearPeriodAndAuthor(String bookName, String publisher, int start, int end, String author) throws SQLException {
+
+    @Override
+    public List<Book> getAllByBookNameAndPublisherAndYearPeriodAndAuthor(String bookName, String publisher, int start, int end, String author) throws SQLException {
 
         return getAllByOption("WHERE book.name=" + wrapper(bookName) + " AND publisher.name=" + wrapper(publisher) + " AND author.full_name=" + wrapper(author) + " AND book.publish_year BETWEEN " + start + " AND " + end);
     }
-    @Override public List<Book> getAllByPublisherAndYearPeriod(String publisher, int start, int end) throws SQLException {
+
+    @Override
+    public List<Book> getAllByPublisherAndYearPeriod(String publisher, int start, int end) throws SQLException {
 
         return getAllByOption("WHERE publisher.name=" + wrapper(publisher) + " AND book.publish_year BETWEEN " + start + " AND " + end);
     }
-    @Override public List<Book> getAllByPublisherAndAuthor(String publisher, String author) throws SQLException {
+
+    @Override
+    public List<Book> getAllByPublisherAndAuthor(String publisher, String author) throws SQLException {
 
         return getAllByOption("WHERE publisher.name=" + wrapper(publisher) + " AND author.full_name=" + wrapper(author));
     }
-    @Override public List<Book> getAllByPublisherAndYearPeriodAndAuthor(String publisher, int start, int end, String author) throws SQLException {
+
+    @Override
+    public List<Book> getAllByPublisherAndYearPeriodAndAuthor(String publisher, int start, int end, String author) throws SQLException {
 
         return getAllByOption("WHERE publisher.name=" + wrapper(publisher) + " AND author.full_name=" + wrapper(author));
     }
-    @Override public List<Book> getAllByYearPeriod(int start, int end) throws SQLException {
+
+    @Override
+    public List<Book> getAllByYearPeriod(int start, int end) throws SQLException {
 
         return getAllByOption("WHERE book.publish_year BETWEEN " + start + " AND " + end);
     }
-    @Override public List<Book> getAllByYearPeriodAndAuthor(int start, int end, String author) throws SQLException {
+
+    @Override
+    public List<Book> getAllByYearPeriodAndAuthor(int start, int end, String author) throws SQLException {
 
         return getAllByOption("WHERE author.full_name=" + wrapper(author) + " AND book.publish_year BETWEEN " + start + " AND " + end);
     }
-    @Override public int addBookAndGetIdBack(Book book) throws SQLException {
+
+    @Override
+    public int addBookAndGetIdBack(Book book) throws SQLException {
 
         String sql = "INSERT INTO book (book.name, book.publish_year, book.publisher_id) VALUES(?,?,(SELECT id FROM publisher WHERE publisher.name=?))";
 
@@ -161,7 +198,9 @@ public class BookDaoImpl implements BookDao {
 
         return 0;
     }
-    @Override public Book get(int id) throws SQLException {
+
+    @Override
+    public Book get(int id) throws SQLException {
 
         List<Book> list = getAllByOption("WHERE book.id=" + id);
 
@@ -171,7 +210,9 @@ public class BookDaoImpl implements BookDao {
 
         return null;
     }
-    @Override public boolean add(Book book) throws SQLException {
+
+    @Override
+    public boolean add(Book book) throws SQLException {
 
         return addBookAndGetIdBack(book) >= 1;
     }
