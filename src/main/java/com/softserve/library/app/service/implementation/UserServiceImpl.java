@@ -54,17 +54,19 @@ public class UserServiceImpl implements UserService {
             return userDao.update(user);
         }
     }
+    @Override public User getByLogin(String login) throws SQLException {
+
+        if (login == null || login.isEmpty()) {
+            return null;
+        }
+
+        return userDao.getUserByLogin(login);
+    }
 
     @Override
     public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
 
         return userDao.getUserStatistic(id);
-    }
-
-    @Override
-    public User getByLogin(String login) throws SQLException {
-
-        return userDao.getUserByLogin(login);
     }
 
     @Override
