@@ -1,11 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: md1guy
-  Date: 19.02.2019
-  Time: 16:48
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -23,8 +15,6 @@
 
 <header>
     <nav>
-        <a href="#">Previous</a>
-        <a href="#">Next</a>
         <a href="#">Sign in</a>
         <a href="#">Sign out</a>
     </nav>
@@ -35,10 +25,22 @@
 <div class="login-page">
     <div class="form">
         <form class="register-form" method="POST" action="${pageContext.request.contextPath}/library/signup">
-            <input type="text" placeholder="name" name="fullName"/>
-            <input type="date" placeholder="birth date" name="birthDate"/>
-            <input type="text" placeholder="username" name="login"/>
-            <input id="passwordBox" type="password" placeholder="password"/>
+            <div class="one_line">
+                <label for="fullName">Full name</label>
+                <input type="text" placeholder="name" id="fullName"/>
+            </div>
+            <div class="one_line">
+                <label for="birthDate">Birth date</label>
+                <input type="date" placeholder="birth date" id="birthDate"/>
+            </div>
+            <div class="one_line">
+                <label for="login">Login</label>
+                <input type="text" placeholder="username" id="login"/>
+            </div>
+            <div class="one_line">
+                <label for="passwordBox">Password</label>
+                <input id="passwordBox" type="password" placeholder="password"/>
+            </div>
             <input id="data-hashedPassword" name="data-hashedPassword" type="hidden" value="">
             <button id="signupButton">create</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>
