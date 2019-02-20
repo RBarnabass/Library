@@ -18,31 +18,41 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao = new UserDaoImpl();
 
-    @Override
-    public User get(int id) throws SQLException {
+    @Override public User get(int id) throws SQLException {
+
+        if (id < 1) {
+            return null;
+        }
 
         return userDao.get(id);
     }
+    @Override public boolean add(User user) throws SQLException, NullPointerException {
 
-    @Override
-    public void add(User user) throws SQLException, NullPointerException {
+        if (user.getFullName() == null || user.getBirthDate() == null || user.getLogin() == null || user.getPassword() == null || user.getRole() == null || user.getRole().getType() == null) {
+            return false;
+        }
 
+        if (user.getFullName().isEmpty() || user.getLogin().isEmpty() || user.getPassword().isEmpty() || user.getRole().getType().isEmpty()) {
+            return false;
+        }
 
-        userDao.add(user);
+        return userDao.add(user);
     }
+    @Override public boolean delete(int id) throws SQLException {
 
-    @Override
-    public boolean delete(int id) throws SQLException {
+        if (id < 1) {
+            return false;
+        }
 
-        // todo: realize it
-        return false;
+        return userDao.delete(id);
     }
+    @Override public boolean update(User user) throws SQLException {
 
-    @Override
-    public boolean update(User user) throws SQLException {
-
-        // todo: realize it
-        return false;
+        if (user.getId() < 1) {
+            return false;
+        } else {
+            return userDao.update(user);
+        }
     }
 
     @Override
@@ -87,62 +97,6 @@ public class UserServiceImpl implements UserService {
         return userDao.getAllDebtors();
     }
 
-//    @Override
-//    public CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException {
-//        return userDao.add(createUserDto);
-//    }
-
-//    @Override
-//    public CustomResponseEntity<?> checkLoginPasswordEquality(String login, String password) {
-//
-//        CustomResponseEntity<?> getByLoginEntity = getByLogin(login);
-//
-//        if (getByLoginEntity.getHttpStatus().isError()) {
-//
-//            return getByLoginEntity;
-//        }
-//
-//        FullUserDto responseBody = (FullUserDto) getByLoginEntity.getResponseBody();
-//
-//        if (!responseBody.getPassword().equals(password)) {
-//
-//            ErrorDto errorDto = new ErrorDto();
-//            errorDto.setErrorMessage("Password and login are not matching.");
-//
-//            return new CustomResponseEntity<>(errorDto, HttpStatus.FORBIDDEN);
-//        }
-//
-//        SuccessfulLoginUserDto successfulLoginUserDto = new SuccessfulLoginUserDto();
-//        successfulLoginUserDto.setUserId(responseBody.getId());
-//        successfulLoginUserDto.setRole(responseBody.isAdmin());
-//
-//        return new CustomResponseEntity<>(successfulLoginUserDto, HttpStatus.OK);
-//    }
-
-//    @Override
-//    public CustomResponseEntity<?> getByLogin(String login) {
-//
-//        FullUserDto fullUserDto;
-//
-//        try {
-//
-//            fullUserDto = userDao.getByLogin(login);
-//        } catch (SQLException e) {
-//
-//            ErrorDto errorDto = new ErrorDto();
-//            errorDto.setErrorMessage("Internal server error during retrieving user from database.");
-//
-//            return new CustomResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
-//        } catch (NullPointerException e) {
-//
-//            ErrorDto errorDto = new ErrorDto();
-//            errorDto.setErrorMessage("User with such login was not found.");
-//
-//            return new CustomResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
-//        }
-//
-//        return new CustomResponseEntity<>(fullUserDto, HttpStatus.OK);
-//    }
 }
 
 
