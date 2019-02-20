@@ -9,7 +9,9 @@ import com.softserve.library.app.dto.FullUserDto;
 import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.enums.tables.Tables;
 import com.softserve.library.app.http.CustomResponseEntity;
+import com.softserve.library.app.model.Role;
 import com.softserve.library.app.model.User;
+import com.softserve.library.app.model.UserEntity;
 
 import javax.jws.soap.SOAPBinding;
 import java.sql.Date;
@@ -29,8 +31,53 @@ public class UserDaoImpl implements UserDao {
     private final UserStatementExecutor userStatementExecutor = new UserStatementExecutor();
     private boolean isSuccess;
 
-    @Override
-    public User get(int id) throws SQLException {
+    public UserEntity getUserEntity(int id) throws SQLException {
+
+        return getByOption("user.id=" + id);
+    }
+    public UserEntity getUserEntityByLogin(String login) throws SQLException {
+
+        return getByOption("user.login='" + login + "'");
+    }
+    public boolean addUserEntity(UserEntity userEntity) throws SQLException {
+
+        String sql = "INSERT INTO user (user.full_name, user.birth_date, user.registration_date, user.login, user.password, user.role_id)" +
+                " VALUES(?,?, CURDATE(), ?,?,(SELECT id FROM role WHERE role.type=?))";
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.setString(1, userEntity.getFullName());
+        preparedStatement.setDate(2, Date.valueOf(userEntity.getBirthDate()));
+        preparedStatement.setString(3, userEntity.getLogin());
+        preparedStatement.setString(4, userEntity.getPassword());
+        preparedStatement.setString(5, userEntity.getRole().getType());
+        isSuccess = preparedStatement.executeUpdate() > 0;
+        return isSuccess;
+    }
+    public boolean updateUserEntity(UserEntity userEntity) throws SQLException {
+
+        String sql = "UPDATE user SET user.full_name=?, user.birth_date=?, user.login=?, user.password=?, user.role_id=(SELECT role.id FROM role WHERE role.type=?) WHERE user.id=" + userEntity.getId();
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.setString(1, userEntity.getFullName());
+        preparedStatement.setDate(2, Date.valueOf(userEntity.getBirthDate()));
+        preparedStatement.setString(3, userEntity.getLogin());
+        preparedStatement.setString(4, userEntity.getPassword());
+        preparedStatement.setString(5, userEntity.getRole().getType());
+        isSuccess = preparedStatement.executeUpdate() > 0;
+        return isSuccess;
+    }
+    public boolean deleteUserEntity(int id) throws SQLException {
+
+        String sql = "DELETE FROM user WHERE user.id=" + id;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        isSuccess = preparedStatement.executeUpdate() > 0;
+        return isSuccess;
+    }
+
+
+
+    @Override public User get(int id) throws SQLException {
 
         String sql = "SELECT\n" +
                 "  u.id                AS id,\n" +
@@ -65,7 +112,6 @@ public class UserDaoImpl implements UserDao {
 
         return user;
     }
-
     @Override public boolean add(User user) throws SQLException {
 
         String sql = "INSERT INTO " + Tables.USER.getTable()
@@ -84,11 +130,11 @@ public class UserDaoImpl implements UserDao {
         return isSuccess;
     }
 
-//    @Override public User get(int id) throws SQLException {
+//    @Override public User getAllByOption(int id) throws SQLException {
 //
-//        List<User> list = userStatementExecutor.get(id);
+//        List<User> list = userStatementExecutor.getAllByOption(id);
 //
-//        return list != null && !list.isEmpty() ? list.get(0) : null;
+//        return list != null && !list.isEmpty() ? list.getAllByOption(0) : null;
 //    }
 
     @Override
@@ -186,5 +232,35 @@ public class UserDaoImpl implements UserDao {
 
         // todo: realize it
         return false;
+    }
+
+    private UserEntity getByOption(String option) throws SQLException {
+
+        String sql = "SELECT * FROM user JOIN role ON user.role_id = role.id WHERE " + option;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.execute();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        UserEntity userEntity = new UserEntity();
+        Role role = new Role();
+
+        while (resultSet.next()) {
+
+            userEntity.setId(resultSet.getInt("user.id"));
+            userEntity.setFullName(resultSet.getString("user.full_name"));
+            userEntity.setBirthDate(LocalDate.parse(resultSet.getDate("user.birth_date").toString()));
+            userEntity.setRegistrationDate(LocalDate.parse(resultSet.getDate("user.registration_date").toString()));
+            userEntity.setLogin(resultSet.getString("user.login"));
+            userEntity.setPassword(resultSet.getString("user.password"));
+            role.setId(resultSet.getInt("role.id"));
+            role.setType(resultSet.getString("role.type"));
+            userEntity.setRole(role);
+        }
+
+        resultSet.close();
+        preparedStatement.close();
+
+        return userEntity;
     }
 }
