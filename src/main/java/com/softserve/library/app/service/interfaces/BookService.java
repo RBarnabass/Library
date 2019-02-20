@@ -1,6 +1,7 @@
 package com.softserve.library.app.service.interfaces;
 
 import com.softserve.library.app.dto.BookDto;
+import com.softserve.library.app.dto.BookParametersDto;
 import com.softserve.library.app.dto.CopyDto;
 import com.softserve.library.app.model.Book;
 
@@ -12,6 +13,8 @@ import java.util.List;
  * @author Roman Berezhnov
  */
 public interface BookService extends SimpleCrudService<Book> {
+
+    List<Book> getAllByParameters(BookParametersDto bookParametersDto) throws SQLException;
 
 //    List<BookDto> getAll() throws SQLException;
 
