@@ -1,10 +1,9 @@
 package com.softserve.library.app.service.interfaces;
 
-import com.softserve.library.app.dto.CreateUserDto;
 import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.UserStatisticDto;
-import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,6 +15,8 @@ import java.util.List;
 public interface UserService extends SimpleCrudService<User> {
 
     List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
+
+    User getUserByLoginAndPassword(String login, String password);
 
     User getByLogin(String login) throws SQLException;
 
