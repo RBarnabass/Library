@@ -34,66 +34,6 @@ public class NewBookServlet extends HttpServlet {
         final String coAuthor = req.getParameter("coAuthor");
         final String bookQuantity = req.getParameter("bookQuantity");
 
-        if (bookId == null || bookId.isEmpty()) {
-
-            if (bookName == null || bookName.isEmpty() || publishYear == null || publishYear.isEmpty()) {
-                // todo: redirect !!!
-            }
-
-            // todo: bookDto add book parameters
-
-        } else {
-
-            // todo: cast to int !!!
-            // todo: bookDto add book id
-        }
-
-        if (publisherId == null || publisherId.isEmpty()) {
-
-            if (publisherName == null || publisherName.isEmpty()) {
-                // todo: redirect !!!
-            }
-
-            // todo: bookDto add publisher parameters
-
-        } else {
-
-            // todo: cast to int !!!
-            // todo: bookDto add publisher id
-        }
-
-        if (primaryAuthorId == null || primaryAuthorId.isEmpty()) {
-
-            if (primaryAuthor == null || primaryAuthor.isEmpty()) {
-                // todo: redirect !!!
-            }
-
-            // todo: bookDto add primary author parameters
-
-        } else {
-
-            // todo: cast to int !!!
-            // todo: bookDto add primary author id
-        }
-
-        if (coAuthorId == null || coAuthorId.isEmpty()) {
-
-            if (coAuthor != null && !coAuthor.isEmpty()) {
-                // todo: bookDto add co author parameters
-            }
-        } else {
-
-            // todo: cast to int !!!
-            // todo: bookDto add co author id
-        }
-
-        if (bookQuantity == null || bookQuantity.isEmpty()) {
-            // todo: redirect !!!
-        } else {
-            // todo: cast to int
-        }
-
-
         // todo: call service and give him a new book !!!
 
     }

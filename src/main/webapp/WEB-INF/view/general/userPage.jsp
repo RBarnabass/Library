@@ -22,7 +22,7 @@
 <div class="user_info">
     <div class="inline-block">
         <div class="image">
-            <img src="avatar.jpg" alt="avatar img">
+            <img src="<c:url value='/resources/image/avatar.jpg' />" alt="avatar img">
         </div>
     </div>
 

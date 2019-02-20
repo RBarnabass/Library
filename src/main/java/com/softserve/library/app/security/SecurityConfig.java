@@ -31,6 +31,9 @@ class SecurityConfig {
         final List<String> urlPatternsForUser = new ArrayList<>();
         urlPatternsForUser.add(UrlPatterns.BOOK_LIST);
         urlPatternsForUser.add(UrlPatterns.BOOK_ORDER);
+        urlPatternsForUser.add(UrlPatterns.BOOK_SEARCH);
+        urlPatternsForUser.add(UrlPatterns.BOOK_PAGE);
+        urlPatternsForUser.add(UrlPatterns.USER_PAGE);
         mapConfig.put(ROLE_USER, urlPatternsForUser);
 
         // LIBRARIAN
@@ -42,9 +45,9 @@ class SecurityConfig {
         // Common
         final List<String> urlPatternsForGuest = new ArrayList<>();
         urlPatternsForGuest.add(UrlPatterns.INFO);
-        //urlPatternsForGuest.add(UrlPatterns.LOGIN);
         urlPatternsForGuest.add(UrlPatterns.SIGNIN);
         urlPatternsForGuest.add(UrlPatterns.LOGOUT);
+        urlPatternsForGuest.add(UrlPatterns.SIGNUP);
         mapConfig.put(ROLE_GUEST, urlPatternsForGuest);
     }
 

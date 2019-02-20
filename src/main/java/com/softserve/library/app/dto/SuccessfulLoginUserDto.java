@@ -17,7 +17,7 @@ public class SuccessfulLoginUserDto {
         return isAdmin;
     }
 
-    public void setIsAdmin(boolean admin) {
+    public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
 }

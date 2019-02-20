@@ -1,6 +1,6 @@
-<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,7 +23,7 @@
 <div class="book_info">
     <div class="inline-block">
         <div class="image">
-            <img src="<c:url value='/resources/book.jpg' /> " alt="book image">
+            <img src="<c:url value='/resources/image/book.jpg' /> " alt="book image">
         </div>
     </div>
 
