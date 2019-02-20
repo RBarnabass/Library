@@ -15,7 +15,7 @@ public interface UserService extends SimpleCrudService<User> {
 
     List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
 
-    User getUserByLoginAndPassword(String login, String password);
+    User getUserByLoginAndPassword(String login, String password) throws SQLException;
 
     User getByLogin(String login) throws SQLException;
 
@@ -28,4 +28,6 @@ public interface UserService extends SimpleCrudService<User> {
     int getUsingLibraryTimeInDays(int userId) throws SQLException;
 
     List<DebtorDto> getAllDebtors() throws SQLException;
+
+    boolean compareHashes(String login, String serverSalt, String clientSalt, String clientHashedData) throws SQLException, NullPointerException;
 }

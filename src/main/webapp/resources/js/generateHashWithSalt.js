@@ -8,7 +8,7 @@ function generateHashWithSalt(password, serverSalt) {
     const saltedPasswordHash = passwordHash + serverSalt + clientSalt;
 
     const hashedSaltedPasswordHashBits = sjcl.hash.sha256.hash(saltedPasswordHash);
-    const finalHash = sjcl.codec.hex.fromBits(hashedSaltedPasswordHashBits)
+    const finalHash = sjcl.codec.hex.fromBits(hashedSaltedPasswordHashBits);
 
     return {
         "hash": finalHash,

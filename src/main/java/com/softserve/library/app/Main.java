@@ -21,6 +21,8 @@ public class Main {
 
         ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
 
+        serviceFactory.getUserService().getByLogin("login");
+        System.out.println();
 
         /*List<BookDto> list = serviceFactory.getBookService().getAll();
         for (BookDto bookDto : list) {

@@ -34,16 +34,18 @@ public class UserDaoImpl implements UserDao {
 
         return null;
     }
-    public User getUserByLogin(String login) throws SQLException {
+
+    public User getUserByLogin(String login) throws SQLException, NullPointerException {
 
         List<User> list = getByOption("user.login='" + login + "'");
 
-        if (list != null) {
+        if (list.size() > 0) {
             return list.get(0);
+        } else {
+            throw new NullPointerException();
         }
-
-        return null;
     }
+
     public boolean add(User user) throws SQLException {
 
         String sql = "INSERT INTO user (user.full_name, user.birth_date, user.registration_date, user.login, user.password, user.role_id)" +
@@ -126,7 +128,6 @@ public class UserDaoImpl implements UserDao {
 
         return null;
     }
-
 
     @Override
     public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {

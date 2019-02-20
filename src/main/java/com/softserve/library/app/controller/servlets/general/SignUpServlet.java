@@ -1,7 +1,6 @@
 package com.softserve.library.app.controller.servlets.general;
 
 import com.softserve.library.app.constant.UrlPatterns;
-import com.softserve.library.app.enums.UserRole;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.factory.ServiceFactory;
 import com.softserve.library.app.service.factory.ServiceFactoryImpl;
