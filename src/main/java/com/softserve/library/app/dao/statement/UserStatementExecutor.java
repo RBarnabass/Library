@@ -36,8 +36,8 @@ public class UserStatementExecutor {
             user = new User();
             user.setId(set.getInt(UserColumns.ID.getColumn()));
             user.setFullName(set.getString(UserColumns.FULL_NAME.getColumn()));
-            user.setBirthDate(set.getDate(UserColumns.BIRTH_DATE.getColumn()));
-            user.setRegDate(set.getDate(UserColumns.REGISTRATION_DATE.getColumn()));
+            //user.setBirthDate(set.getDate(UserColumns.BIRTH_DATE.getColumn()));
+           // user.setRegDate(set.getDate(UserColumns.REGISTRATION_DATE.getColumn()));
 
             list.add(user);
         }
@@ -336,7 +336,8 @@ public class UserStatementExecutor {
             resultSet.next();
         }
 
-        return fullUserDto;
+        //return fullUserDto;
+        return null;
     }
 }
 
