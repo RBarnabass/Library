@@ -1,12 +1,10 @@
 package com.softserve.library.app.dao.interfaces;
 
-import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.CreateUserDto;
-import com.softserve.library.app.dto.FullUserDto;
+import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
-
 import java.sql.SQLException;
 import java.util.List;
 
