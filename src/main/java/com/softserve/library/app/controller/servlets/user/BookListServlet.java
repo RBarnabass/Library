@@ -30,11 +30,11 @@ public class BookListServlet extends HttpServlet {
         ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
         List<BookDto> all = null;
 
-        try {
-            all = serviceFactory.getBookService().getAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            all = serviceFactory.getBookService().getAll();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
         req.getSession().setAttribute("bookList", all);
 

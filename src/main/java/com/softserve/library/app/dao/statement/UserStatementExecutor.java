@@ -23,31 +23,6 @@ import java.util.List;
  */
 public class UserStatementExecutor {
 
-    public List<User> get(int id) throws SQLException {
-
-        List<User> list = new ArrayList<>();
-
-        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(UserSQL.SELECT.getSQL());
-        ResultSet set = preparedStatement.getResultSet();
-        User user;
-
-        while (set.next()) {
-
-            user = new User();
-            user.setId(set.getInt(UserColumns.ID.getColumn()));
-            user.setFullName(set.getString(UserColumns.FULL_NAME.getColumn()));
-            user.setBirthDate(set.getDate(UserColumns.BIRTH_DATE.getColumn()));
-            user.setRegDate(set.getDate(UserColumns.REGISTRATION_DATE.getColumn()));
-
-            list.add(user);
-        }
-
-        set.close();
-        preparedStatement.close();
-
-        return list;
-    }
-
     private boolean isSuccess;
     // TODO: refactor or so
     // Task 3 - the usage period is repeated in every line!
@@ -297,47 +272,47 @@ public class UserStatementExecutor {
         return new CustomResponseEntity<>(createUserDto, HttpStatus.OK);
     }
 
-    public User getUserByLogin(String login) throws SQLException, NullPointerException {
-
-        String sql = "SELECT\n" +
-                "  u.id                AS id,\n" +
-                "  u.full_name         AS fullName,\n" +
-                "  u.birth_date        as birthDate,\n" +
-                "  u.registration_date AS regDate,\n" +
-                "  u.login             AS login,\n" +
-                "  u.password          AS password,\n" +
-                "  u.role_id           AS roleId\n" +
-                "FROM user AS u\n" +
-                "WHERE u.login = '" + login + "'";
-
-        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
-        preparedStatement.executeQuery();
-        ResultSet resultSet = preparedStatement.getResultSet();
-
-        FullUserDto fullUserDto = new FullUserDto();
-
-        if (!resultSet.next()) {
-
-            throw new NullPointerException();
-        }
-
-        boolean isAdmin = resultSet.getInt("roleId") == 2;
-
-        while(!resultSet.isAfterLast()) {
-
-            fullUserDto.setId(resultSet.getInt("id"));
-            fullUserDto.setFullName(resultSet.getString("fullName"));
-            fullUserDto.setBirthDate(LocalDate.parse(resultSet.getDate("birthDate").toString()));
-            fullUserDto.setRegDate(LocalDate.parse(resultSet.getDate("regDate").toString()));
-            fullUserDto.setLogin(resultSet.getString("login"));
-            fullUserDto.setPassword(resultSet.getString("password"));
-            fullUserDto.setIsAdmin(isAdmin);
-
-            resultSet.next();
-        }
-
-        return fullUserDto;
-    }
+//    public User getUserByLogin(String login) throws SQLException, NullPointerException {
+//
+//        String sql = "SELECT\n" +
+//                "  u.id                AS id,\n" +
+//                "  u.full_name         AS fullName,\n" +
+//                "  u.birth_date        as birthDate,\n" +
+//                "  u.registration_date AS regDate,\n" +
+//                "  u.login             AS login,\n" +
+//                "  u.password          AS password,\n" +
+//                "  u.role_id           AS roleId\n" +
+//                "FROM user AS u\n" +
+//                "WHERE u.login = '" + login + "'";
+//
+//        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+//        preparedStatement.executeQuery();
+//        ResultSet resultSet = preparedStatement.getResultSet();
+//
+//        FullUserDto fullUserDto = new FullUserDto();
+//
+//        if (!resultSet.next()) {
+//
+//            throw new NullPointerException();
+//        }
+//
+//        boolean isAdmin = resultSet.getInt("roleId") == 2;
+//
+//        while(!resultSet.isAfterLast()) {
+//
+//            fullUserDto.setId(resultSet.getInt("id"));
+//            fullUserDto.setFullName(resultSet.getString("fullName"));
+//            fullUserDto.setBirthDate(LocalDate.parse(resultSet.getDate("birthDate").toString()));
+//            fullUserDto.setRegDate(LocalDate.parse(resultSet.getDate("regDate").toString()));
+//            fullUserDto.setLogin(resultSet.getString("login"));
+//            fullUserDto.setPassword(resultSet.getString("password"));
+//            fullUserDto.setIsAdmin(isAdmin);
+//
+//            resultSet.next();
+//        }
+//
+//        return fullUserDto;
+//    }
 }
 
 
