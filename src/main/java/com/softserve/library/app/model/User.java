@@ -3,7 +3,7 @@ package com.softserve.library.app.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class UserEntity {
+public class User {
 
     private int id;
     private String fullName;
@@ -13,15 +13,15 @@ public class UserEntity {
     private String password;
     private Role role;
 
-    public UserEntity() { }
-    public UserEntity(String fullName, LocalDate birthDate, LocalDate registrationDate, String login, String password) {
+    public User() { }
+    public User(String fullName, LocalDate birthDate, LocalDate registrationDate, String login, String password) {
         this.fullName = fullName;
         this.birthDate = birthDate;
         this.registrationDate = registrationDate;
         this.login = login;
         this.password = password;
     }
-    public UserEntity(String fullName, LocalDate birthDate, LocalDate registrationDate, String login, String password, Role role) {
+    public User(String fullName, LocalDate birthDate, LocalDate registrationDate, String login, String password, Role role) {
         this.fullName = fullName;
         this.birthDate = birthDate;
         this.registrationDate = registrationDate;
@@ -29,7 +29,7 @@ public class UserEntity {
         this.password = password;
         this.role = role;
     }
-    public UserEntity(int id, String fullName, LocalDate birthDate, LocalDate registrationDate, String login, String password, Role role) {
+    public User(int id, String fullName, LocalDate birthDate, LocalDate registrationDate, String login, String password, Role role) {
         this.id = id;
         this.fullName = fullName;
         this.birthDate = birthDate;
@@ -85,7 +85,7 @@ public class UserEntity {
     @Override public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserEntity that = (UserEntity) o;
+        User that = (User) o;
         return id == that.id &&
                 Objects.equals(fullName, that.fullName) &&
                 Objects.equals(birthDate, that.birthDate) &&
@@ -98,7 +98,7 @@ public class UserEntity {
         return Objects.hash(id, fullName, birthDate, registrationDate, login, password, role);
     }
     @Override public String toString() {
-        return "UserEntity{" +
+        return "User{" +
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", birthDate=" + birthDate +
