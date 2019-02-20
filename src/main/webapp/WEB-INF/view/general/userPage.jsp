@@ -12,7 +12,7 @@
 <header>
     <nav>
         <a href="#">Sign in</a>
-        <a href="#">Sign out</a>
+        <a href="${pageContext.request.contextPath}/library/logout">Sign out</a>
     </nav>
     <h1>Library</h1>
 </header>
