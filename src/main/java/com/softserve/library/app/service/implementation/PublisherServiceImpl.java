@@ -23,8 +23,9 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
-    public void add(Publisher publisher) throws SQLException {
+    public boolean add(Publisher publisher) throws SQLException {
 
+        return false;
     }
 
 //    @Override
