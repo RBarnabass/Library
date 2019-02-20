@@ -24,8 +24,9 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void add(Author author) throws SQLException {
+    public boolean add(Author author) throws SQLException {
 
+        return false;
     }
 
 //    @Override
