@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-//@WebFilter(UrlPatterns.ABSOLUTE)
+@WebFilter(UrlPatterns.ABSOLUTE)
 public class SecurityFilter implements Filter {
 
     @Override
@@ -35,7 +35,7 @@ public class SecurityFilter implements Filter {
         String role = null;
 
         if (servletPath.equals(UrlPatterns.INFO)
-                || servletPath.equals(UrlPatterns.LOGIN)
+                || servletPath.equals(UrlPatterns.SIGNIN)
                 || servletPath.equals(UrlPatterns.LOGOUT)) {
 
             chain.doFilter(request, response);
@@ -54,7 +54,7 @@ public class SecurityFilter implements Filter {
 
                 //todo: here can be saved redirect id and after success login forward to requested page !
                 System.out.println(" - - - Filter _ security page without login - redirected ! - - - ");
-                response.sendRedirect(UrlPatterns.LOGIN);
+                response.sendRedirect(UrlPatterns.SIGNIN);
                 return;
             }
 
