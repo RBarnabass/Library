@@ -47,7 +47,7 @@ public class SecurityFilter implements Filter {
 
         if (session != null) {
 
-            System.out.println(" - - - Filter _ session _ get id - " + session.getId());
+            System.out.println(" - - - Filter _ session _ getAllByOption id - " + session.getId());
             role = SecurityUtils.getRoleOfLoggedUser(session);
             System.out.println("Session login - " + session.getAttribute("login"));
             System.out.println("Session pass - " + session.getAttribute("password"));
