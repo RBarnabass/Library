@@ -47,8 +47,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void add(Book book) throws SQLException {
+    public boolean add(Book book) throws SQLException {
 
+        return false;
     }
 
 //    @Override

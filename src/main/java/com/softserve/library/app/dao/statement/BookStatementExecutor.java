@@ -7,6 +7,7 @@ import com.softserve.library.app.enums.sql.BookSQL;
 import com.softserve.library.app.enums.tables.AuthorColumns;
 import com.softserve.library.app.enums.tables.BookColumns;
 import com.softserve.library.app.enums.tables.PublisherColumns;
+import com.softserve.library.app.model.Author;
 import com.softserve.library.app.model.Book;
 import com.softserve.library.app.model.Publisher;
 
@@ -25,86 +26,7 @@ public class BookStatementExecutor {
 
     private boolean isSuccess;
 
-    // Simple crud
-    public List<Book> get(int id) throws SQLException {
-
-        List<Book> list = new ArrayList<>();
-
-        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(BookSQL.SELECT.getSQL() + scopesWrapper(id));
-        preparedStatement.executeQuery();
-        ResultSet set = preparedStatement.getResultSet();
-
-        Book book;
-        Publisher publisher;
-
-        while (set.next()) {
-
-            book = new Book();
-            book.setId(set.getInt(BookColumns.ID.getColumn()));
-            book.setName(set.getString(BookColumns.NAME.getColumn()));
-            book.setPublishYear(set.getInt(BookColumns.PUBLISH_YEAR.getColumn()));
-
-            publisher = new Publisher();
-            publisher.setId(set.getInt(BookColumns.PUBLISHER_ID.getColumn()));
-            publisher.setName(set.getString(PublisherColumns.NAME.getColumn()));
-
-            book.setPublisher(publisher);
-            list.add(book);
-        }
-
-        set.close();
-        preparedStatement.close();
-
-        return list;
-    }
-
-    // Book list for page
-    public List<BookDto> getAll() throws SQLException {
-
-        LinkedList<BookDto> list = new LinkedList<>();
-
-        // todo: remove sql to constant or enum !
-        String sql = "SELECT book.id, book.name, book.publish_year, publisher.name, author.full_name FROM book\n" +
-                "  JOIN publisher\n" +
-                "    ON book.publisher_id = publisher.id\n" +
-                "      JOIN book_authors\n" +
-                "        ON book.id = book_authors.book_id\n" +
-                "          JOIN author\n" +
-                "            ON book_authors.author_id = author.id\n" +
-                "               ORDER BY book.name";
-
-        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
-        preparedStatement.executeQuery();
-        ResultSet set = preparedStatement.getResultSet();
-
-        BookDto bookDto;
-
-        while (set.next()) {
-
-            bookDto = new BookDto();
-            bookDto.setBookId(set.getInt(BookColumns.ID.getColumn()));
-            bookDto.setBookName(set.getString(BookColumns.NAME.getColumn()));
-            bookDto.setPublishYear(set.getInt(BookColumns.PUBLISH_YEAR.getColumn()));
-            bookDto.setPublisherName(set.getString(PublisherColumns.NAME.getColumn()));
-            bookDto.setPrimaryAuthor(set.getString(AuthorColumns.FULL_NAME.getColumn()));
-
-            if (list.contains(bookDto)) {
-
-                BookDto book = list.getLast();
-                book.setCoAuthor(set.getString(AuthorColumns.FULL_NAME.getColumn()));
-
-            } else {
-                list.add(bookDto);
-            }
-        }
-
-        set.close();
-        preparedStatement.close();
-
-        return list;
-    }
-
-    // Task 1 - id we will get from book list on the client side (some button by each book)
+    // Task 1 - id we will getAllByOption from book list on the client side (some button by each book)
     public int getAllAvailable(int id) throws SQLException {
 
         List<Boolean> list = new ArrayList<>();

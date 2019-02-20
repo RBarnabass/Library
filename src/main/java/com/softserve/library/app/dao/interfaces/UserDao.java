@@ -1,12 +1,8 @@
 package com.softserve.library.app.dao.interfaces;
 
-import com.softserve.library.app.dto.DebtorDto;
-import com.softserve.library.app.dto.CreateUserDto;
-import com.softserve.library.app.dto.FullUserDto;
 import com.softserve.library.app.dto.UserStatisticDto;
-import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.User;
-
+import com.softserve.library.app.dto.DebtorDto;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,8 +10,6 @@ import java.util.List;
  * @author Roman Berezhnov
  */
 public interface UserDao extends SimpleCrudDao<User> {
-
-    User getUserByLogin(String login) throws SQLException;
 
     List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
 
@@ -25,11 +19,16 @@ public interface UserDao extends SimpleCrudDao<User> {
 
     int getAverageUserAgeByAuthor(String authorFullName) throws SQLException;
 
-    public int getUsingLibraryTimeInDays(int userId) throws SQLException;
+    int getUsingLibraryTimeInDays(int userId) throws SQLException;
 
     List<DebtorDto> getAllDebtors() throws SQLException;
 
-//    CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException;
+    List<User> getByOption(String option) throws SQLException;
 
-//    FullUserDto getByLogin(String login) throws SQLException, NullPointerException;
+    List<User> getAllUsersByName(String name) throws SQLException;
+
+    User getUserByLogin(String login) throws SQLException;
+
+    User getUserByNameAndLogin(String name, String login) throws SQLException;
+
 }

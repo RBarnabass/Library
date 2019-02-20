@@ -1,11 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: md1guy
-  Date: 19.02.2019
-  Time: 16:48
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -23,8 +15,6 @@
 
 <header>
     <nav>
-        <a href="#">Previous</a>
-        <a href="#">Next</a>
         <a href="#">Sign in</a>
         <a href="#">Sign out</a>
     </nav>
@@ -34,11 +24,23 @@
 <body>
 <div class="login-page">
     <div class="form">
-        <form class="register-form" onsubmit="return validate()" method="POST" action="${pageContext.request.contextPath}/library/signup">
-            <input id="nameField" type="text" placeholder="name" name="fullName"/>
-            <input id="birthDateField" type="date" placeholder="birth date" name="birthDate"/>
-            <input id="loginField" type="text" placeholder="username" name="login"/>
-            <input id="passwordField" type="password" placeholder="password"/>
+        <form class="register-form" method="POST" action="${pageContext.request.contextPath}/library/signup">
+            <div class="one_line">
+                <label for="nameField">Full name</label>
+                <input id="nameField" type="text" placeholder="name" name="fullName"/>
+            </div>
+            <div class="one_line">
+                <label for="birthDateField">Birth date</label>
+                <input id="birthDateField" type="date" placeholder="birth date" name="birthDate"/>
+            </div>
+            <div class="one_line">
+                <label for="loginField">Login</label>
+                <input id="loginField" type="text" placeholder="username" name="login"/>
+            </div>
+            <div class="one_line">
+                <label for="passwordField">Password</label>
+                <input id="passwordField" type="password" placeholder="password"/>
+            </div>
             <input id="data-hashedPassword" name="data-hashedPassword" type="hidden" value="">
             <button id="signupButton">create</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>

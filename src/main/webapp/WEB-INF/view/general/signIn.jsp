@@ -27,8 +27,14 @@
 <div class="login-page">
     <div class="form">
         <form class="login-form" method="POST" action="${pageContext.request.contextPath}/library/signin">
-            <input type="text" placeholder="username" name="login" id="loginText"/>
-            <input type="password" placeholder="password" id="passwordText"/>
+            <div class="one_line">
+                <label for="username">Username</label>
+                <input type="text" placeholder="username" id="username"/>
+            </div>
+            <div class="one_line">
+                <label for="password">Password</label>
+                <input type="password" placeholder="password" id="password"/>
+            </div>
             <input id="data-clientSalt" name="data-clientSalt" type="hidden" value="">
             <input id="data-hashResult" name="data-hashResult" type="hidden" value="">
             <button id="loginButton">log in</button>
