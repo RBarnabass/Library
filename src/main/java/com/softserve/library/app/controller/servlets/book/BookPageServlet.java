@@ -1,5 +1,6 @@
 package com.softserve.library.app.controller.servlets.book;
 
+import com.softserve.library.app.constant.UrlPatterns;
 import com.softserve.library.app.model.Author;
 import com.softserve.library.app.model.Book;
 import com.softserve.library.app.model.Publisher;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/library/book")
+@WebServlet(UrlPatterns.BOOK_PAGE)
 public class BookPageServlet extends HttpServlet {
 
     @Override

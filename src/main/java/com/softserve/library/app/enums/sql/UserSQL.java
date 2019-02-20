@@ -18,6 +18,10 @@ public enum UserSQL {
             + UserColumns.BIRTH_DATE.getColumn()
             + ", "
             + UserColumns.REGISTRATION_DATE.getColumn()
+            + ","
+            + "CURDATE()"
+            + ","
+            + ""
             + ")"
             + " VALUE(?,?,?)"),
 

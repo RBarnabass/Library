@@ -1,5 +1,7 @@
 package com.softserve.library.app.controller.servlets.book;
 
+import com.softserve.library.app.constant.UrlPatterns;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/library/bookSearch")
+@WebServlet(UrlPatterns.BOOK_SEARCH)
 public class BookAdvancedSearchServlet extends HttpServlet {
 
     @Override

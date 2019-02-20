@@ -23,7 +23,7 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         final HttpSession session = request.getSession(false);
-        //SecurityUtils.removeSession(session.getId());
+        SecurityUtils.removeSession(session.getId());
         session.invalidate();
         
         System.out.println(" - - - Logout servlet _ session was invalidate and redirect to info page ! - - - ");

@@ -1,6 +1,6 @@
 package com.softserve.library.app.security;
 
-import com.softserve.library.app.model.Credential;
+import com.softserve.library.app.model.User;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class SecurityUtils {
 
     private static final Map<String, Token> tokens = new ConcurrentHashMap<>();
-    private static final int SESSION_LIFETIME_IN_SECONDS = 30;
+    private static final int MAX_SESSION_LIFETIME_IN_SECONDS = 30;
 
     public static String getRoleOfLoggedUser(HttpSession session) {
 
@@ -32,7 +32,7 @@ public class SecurityUtils {
         System.out.println(" - - - Session id is NOT correct !!! - - - ");
         return null;
     }
-    public static int getUserIdOfLoggedUser(HttpSession session) {
+    public static int getLoggedUserId(HttpSession session) {
 
         if (tokens.containsKey(session.getId())) {
 
@@ -41,11 +41,12 @@ public class SecurityUtils {
         }
         return 0;
     }
-    public static void storeLoggedUser(HttpSession session, Credential credential) {
+    public static void storeLoggedUser(HttpSession session, User user) {
 
-        session.setMaxInactiveInterval(SESSION_LIFETIME_IN_SECONDS);
-        Token token = new Token(session.getId(), session.getLastAccessedTime(), credential.getRole().getType(), credential.getUserId());
+        session.setMaxInactiveInterval(MAX_SESSION_LIFETIME_IN_SECONDS);
+        final Token token = new Token(session.getLastAccessedTime(), user.getRole().getType(), user.getId());
         tokens.put(session.getId(), token);
+        System.out.println("_____ tokens pack size is - " + tokens.size() + " _______________________________________________________");
     }
     public static boolean isSecurityPage(String servletPath) {
 
@@ -53,7 +54,7 @@ public class SecurityUtils {
 
         for (String role : allRoles) {
 
-            List<String> urlPatterns = SecurityConfig.getUrlPatternsForRole(role);
+            final List<String> urlPatterns = SecurityConfig.getUrlPatternsForRole(role);
 
             if (urlPatterns != null && urlPatterns.contains(servletPath)) {
 
@@ -66,23 +67,32 @@ public class SecurityUtils {
     }
     public static boolean hasPermission(String servletPath, String role) {
 
-        Set<String> allRoles = SecurityConfig.getAllRoles();
+        final Set<String> allRoles = SecurityConfig.getAllRoles();
 
         if (allRoles.contains(role)) {
 
-            List<String> urlPatternsForRole = SecurityConfig.getUrlPatternsForRole(role);
+            final List<String> urlPatternsForRole = SecurityConfig.getUrlPatternsForRole(role);
             return urlPatternsForRole.contains(servletPath);
         }
         return false;
     }
-    public static void checkSessionLife() {
+    public static void removeSession(String sessionId) {
 
-        for (String line : tokens.keySet()) {
+        tokens.remove(sessionId);
+    }
+    public static void checkSessionsLife() {
 
-            long time = TimeUnit.MILLISECONDS.toSeconds(new Date().getTime() - tokens.get(line).getLastTouch());
+        final long currentTime = new Date().getTime();
+        long sessionLifeTime;
+        long sessionFifeTimeInSeconds;
 
-            if (time > SESSION_LIFETIME_IN_SECONDS) {
-                tokens.remove(line);
+        for (String sessionToken : tokens.keySet()) {
+
+            sessionLifeTime = currentTime - tokens.get(sessionToken).getLastTouch();
+            sessionFifeTimeInSeconds = TimeUnit.MILLISECONDS.toSeconds(sessionLifeTime);
+
+            if (sessionFifeTimeInSeconds > MAX_SESSION_LIFETIME_IN_SECONDS) {
+                tokens.remove(sessionToken);
             }
         }
     }
@@ -90,46 +100,5 @@ public class SecurityUtils {
     private static void setTokenLastAccessTime(String sessionId, long lastTime) {
 
         tokens.get(sessionId).setLastTouch(lastTime);
-    }
-
-    static class Token {
-
-        private String sessionId;
-        private long lastTouch;
-        private String role;
-        private int userId;
-
-        public Token() { }
-        Token(String sessionId, long lastTouch, String role, int userId) {
-            this.sessionId = sessionId;
-            this.lastTouch = lastTouch;
-            this.role = role;
-            this.userId = userId;
-        }
-
-        public String getSessionId() {
-            return sessionId;
-        }
-        public void setSessionId(String sessionId) {
-            this.sessionId = sessionId;
-        }
-        long getLastTouch() {
-            return lastTouch;
-        }
-        void setLastTouch(long lastTouch) {
-            this.lastTouch = lastTouch;
-        }
-        public String getRole() {
-            return role;
-        }
-        public void setRole(String role) {
-            this.role = role;
-        }
-        public int getUserId() {
-            return userId;
-        }
-        public void setUserId(int userId) {
-            this.userId = userId;
-        }
     }
 }

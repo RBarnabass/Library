@@ -27,25 +27,10 @@ public class NewUserServlet extends HttpServlet {
         final String password = req.getParameter("password");
         final String role = req.getParameter("role");
 
-        if (fullName == null || birthDate == null || login == null || password == null || role == null) {
 
-            System.out.println(" - - - New user servlet _ some parameter is null ! - - - ");
-            // todo: redirect to new user page with error message !
-            resp.sendRedirect("");
-            return;
-        }
 
-        if (fullName.isEmpty() || birthDate.isEmpty() || login.isEmpty() || password.isEmpty() || role.isEmpty()) {
-
-            System.out.println(" - - - New user servlet _ some parameter is empty ! - - - ");
-            // todo: redirect to new user page with error message !
-            resp.sendRedirect("");
-            return;
-        }
-
-        // todo: validate all this parameters !!!
         // todo: create new user or user dto and send him to user service !!!
-        // todo: receive boolean from DB and continue if success !!!
+        // todo: getAllByOption some parameter from jsp if user want to update data !!!
 
     }
 }
