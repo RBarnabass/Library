@@ -13,8 +13,9 @@ public class UrlPatterns {
     // COMMON
     public static final String LIBRARY = "/library";
     public static final String INFO = "/library/info";
-    public static final String LOGIN = "/library/login";
-    public static final String SIGNUP = "/library/signUp";
+    //public static final String LOGIN = "/library/login";
+    public static final String SIGNIN = "/library/signin";
+    public static final String SIGNUP = "/library/signup";
     public static final String LOGOUT = "/library/logout";
 
     // LIBRARIAN
