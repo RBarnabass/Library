@@ -1,7 +1,10 @@
 package com.softserve.library.app.controller.servlets.general;
 
 import com.softserve.library.app.constant.UrlPatterns;
+import com.softserve.library.app.dto.ErrorDto;
+import com.softserve.library.app.dto.SuccessfulLoginUserDto;
 import com.softserve.library.app.enums.patterns.CommonJSP;
+import com.softserve.library.app.http.CustomResponseEntity;
 import com.softserve.library.app.model.Credential;
 import com.softserve.library.app.security.SecurityUtils;
 import com.softserve.library.app.service.factory.ServiceFactory;
@@ -27,53 +30,40 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
+        final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
         dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
+        final String login = request.getParameter("login");
+        final String password = request.getParameter("password");
 
-        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
-        Credential credential;
+        final ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
 
-//        // todo: check login and password before go to DB !!!
-//        try {
-//
-//            // todo: save user id some where !!!
-//            credential = serviceFactory.getCredentialService().getByLogin(login);
-//
-//        } catch (SQLException e) {
-//
-//            System.out.println(" - - - Exception - - - Login servlet");
-//            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
-//            dispatcher.forward(request, response);
-//            return;
-//        }
+        final CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().checkLoginPasswordEquality(login, password);
 
-        // todo: check password here and set null if not correct !!!
-        // todo: now we use encoder for pass so that should be changed !!!
+        if (!customResponseEntity.getHttpStatus().isError()) {
 
-//        if (credential == null || !credential.getPassword().equals(password)) {
-//
-//            String errorMessage = "Invalid login or password";
-//            request.setAttribute("errorMessage", errorMessage);
-//
-//            System.out.println();
-//            System.out.println(" - - - Login servlet _ credential == null or incorrect pass ! - - - ");
-//            System.out.println();
-//
-//            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
-//            dispatcher.forward(request, response);
-//            return;
-//        }
+            final SuccessfulLoginUserDto responseBody = (SuccessfulLoginUserDto) customResponseEntity.getResponseBody();
+            SecurityUtils.storeLoggedUser(request.getSession(), responseBody);
 
-//        SecurityUtils.storeLoggedUser(request.getSession(), credential);
+            if (responseBody.getRole().equals("user")) {
+                System.out.println("___ user is logged ___");
+            } else {
+                System.out.println("___ else is logged ___");
+            }
 
-        // todo: case role - case redirect !!!
+        } else {
+
+            final ErrorDto responseBody = (ErrorDto) customResponseEntity.getResponseBody();
+            request.setAttribute("errorMessage", responseBody.getErrorMessage());
+            final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(CommonJSP.LOGIN.getPattern());
+            dispatcher.forward(request, response);
+            return;
+        }
+
         String redirect = request.getContextPath() + UrlPatterns.INFO;
         System.out.println(" - - - Login servlet _ success _ redirect to - " + redirect);
         response.sendRedirect(redirect);

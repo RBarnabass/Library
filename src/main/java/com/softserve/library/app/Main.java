@@ -20,32 +20,6 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
-//
-//        User user = new User();
-//        user.setFullName("Bruce Wayne");
-//        user.setBirthDate(LocalDate.parse("1980-02-02"));
-//        user.setLogin("notbatman");
-//        user.setPassword("ilovealphred");
-//        user.setRole_id(1);
-//
-//        serviceFactory.getUserService().add(user);
-
-        User user = serviceFactory.getUserService().get(1);
-        user.getLogin();
-
-//        ServiceFactory serviceFactory = new ServiceFactoryImpl();
-//        List<BookDto> list = serviceFactory.getBookService().getAll();
-//        for (BookDto bookDto : list) {
-//            System.out.println();
-//            System.out.println(bookDto);
-//        }
-//
-//        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
-//        List<UserStatisticDto> userStatistic = serviceFactory.getUserService().getUserStatistic(6);
-//        for (UserStatisticDto userStatisticDto : userStatistic) {
-//            System.out.println();
-//            System.out.println(userStatisticDto);
-//        }
 
 
         /*List<BookDto> list = serviceFactory.getBookService().getAll();
@@ -111,6 +85,7 @@ public class Main {
 
 //        CustomResponseEntity<?> customResponseEntity = serviceFactory.getUserService().checkLoginPasswordEquality("md1guyq", "qwerty");
 //        System.out.println(customResponseEntity.getHttpStatus().isError()); // true
+
 
         /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         Credential credential = new Credential("romko", "qwerty");

@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void add(User user) throws SQLException, NullPointerException {
 
+
         userDao.add(user);
     }
 
