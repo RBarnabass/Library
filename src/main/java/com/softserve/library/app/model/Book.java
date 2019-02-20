@@ -1,5 +1,6 @@
 package com.softserve.library.app.model;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,6 +14,7 @@ public class Book {
     private String name;
     private int publishYear;
     private Publisher publisher;
+    private List<Author> authors;
 
     public Book() { }
     public Book(String name, int publishYear) {
@@ -55,28 +57,31 @@ public class Book {
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
+    public List<Author> getAuthors() {
+        return authors;
+    }
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
 
     @Override public boolean equals(Object o) {
 
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id &&
-                publishYear == book.publishYear &&
-                Objects.equals(name, book.name) &&
-                Objects.equals(publisher, book.publisher);
+        return id == book.id;
     }
     @Override public int hashCode() {
 
         return Objects.hash(id, name, publishYear, publisher);
     }
     @Override public String toString() {
-
         return "Book{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", publishYear=" + publishYear +
                 ", publisher=" + publisher +
+                ", authors=" + authors +
                 '}';
     }
 }
