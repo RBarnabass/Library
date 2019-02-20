@@ -1,7 +1,5 @@
 package com.softserve.library.app.http;
 
-import javax.annotation.Nullable;
-
 public class CustomResponseEntity<T> {
 
     private T responseBody;
@@ -22,7 +20,7 @@ public class CustomResponseEntity<T> {
      * @param responseBody   the entity body
      * @param httpStatus the http status code
      */
-    public CustomResponseEntity(@Nullable T responseBody, HttpStatus httpStatus) {
+    public CustomResponseEntity(T responseBody, HttpStatus httpStatus) {
         this.responseBody = responseBody;
         this.httpStatus = httpStatus;
     }

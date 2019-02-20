@@ -1,5 +1,6 @@
 package com.softserve.library.app.service.implementation;
 
+import com.google.common.hash.Hashing;
 import com.softserve.library.app.dao.implementation.UserDaoImpl;
 import com.softserve.library.app.dao.interfaces.UserDao;
 import com.softserve.library.app.dto.*;
@@ -8,6 +9,9 @@ import com.softserve.library.app.http.HttpStatus;
 import com.softserve.library.app.model.User;
 import com.softserve.library.app.service.interfaces.UserService;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -70,6 +74,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByLoginAndPassword(String login, String password) throws SQLException {
+
+        User user = userDao.getUserByLoginAndPassword(login, password);
+
+        return user;
+    }
+
+    @Override
     public int getAverageUserAge() throws SQLException {
 
         return userDao.getAverageUserAge();
@@ -99,6 +111,21 @@ public class UserServiceImpl implements UserService {
         return userDao.getAllDebtors();
     }
 
+    @Override
+    public boolean compareHashes(String login, String serverSalt, String clientSalt, String hashedClientData) throws SQLException, NullPointerException {
+
+        User user = userDao.getUserByLogin(login);
+
+        String passwordHash = user.getPassword();
+
+        String concatenatedData = passwordHash + serverSalt + clientSalt;
+
+        String hashedDataHex = Hashing.sha256()
+                .hashString(concatenatedData, StandardCharsets.UTF_8)
+                .toString();
+
+        return hashedDataHex.equals(hashedClientData);
+    }
 }
 
 

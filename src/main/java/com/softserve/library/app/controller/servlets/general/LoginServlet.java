@@ -35,8 +35,6 @@ public class LoginServlet extends HttpServlet {
 
         final ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
 
-
-
         String redirect = request.getContextPath() + UrlPatterns.INFO;
         System.out.println(" - - - Login servlet _ success _ redirect to - " + redirect);
         response.sendRedirect(redirect);

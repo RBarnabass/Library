@@ -24,7 +24,7 @@
 <body>
 <div class="login-page">
     <div class="form">
-        <form class="register-form" method="POST" action="${pageContext.request.contextPath}/library/signup">
+        <form class="register-form" onsubmit="alert(validate()); return validate()" method="POST" action="${pageContext.request.contextPath}/library/signup">
             <div class="one_line">
                 <label for="nameField">Full name</label>
                 <input id="nameField" type="text" placeholder="name" name="fullName"/>

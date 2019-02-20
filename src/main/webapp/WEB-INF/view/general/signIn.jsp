@@ -29,7 +29,7 @@
         <form class="login-form" method="POST" action="${pageContext.request.contextPath}/library/signin">
             <div class="one_line">
                 <label for="username">Username</label>
-                <input type="text" placeholder="username" id="username"/>
+                <input type="text" placeholder="username" id="username" name="login"/>
             </div>
             <div class="one_line">
                 <label for="password">Password</label>

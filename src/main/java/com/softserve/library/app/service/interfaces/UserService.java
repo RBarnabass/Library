@@ -4,6 +4,7 @@ import com.softserve.library.app.dto.DebtorDto;
 import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.model.User;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface UserService extends SimpleCrudService<User> {
 
     List<UserStatisticDto> getUserStatistic(int id) throws SQLException;
 
-    User getUserByLoginAndPassword(String login, String password);
+    User getUserByLoginAndPassword(String login, String password) throws SQLException;
 
     User getByLogin(String login) throws SQLException;
 
@@ -30,4 +31,5 @@ public interface UserService extends SimpleCrudService<User> {
 
     List<DebtorDto> getAllDebtors() throws SQLException;
 
+    boolean compareHashes(String login, String serverSalt, String clientSalt, String clientHashedData) throws SQLException, NullPointerException;
 }

@@ -5,9 +5,7 @@ signupButton.addEventListener('click', function () {
     let password = document.getElementById('passwordField').value;
     let hashedPasswordElement = document.getElementById('data-hashedPassword');
 
-    let hashedPassword = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(password));
-
-    hashedPasswordElement.value = hashedPassword;
+    hashedPasswordElement.value = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(password));
 
 });
 
@@ -23,7 +21,4 @@ function validate() {
     if(!validateLogin(loginEl)) return false;
     if(!validateDate(dateEl)) return false;
     return validatePassword(passwordEl);
-
-
-
 }
