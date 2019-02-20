@@ -23,7 +23,7 @@
 <div class="book_info">
     <div class="inline-block">
         <div class="image">
-            <img src="<c:url value='/resources/book.jpg' /> " alt="book image">
+            <img src="<c:url value='/resources/image/book.jpg' /> " alt="book image">
         </div>
     </div>
 
