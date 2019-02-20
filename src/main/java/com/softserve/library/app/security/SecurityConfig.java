@@ -42,7 +42,8 @@ class SecurityConfig {
         // Common
         final List<String> urlPatternsForGuest = new ArrayList<>();
         urlPatternsForGuest.add(UrlPatterns.INFO);
-        urlPatternsForGuest.add(UrlPatterns.LOGIN);
+        //urlPatternsForGuest.add(UrlPatterns.LOGIN);
+        urlPatternsForGuest.add(UrlPatterns.SIGNIN);
         urlPatternsForGuest.add(UrlPatterns.LOGOUT);
         mapConfig.put(ROLE_GUEST, urlPatternsForGuest);
     }

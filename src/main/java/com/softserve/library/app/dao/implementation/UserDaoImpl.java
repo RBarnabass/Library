@@ -211,10 +211,10 @@ public class UserDaoImpl implements UserDao {
         return userStatementExecutor.getAllDebtors();
     }
 
-    @Override
-    public CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException {
-        return userStatementExecutor.addUser(createUserDto);
-    }
+//    @Override
+//    public CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException {
+//        return userStatementExecutor.addUser(createUserDto);
+//    }
 
 //    @Override
 //    public FullUserDto getByLogin(String login) throws SQLException, NullPointerException {

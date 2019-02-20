@@ -27,7 +27,7 @@ public interface UserDao extends SimpleCrudDao<User> {
 
     List<DebtorDto> getAllDebtors() throws SQLException;
 
-    CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException;
+//    CustomResponseEntity<?> add(CreateUserDto createUserDto) throws SQLException;
 
 //    FullUserDto getByLogin(String login) throws SQLException, NullPointerException;
 }
