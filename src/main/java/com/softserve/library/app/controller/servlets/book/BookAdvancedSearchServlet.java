@@ -46,22 +46,19 @@ public class BookAdvancedSearchServlet extends HttpServlet {
         bookParametersDto.setYearPublishedTo(yearTo);
         bookParametersDto.setAvailable(isAvailable);
 
-        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
-
+        final ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
         List<Book> books = new ArrayList<>();
 
         try {
 
             books = serviceFactory.getBookService().getAllByParameters(bookParametersDto);
+
         } catch (SQLException e) {
 
-            System.out.println("sql exception");
-        } catch (NullPointerException e) {
-
-            System.out.println("null pointer exception");
+            final RequestDispatcher dispatcherError = this.getServletContext().getRequestDispatcher("/WEB-INF/view/errors/Error500.jsp");
+            dispatcherError.forward(req, resp);
+            return;
         }
-
-        System.out.println();
 
         final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/advancedBookSearch.jsp");
         dispatcher.forward(req, resp);
