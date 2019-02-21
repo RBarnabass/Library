@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
         return userDao.get(id);
     }
-    @Override public boolean add(User user) throws SQLException, NullPointerException {
+    @Override public boolean add(User user) throws SQLException {
 
         if (user.getFullName() == null || user.getBirthDate() == null || user.getLogin() == null || user.getPassword() == null) {
             return false;
