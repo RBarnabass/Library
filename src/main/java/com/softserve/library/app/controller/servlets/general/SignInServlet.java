@@ -80,6 +80,6 @@ public class SignInServlet extends HttpServlet {
         }
 
         SecurityUtils.storeLoggedUser(session, user);
-        response.sendRedirect("/library/user");
+        response.sendRedirect(UrlPatterns.USER_PAGE);
     }
 }
