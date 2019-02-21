@@ -1,17 +1,11 @@
 package com.softserve.library.app.service.implementation;
 
-import com.softserve.library.app.dao.implementation.AuthorDaoImpl;
-import com.softserve.library.app.dao.implementation.BookAuthorsDaoImpl;
-import com.softserve.library.app.dao.implementation.BookDaoImpl;
-import com.softserve.library.app.dao.implementation.PublisherDaoImpl;
-import com.softserve.library.app.dao.interfaces.AuthorDao;
-import com.softserve.library.app.dao.interfaces.BookAuthorsDao;
-import com.softserve.library.app.dao.interfaces.BookDao;
-import com.softserve.library.app.dao.interfaces.PublisherDao;
+import com.softserve.library.app.dao.implementation.*;
+import com.softserve.library.app.dao.interfaces.*;
 import com.softserve.library.app.dto.BookParametersDto;
 import com.softserve.library.app.model.Book;
 import com.softserve.library.app.model.BookAuthors;
-import com.softserve.library.app.model.Publisher;
+import com.softserve.library.app.model.Copy;
 import com.softserve.library.app.service.interfaces.BookService;
 
 import java.sql.SQLException;
@@ -27,6 +21,7 @@ public class BookServiceImpl implements BookService {
     private final PublisherDao publisherDao = new PublisherDaoImpl();
     private final AuthorDao authorDao = new AuthorDaoImpl();
     private final BookAuthorsDao bookAuthorsDao = new BookAuthorsDaoImpl();
+    private final CopyDao copyDao = new CopyDaoImpl();
 
     @Override
     public boolean delete(int id) throws SQLException {
@@ -65,10 +60,12 @@ public class BookServiceImpl implements BookService {
             }
         }
 
-        int id;
+        int id = 0;
 
         if (publisherDao.getByName(book.getPublisher().getName()) == null) {
+
             id = publisherDao.addAndGetIdBack(book.getPublisher());
+
             if (id <=0) {
                 return false;
             } else {
@@ -83,7 +80,9 @@ public class BookServiceImpl implements BookService {
             authorName = book.getAuthors().get(i).getName();
 
             if (authorDao.getByName(authorName) == null) {
+
                 id = authorDao.addAndGetIdBack(book.getAuthors().get(i));
+
                 if (id <= 0) {
                     return false;
                 } else {
@@ -92,9 +91,23 @@ public class BookServiceImpl implements BookService {
             }
         }
 
-        if ((id = bookDao.addBookAndGetIdBack(book)) <= 0) {
-            return false;
+        List<Book> bookList;
+
+        if ((bookList = bookDao.getAllByBookNameAndPublisherAndAuthor(book.getName(), book.getPublisher().getName(), book.getAuthors().get(0).getName())) == null
+                || bookList.isEmpty()) {
+
+            id = bookDao.addBookAndGetIdBack(book);
+
+            if (id <= 0) {
+                return false;
+            }
+
+        } else {
+
+                Copy copy = copyDao.get(bookList.get(0).getId());
+                copyDao.add(copy);
         }
+
 
         BookAuthors bookAuthors = new BookAuthors();
 
@@ -108,11 +121,13 @@ public class BookServiceImpl implements BookService {
                 return false;
             }
         }
-        return true;
-    }
 
-    @Override
-    public List<Book> getAllByParameters(BookParametersDto bookParametersDto) throws SQLException {
+        Copy copy = new Copy();
+        copy.setBookId(id);
+
+        return copyDao.add(copy);
+    }
+    @Override public List<Book> getAllByParameters(BookParametersDto bookParametersDto) throws SQLException {
 
         List<Book> books;
 
