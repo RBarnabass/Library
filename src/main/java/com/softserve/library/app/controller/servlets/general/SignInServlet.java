@@ -24,7 +24,7 @@ public class SignInServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         final String serverSalt = RandomStringUtils.randomAlphanumeric(16);
-        SecurityUtils.addSalt(request.getSession(false).getId(), serverSalt);
+        SecurityUtils.addSalt(request.getSession().getId(), serverSalt);
         request.setAttribute("serverSalt", serverSalt);
 
         final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/signIn.jsp");
@@ -73,6 +73,7 @@ public class SignInServlet extends HttpServlet {
         }
 
         if (user == null) {
+
             final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/signIn.jsp");
             dispatcher.forward(request, response);
             return;
