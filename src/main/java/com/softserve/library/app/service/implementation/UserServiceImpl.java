@@ -119,6 +119,10 @@ public class UserServiceImpl implements UserService {
 
         User user = userDao.getUserByLogin(login);
 
+        if (user == null) {
+            return false;
+        }
+
         String passwordHash = user.getPassword();
 
         String concatenatedData = passwordHash + serverSalt + clientSalt;

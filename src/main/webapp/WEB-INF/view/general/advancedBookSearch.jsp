@@ -20,8 +20,8 @@
         </div>
         <div class="header-right">
             <a class="active" href="#">Home</a>
-            <a href="#">Login</a>
-            <a href="#">Logout</a>
+            <a href="${pageContext.request.contextPath}/library/signin">Login</a>
+            <a href="${pageContext.request.contextPath}/library/logout">Logout</a>
         </div>
     </div>
 </header>
@@ -29,7 +29,7 @@
 <body>
 <div class="booklist-page">
     <div class="form">
-        <form method="POST" action="${pageContext.request.contextPath}/library/book_list">
+        <form method="POST" action="${pageContext.request.contextPath}/library/bookSearch">
             <div class="inform">
                 <div class="one_line">
                     <label for="book">Book title</label>

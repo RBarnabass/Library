@@ -9,6 +9,7 @@ public class UrlPatterns {
 
     // ADMIN
     public static final String USER_OPTION = "/library/user_option";
+    public static final String BOOK_ADD = "/library/book_add";
 
     // COMMON
     public static final String LIBRARY = "/library";

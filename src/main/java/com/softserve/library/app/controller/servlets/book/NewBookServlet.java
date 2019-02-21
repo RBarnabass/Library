@@ -1,5 +1,8 @@
 package com.softserve.library.app.controller.servlets.book;
 
+import com.softserve.library.app.constant.UrlPatterns;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,8 +15,15 @@ import java.io.IOException;
  *
  * @author Roman Berezhnov
  */
-@WebServlet
+@WebServlet(UrlPatterns.BOOK_ADD)
 public class NewBookServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/addBook.jsp");
+        dispatcher.forward(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,5 +46,8 @@ public class NewBookServlet extends HttpServlet {
 
         // todo: call service and give him a new book !!!
 
+
+        final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/addBook.jsp");
+        dispatcher.forward(req, resp);
     }
 }
