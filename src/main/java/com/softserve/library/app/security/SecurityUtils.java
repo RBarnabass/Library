@@ -19,7 +19,7 @@ public class SecurityUtils {
 
     private static final Map<String, Token> tokens = new ConcurrentHashMap<>();
     private static final Map<String, String> randomBits = new ConcurrentHashMap<>();
-    private static final int MAX_SESSION_LIFETIME_IN_SECONDS = 30;
+    private static final int MAX_SESSION_LIFETIME_IN_SECONDS = 700;
 
     public static String getRoleOfLoggedUser(HttpSession session) {
 
