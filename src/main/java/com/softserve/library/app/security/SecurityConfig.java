@@ -25,6 +25,8 @@ class SecurityConfig {
         // ADMIN
         final List<String> urlPatternsForAdmin = new ArrayList<>();
         urlPatternsForAdmin.add(UrlPatterns.USER_OPTION);
+        urlPatternsForAdmin.add(UrlPatterns.BOOK_SEARCH);
+        urlPatternsForAdmin.add(UrlPatterns.BOOK_LIST);
         mapConfig.put(ROLE_ADMIN, urlPatternsForAdmin);
 
         // USER

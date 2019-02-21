@@ -21,8 +21,8 @@
 <body>
 <div class="booklist-page">
     <div class="form">
-        <form method="POST" action="${pageContext.request.contextPath}/library/book_list">
-            <div class="inform">
+        <form method="POST" action="${pageContext.request.contextPath}/library/bookSearch">
+            <div class="inform"book>
                 <div class="one_line">
                     <label for="book">Book title</label>
                     <input type="text" name="book" id="book" ><br>
