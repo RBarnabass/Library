@@ -21,9 +21,14 @@
             <h1>Library</h1>
         </div>
         <div class="header-right">
-            <a class="active" href="#">Home</a>
-            <a href="#">Login</a>
-            <a href="#">Logout</a>
+            <a class="active" href="${pageContext.request.contextPath}/library/info">Home</a>
+            <a></a>
+            <a class="active" href="${pageContext.request.contextPath}/library/bookSearch">Search</a>
+            <a></a>
+            <a class="active" href="${pageContext.request.contextPath}/library/book_list">Books</a>
+            <a></a>
+            <a href="${pageContext.request.contextPath}/library/signin">Login</a>
+            <a href="${pageContext.request.contextPath}/library/logout">Logout</a>
         </div>
     </div>
 </header>
