@@ -26,6 +26,8 @@
             <a></a>
             <a class="active" href="${pageContext.request.contextPath}/library/book_list">Books</a>
             <a></a>
+            <a class="active" href="${pageContext.request.contextPath}/library/book_add">Add book</a>
+            <a></a>
             <a href="${pageContext.request.contextPath}/library/signin">Login</a>
             <a href="${pageContext.request.contextPath}/library/logout">Logout</a>
         </div>
@@ -55,10 +57,6 @@
             <div class="one_line">
                 <label for="year">Published year</label>
                 <input type="number" placeholder="year" name="year" id="year" required/>
-            </div>
-            <div class="one_line">
-                <label for="count">Count of copy</label>
-                <input type="number" placeholder="count" name="count" id="count"/>
             </div>
             <button id="add">Add book</button>
 
