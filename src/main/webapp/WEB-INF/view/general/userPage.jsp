@@ -57,8 +57,6 @@
                     <td>${user.login}</td>
                 </tr>
             </table>
-            <p class="title">Still reading:</p>
-            <p >list book</p>
         </div>
     </div>
 </div>
