@@ -79,13 +79,6 @@ public class SignInServlet extends HttpServlet {
         }
 
         SecurityUtils.storeLoggedUser(session, user);
-
-        if (user.getRole().getType().equals("admin")) {
-
-            response.sendRedirect("/library/book_add");
-            return;
-        }
-
         response.sendRedirect("/library/user");
     }
 }
