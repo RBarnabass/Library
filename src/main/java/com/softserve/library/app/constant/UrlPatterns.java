@@ -27,7 +27,7 @@ public class UrlPatterns {
     public static final String BOOK_ORDER = "/library/book_order";
     public static final String BOOK_SEARCH = "/library/bookSearch";
     public static final String BOOK_PAGE = "/library/book";
-    public static final String USER_PAGE = "/library/user";
+    public static final String USER_PAGE = "/library/profile";
 
     // FILTER
     public static final String ABSOLUTE = "/*";
