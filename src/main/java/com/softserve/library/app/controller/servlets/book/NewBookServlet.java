@@ -36,8 +36,6 @@ public class NewBookServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        System.out.println(" - - - New book servlet - - - ");
-
         final String bookName = req.getParameter("fullName");
         final String publishYear = req.getParameter("year");
         final String publisherName = req.getParameter("publisher");

@@ -19,6 +19,8 @@ public class BookAuthorsDaoImpl implements BookAuthorsDao {
     @Override
     public boolean add(BookAuthors bookAuthors) throws SQLException {
 
+        System.out.println(bookAuthors);
+
         String sql = "INSERT INTO book_authors (book_authors.book_id, book_authors.author_id, book_authors.is_primary) VALUES (?,?,?)";
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);

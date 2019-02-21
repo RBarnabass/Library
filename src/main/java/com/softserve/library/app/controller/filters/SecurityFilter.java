@@ -22,13 +22,10 @@ public class SecurityFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
 
-        System.out.println(" ----------------------------------------------- Do filtering ... ");
         final HttpServletRequest request = (HttpServletRequest) req;
         final HttpServletResponse response = (HttpServletResponse) resp;
         final String servletPath = request.getServletPath();
         final HttpSession session = request.getSession(false);
-        final String requestedSessionId = request.getRequestedSessionId();
-        System.out.println(" - - - Filter _ session id - " + requestedSessionId);
 
         SecurityUtils.checkSessionsLife();
         String role = null;
@@ -44,7 +41,6 @@ public class SecurityFilter implements Filter {
 
         if (session != null) {
 
-            System.out.println(" - - - Filter _ session _ getAllByOption id - " + session.getId());
             role = SecurityUtils.getRoleOfLoggedUser(session);
         }
 
@@ -52,8 +48,6 @@ public class SecurityFilter implements Filter {
 
             if (role == null) {
 
-                //todo: here can be saved redirect id and after success login forward to requested page !
-                System.out.println(" - - - Filter _ security page without login - redirected ! - - - ");
                 response.sendRedirect(UrlPatterns.SIGNIN);
                 return;
             }
@@ -63,13 +57,11 @@ public class SecurityFilter implements Filter {
             if (!hasPermission) {
 
                 final RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(CommonJSP.ACCESS_DENIED.getPattern());
-                System.out.println(" - - - Filter _ has no permission _ request dispatcher - " + dispatcher);
                 dispatcher.forward(request, response);
                 return;
             }
         }
 
-        System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
         chain.doFilter(request, response);
     }
 }

@@ -1,12 +1,15 @@
 package com.softserve.library.app.service.implementation;
 
+import com.softserve.library.app.dao.implementation.*;
+import com.softserve.library.app.dao.interfaces.*;
+import com.softserve.library.app.dto.BookParametersDto;
+import com.softserve.library.app.model.Book;
+import com.softserve.library.app.model.BookAuthors;
+import com.softserve.library.app.model.Copy;
 import com.softserve.library.app.dao.implementation.BookDaoImpl;
 import com.softserve.library.app.dao.interfaces.BookDao;
 import com.softserve.library.app.dto.BookDto;
-import com.softserve.library.app.dto.BookParametersDto;
-import com.softserve.library.app.model.Book;
 import com.softserve.library.app.service.interfaces.BookService;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +20,10 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
 
     private final BookDao bookDao = new BookDaoImpl();
-
-//    @Override
-//    public boolean add(Book book) throws SQLException {
-//
-//        //todo: implement me !
-//        return false;
-//    }
+    private final PublisherDao publisherDao = new PublisherDaoImpl();
+    private final AuthorDao authorDao = new AuthorDaoImpl();
+    private final BookAuthorsDao bookAuthorsDao = new BookAuthorsDaoImpl();
+    private final CopyDao copyDao = new CopyDaoImpl();
 
     @Override
     public boolean delete(int id) throws SQLException {
@@ -45,14 +45,94 @@ public class BookServiceImpl implements BookService {
         return bookDao.get(id);
     }
 
-    @Override
-    public boolean add(Book book) throws SQLException {
+    @Override public boolean add(Book book) throws SQLException {
 
-        return false;
+        if (book.getName() == null || book.getPublisher().getName() == null || book.getPublishYear() <= 0) {
+            return false;
+        }
+
+        if (book.getName().isEmpty() || book.getPublisher().getName().isEmpty()) {
+            return false;
+        }
+
+        for (int i = 0; i < book.getAuthors().size(); i++) {
+
+            if (book.getAuthors().get(i).getName() == null || book.getAuthors().get(i).getName().isEmpty()) {
+                return false;
+            }
+        }
+
+        int id = 0;
+
+        if (publisherDao.getByName(book.getPublisher().getName()) == null) {
+
+            id = publisherDao.addAndGetIdBack(book.getPublisher());
+
+            if (id <=0) {
+                return false;
+            } else {
+                book.getPublisher().setId(id);
+            }
+        }
+
+        String authorName;
+
+        for (int i = 0; i < book.getAuthors().size(); i++) {
+
+            authorName = book.getAuthors().get(i).getName();
+
+            if (authorDao.getByName(authorName) == null) {
+
+                id = authorDao.addAndGetIdBack(book.getAuthors().get(i));
+
+                if (id <= 0) {
+                    return false;
+                } else {
+                    book.getAuthors().get(i).setId(id);
+                }
+            }
+        }
+
+        List<Book> bookList;
+
+        if ((bookList = bookDao.getAllByBookNameAndPublisherAndAuthor(book.getName(), book.getPublisher().getName(), book.getAuthors().get(0).getName())) == null
+                || bookList.isEmpty()) {
+
+            id = bookDao.addBookAndGetIdBack(book);
+
+            if (id <= 0) {
+                return false;
+            }
+
+        } else {
+
+                Copy copy = copyDao.get(bookList.get(0).getId());
+                copyDao.add(copy);
+        }
+
+
+        BookAuthors bookAuthors = new BookAuthors();
+
+        for (int i = 0; i < book.getAuthors().size(); i++) {
+
+            bookAuthors.setBookId(id);
+            bookAuthors.setAuthorId(book.getAuthors().get(i).getId());
+            bookAuthors.setPrimary(book.getAuthors().get(i).isPrimary());
+
+            if (!bookAuthorsDao.add(bookAuthors)) {
+                return false;
+            }
+        }
+
+        Copy copy = new Copy();
+        copy.setBookId(id);
+
+        return copyDao.add(copy);
     }
 
     @Override
     public List<BookDto> getAllByParameters(BookParametersDto bookParametersDto) throws SQLException {
+
 
         List<Book> books;
         List<BookDto> bookDtos = new ArrayList<>();
@@ -190,12 +270,6 @@ public class BookServiceImpl implements BookService {
 
         return bookDtos;
     }
-
-
-//    @Override
-//    public CustomResponseEntity<?> add(BookDto bookDto) throws SQLException {
-//        return null;
-//    }
 
     @Override public List<BookDto> getAll() throws SQLException {
 

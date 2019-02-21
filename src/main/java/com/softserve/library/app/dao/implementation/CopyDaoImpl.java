@@ -5,6 +5,7 @@ import com.softserve.library.app.dao.interfaces.CopyDao;
 import com.softserve.library.app.model.Copy;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CopyDaoImpl implements CopyDao {
@@ -26,7 +27,21 @@ public class CopyDaoImpl implements CopyDao {
     @Override
     public Copy get(int id) throws SQLException {
 
-        return null;
+        String sql = "SELECT * FROM copy WHERE book_id=" +id;
+
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
+        preparedStatement.executeUpdate();
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        Copy copy = new Copy();
+
+        while (resultSet.next()) {
+
+            copy.setId(resultSet.getInt("copy.id"));
+            copy.setId(resultSet.getInt("copy.book_id"));
+        }
+
+        return copy;
     }
 
     @Override
