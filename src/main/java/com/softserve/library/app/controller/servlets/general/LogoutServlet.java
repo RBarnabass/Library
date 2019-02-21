@@ -25,8 +25,6 @@ public class LogoutServlet extends HttpServlet {
         final HttpSession session = request.getSession(false);
         SecurityUtils.removeSession(session.getId());
         session.invalidate();
-        
-        System.out.println(" - - - Logout servlet _ session was invalidate and redirect to info page ! - - - ");
         response.sendRedirect(request.getContextPath() + "/library/info");
     }
 }

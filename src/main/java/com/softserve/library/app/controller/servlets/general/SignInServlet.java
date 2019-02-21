@@ -41,16 +41,19 @@ public class SignInServlet extends HttpServlet {
         final String clientSalt = request.getParameter("data-clientSalt");
         final String hashResponse = request.getParameter("data-hashResult");
         final String serverSalt = "stub";
+        final RequestDispatcher dispatcherError = this.getServletContext().getRequestDispatcher("/WEB-INF/view/errors/Error500.jsp");
 
-        boolean signed = false;
+        boolean signed;
+        User user;
 
-        // TODO: handle
         try {
+
             signed = serviceFactory.getUserService().compareHashes(login, serverSalt, clientSalt, hashResponse);
+
         } catch (SQLException e) {
-            System.out.println("sql exception");
-        } catch (NullPointerException e) {
-            System.out.println("null pointer exception");
+
+            dispatcherError.forward(request, response);
+            return;
         }
 
         if (!signed) {
@@ -60,12 +63,12 @@ public class SignInServlet extends HttpServlet {
             return;
         }
 
-        User user = null;
-
         try {
             user = serviceFactory.getUserService().getByLogin(login);
         } catch (SQLException e) {
-            System.out.println(" - - - Login servlet _ SQL Exception when get by login ! - - - ");
+
+            dispatcherError.forward(request, response);
+            return;
         }
 
         if (user == null) {
@@ -75,7 +78,13 @@ public class SignInServlet extends HttpServlet {
         }
 
         SecurityUtils.storeLoggedUser(session, user);
-        final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/userPage.jsp");
-        dispatcher.forward(request, response);
+
+        if (user.getRole().getType().equals("admin")) {
+
+            response.sendRedirect("/library/book_add");
+            return;
+        }
+
+        response.sendRedirect("/library/user");
     }
 }

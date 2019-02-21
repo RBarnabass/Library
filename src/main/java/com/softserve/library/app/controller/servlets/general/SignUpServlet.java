@@ -28,32 +28,30 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
-
-        User user = new User();
+        final ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
+        final User user = new User();
 
         user.setFullName(request.getParameter("fullName"));
         user.setBirthDate(LocalDate.parse(request.getParameter("birthDate")));
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("data-hashedPassword"));
 
-        // TODO: send error page with error message
         try {
 
-            System.out.println("adding");
             serviceFactory.getUserService().add(user);
             response.setStatus(response.SC_CREATED);
             String redirect = request.getContextPath() + UrlPatterns.SIGNIN;
             response.sendRedirect(redirect);
+
         } catch (SQLException e) {
 
-            System.out.println("500");
-            response.setStatus(response.SC_INTERNAL_SERVER_ERROR);
-        } catch (NullPointerException e) {
-
-            System.out.println("404");
-            response.setStatus(response.SC_NOT_FOUND);
+            final RequestDispatcher dispatcherError = this.getServletContext().getRequestDispatcher("/WEB-INF/view/errors/Error500.jsp");
+            dispatcherError.forward(request, response);
+            return;
         }
+
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/signUp.jsp");
+        dispatcher.forward(request, response);
     }
 }
 

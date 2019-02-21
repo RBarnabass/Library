@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
         return userDao.get(id);
     }
-    @Override public boolean add(User user) throws SQLException, NullPointerException {
+    @Override public boolean add(User user) throws SQLException {
 
         if (user.getFullName() == null || user.getBirthDate() == null || user.getLogin() == null || user.getPassword() == null) {
             return false;
@@ -118,6 +118,10 @@ public class UserServiceImpl implements UserService {
     public boolean compareHashes(String login, String serverSalt, String clientSalt, String hashedClientData) throws SQLException, NullPointerException {
 
         User user = userDao.getUserByLogin(login);
+
+        if (user == null) {
+            return false;
+        }
 
         String passwordHash = user.getPassword();
 
