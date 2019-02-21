@@ -20,8 +20,12 @@ public class BookPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        int id;
         final String bookId = req.getParameter("bookId");
+        final RequestDispatcher dispatcherError = this.getServletContext().getRequestDispatcher("/WEB-INF/view/errors/Error500.jsp");
+        final ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
+
+        int id;
+        Book book;
 
         try {
 
@@ -29,13 +33,9 @@ public class BookPageServlet extends HttpServlet {
 
         } catch (NumberFormatException e) {
 
-            final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/errors/Error500.jsp");
-            dispatcher.forward(req, resp);
+            dispatcherError.forward(req, resp);
             return;
         }
-
-        final ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
-        Book book;
 
         try {
 
@@ -43,8 +43,7 @@ public class BookPageServlet extends HttpServlet {
 
         } catch (SQLException e) {
 
-            final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/errors/Error500.jsp");
-            dispatcher.forward(req, resp);
+            dispatcherError.forward(req, resp);
             return;
         }
 
