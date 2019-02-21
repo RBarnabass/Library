@@ -50,7 +50,7 @@ public class BookAdvancedSearchServlet extends HttpServlet {
         bookParametersDto.setYearPublishedTo(yearTo);
         bookParametersDto.setAvailable(isAvailable);
 
-        List<BookDto> books = new ArrayList<>();
+        List<BookDto> books;
         final ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
 
         try {
