@@ -18,8 +18,9 @@ import java.util.concurrent.TimeUnit;
 public class SecurityUtils {
 
     private static final Map<String, Token> tokens = new ConcurrentHashMap<>();
-    
     private static final int MAX_SESSION_LIFETIME_IN_SECONDS = 1800;
+    private static final Map<String, String> randomBits = new ConcurrentHashMap<>();
+
     public static String getRoleOfLoggedUser(HttpSession session) {
 
         if (tokens.containsKey(session.getId())) {
