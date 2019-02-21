@@ -29,6 +29,7 @@ class SecurityConfig {
         urlPatternsForAdmin.add(UrlPatterns.BOOK_LIST);
         urlPatternsForAdmin.add(UrlPatterns.BOOK_PAGE);
         urlPatternsForAdmin.add(UrlPatterns.BOOK_ADD);
+        urlPatternsForAdmin.add(UrlPatterns.USER_PAGE);
         mapConfig.put(ROLE_ADMIN, urlPatternsForAdmin);
 
         // USER
