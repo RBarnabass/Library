@@ -6,8 +6,10 @@ import com.softserve.library.app.dto.BookParametersDto;
 import com.softserve.library.app.model.Book;
 import com.softserve.library.app.model.BookAuthors;
 import com.softserve.library.app.model.Copy;
+import com.softserve.library.app.dao.implementation.BookDaoImpl;
+import com.softserve.library.app.dao.interfaces.BookDao;
+import com.softserve.library.app.dto.BookDto;
 import com.softserve.library.app.service.interfaces.BookService;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,9 +129,13 @@ public class BookServiceImpl implements BookService {
 
         return copyDao.add(copy);
     }
-    @Override public List<Book> getAllByParameters(BookParametersDto bookParametersDto) throws SQLException {
+
+    @Override
+    public List<BookDto> getAllByParameters(BookParametersDto bookParametersDto) throws SQLException {
+
 
         List<Book> books;
+        List<BookDto> bookDtos = new ArrayList<>();
 
         if (bookParametersDto.getName() == null &&
                 bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() == null &&
@@ -250,18 +256,36 @@ public class BookServiceImpl implements BookService {
         } else {
 
             books = new ArrayList<>();
-            //return null;
         }
 
-        return books;
+        for (Book book : books) {
+
+            BookDto bookDto = new BookDto();
+            bookDto.setName(book.getName());
+            bookDto.setFirstAuthorName(book.getAuthors().get(0).getName());
+            bookDto.setPublisherName(book.getPublisher().getName());
+            bookDto.setPublishYear(book.getPublishYear());
+            bookDtos.add(bookDto);
+        }
+
+        return bookDtos;
     }
 
+    @Override public List<BookDto> getAll() throws SQLException {
 
+        List<Book> books = bookDao.getAllBooks();
+        List<BookDto> bookDtos = new ArrayList<>();
 
-//    @Override public List<BookDto> getAll() throws SQLException {
-//
-//        return bookDao.getAll();
-//    }
+        for (Book book : books) {
+
+            BookDto bookDto = new BookDto();
+            bookDto.bookEntityToDto(book);
+            bookDtos.add(bookDto);
+        }
+
+        return bookDtos;
+    }
+
 //    @Override public int getAllAvailableByBookId(int id) throws SQLException {
 //
 //        return bookDao.getAllAvailableByBookId(id);
@@ -293,6 +317,10 @@ public class BookServiceImpl implements BookService {
 //        return bookDao.getAverageReadingTime(bookId);
 //    }
 //
+//    @Override
+//    public List<CopyDto> getAllCopiesByBookName(String bookName) throws SQLException {
+//        return bookDao.getAllCopiesByBookName(bookName);
+//    }
 
 //    @Override
 //    public int getMostPopularBookWithinPeriod(Date periodStartDate, Date periodEndDate) throws SQLException {

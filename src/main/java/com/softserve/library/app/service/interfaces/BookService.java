@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface BookService extends SimpleCrudService<Book> {
 
-    List<Book> getAllByParameters(BookParametersDto bookParametersDto) throws SQLException;
+    List<BookDto> getAllByParameters(BookParametersDto bookParametersDto) throws SQLException;
 
-//    List<BookDto> getAll() throws SQLException;
+    List<BookDto> getAll() throws SQLException;
 
 //    int getAllAvailableByBookId(int id) throws SQLException;
 //

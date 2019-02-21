@@ -48,7 +48,7 @@ public class BookDaoImpl implements BookDao {
 
             publisher = new Publisher();
             publisher.setId(resultSet.getInt(BookColumns.PUBLISHER_ID.getColumn()));
-            publisher.setName(resultSet.getString(PublisherColumns.NAME.getColumn()));
+            publisher.setName(resultSet.getString("publisher.name"));
 
             author = new Author();
             author.setId(resultSet.getInt("author.id"));

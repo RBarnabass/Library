@@ -41,12 +41,12 @@
                 <input type="text" placeholder="title" name="fullName" id="title"/>
             </div>
             <div class="one_line">
-                <label for="main_author">Main author</label>
-                <input type="text" placeholder="main author" name="main_author" id="main_author" required/>
+                <label for="main_author">Main firstAuthorName</label>
+                <input type="text" placeholder="main firstAuthorName" name="main_author" id="main_author" required/>
             </div>
             <div class="one_line">
-                <label for="other_author">Other author</label>
-                <input type="text" placeholder="other author" name="other_author" id="other_author"/>
+                <label for="other_author">Other firstAuthorName</label>
+                <input type="text" placeholder="other firstAuthorName" name="other_author" id="other_author"/>
             </div>
             <div class="one_line">
                 <label for="publisher">Publisher</label>
