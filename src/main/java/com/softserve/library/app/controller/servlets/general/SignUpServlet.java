@@ -42,16 +42,11 @@ public class SignUpServlet extends HttpServlet {
             response.setStatus(response.SC_CREATED);
             final String redirect = request.getContextPath() + UrlPatterns.SIGNIN;
             response.sendRedirect(redirect);
-
         } catch (SQLException e) {
 
             final RequestDispatcher dispatcherError = this.getServletContext().getRequestDispatcher("/WEB-INF/view/errors/Error500.jsp");
             dispatcherError.forward(request, response);
-            return;
         }
-
-        final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/signUp.jsp");
-        dispatcher.forward(request, response);
     }
 }
 
