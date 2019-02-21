@@ -92,6 +92,10 @@ public class SecurityUtils {
             }
         }
     }
+    public static boolean checkSession(String sessionId) {
+
+        return tokens.containsKey(sessionId);
+    }
     public static void addSalt(String sessionId, String salt) {
 
         randomBits.put(sessionId, salt);
