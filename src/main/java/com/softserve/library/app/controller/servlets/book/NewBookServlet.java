@@ -41,7 +41,6 @@ public class NewBookServlet extends HttpServlet {
         final String publisherName = req.getParameter("publisher");
         final String primaryAuthor = req.getParameter("main_author");
         final String coAuthor = req.getParameter("other_author");
-        final String bookQuantity = req.getParameter("count");
         final RequestDispatcher dispatcherError = this.getServletContext().getRequestDispatcher("/WEB-INF/view/errors/Error500.jsp");
 
         int year;
@@ -95,7 +94,6 @@ public class NewBookServlet extends HttpServlet {
             return;
         }
 
-        final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/addBook.jsp");
-        dispatcher.forward(req, resp);
+        resp.sendRedirect("/library/book_list");
     }
 }
