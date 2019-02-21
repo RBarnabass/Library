@@ -24,9 +24,8 @@ public class SignInServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         final String serverSalt = RandomStringUtils.randomAlphanumeric(16);
-
-        //request.setAttribute("serverSalt", serverSalt);
-        request.setAttribute("serverSalt", "stub");
+        SecurityUtils.addSalt(request.getSession(false).getId(), serverSalt);
+        request.setAttribute("serverSalt", serverSalt);
 
         final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/signIn.jsp");
         dispatcher.forward(request, response);
@@ -40,7 +39,7 @@ public class SignInServlet extends HttpServlet {
         final String login = request.getParameter("login");
         final String clientSalt = request.getParameter("data-clientSalt");
         final String hashResponse = request.getParameter("data-hashResult");
-        final String serverSalt = "stub";
+        final String serverSalt = SecurityUtils.getSalt(session.getId());
         final RequestDispatcher dispatcherError = this.getServletContext().getRequestDispatcher("/WEB-INF/view/errors/Error500.jsp");
 
         boolean signed;
@@ -55,6 +54,8 @@ public class SignInServlet extends HttpServlet {
             dispatcherError.forward(request, response);
             return;
         }
+
+        SecurityUtils.removeSalt(session.getId());
 
         if (!signed) {
 
@@ -78,13 +79,6 @@ public class SignInServlet extends HttpServlet {
         }
 
         SecurityUtils.storeLoggedUser(session, user);
-
-        if (user.getRole().getType().equals("admin")) {
-
-            response.sendRedirect("/library/book_add");
-            return;
-        }
-
         response.sendRedirect("/library/user");
     }
 }

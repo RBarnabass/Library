@@ -18,18 +18,16 @@ import java.util.concurrent.TimeUnit;
 public class SecurityUtils {
 
     private static final Map<String, Token> tokens = new ConcurrentHashMap<>();
+    
     private static final int MAX_SESSION_LIFETIME_IN_SECONDS = 1800;
-
     public static String getRoleOfLoggedUser(HttpSession session) {
 
         if (tokens.containsKey(session.getId())) {
 
-            System.out.println(" - - - Session id is correct !!! - - - ");
             setTokenLastAccessTime(session.getId(), session.getLastAccessedTime());
             return tokens.get(session.getId()).getRole();
         }
 
-        System.out.println(" - - - Session id is NOT correct !!! - - - ");
         return null;
     }
     public static int getLoggedUserId(HttpSession session) {
@@ -95,6 +93,18 @@ public class SecurityUtils {
                 tokens.remove(sessionToken);
             }
         }
+    }
+    public static void addSalt(String sessionId, String salt) {
+
+        randomBits.put(sessionId, salt);
+    }
+    public static String getSalt(String sessionId) {
+
+        return randomBits.get(sessionId);
+    }
+    public static void removeSalt(String sessionId) {
+
+        randomBits.remove(sessionId);
     }
 
     private static void setTokenLastAccessTime(String sessionId, long lastTime) {

@@ -40,7 +40,7 @@ public class SignUpServlet extends HttpServlet {
 
             serviceFactory.getUserService().add(user);
             response.setStatus(response.SC_CREATED);
-            String redirect = request.getContextPath() + UrlPatterns.SIGNIN;
+            final String redirect = request.getContextPath() + UrlPatterns.SIGNIN;
             response.sendRedirect(redirect);
 
         } catch (SQLException e) {
@@ -50,7 +50,7 @@ public class SignUpServlet extends HttpServlet {
             return;
         }
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/signUp.jsp");
+        final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/signUp.jsp");
         dispatcher.forward(request, response);
     }
 }
