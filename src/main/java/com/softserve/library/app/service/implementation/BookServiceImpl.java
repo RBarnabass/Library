@@ -104,30 +104,30 @@ public class BookServiceImpl implements BookService {
                 return false;
             }
 
+            BookAuthors bookAuthors = new BookAuthors();
+            for (int i = 0; i < book.getAuthors().size(); i++) {
+
+                bookAuthors.setBookId(id);
+                bookAuthors.setAuthorId(book.getAuthors().get(i).getId());
+                bookAuthors.setPrimary(book.getAuthors().get(i).isPrimary());
+
+                if (!bookAuthorsDao.add(bookAuthors)) {
+                    return false;
+                }
+
+                Copy copy = new Copy();
+                copy.setBookId(id);
+            }
+
         } else {
 
-                Copy copy = copyDao.get(bookList.get(0).getId());
-                copyDao.add(copy);
+            int dd = bookList.get(0).getId();
+            Copy copy = new Copy();
+            copy.setBookId(dd);
+            copyDao.add(copy);
         }
 
-
-        BookAuthors bookAuthors = new BookAuthors();
-
-        for (int i = 0; i < book.getAuthors().size(); i++) {
-
-            bookAuthors.setBookId(id);
-            bookAuthors.setAuthorId(book.getAuthors().get(i).getId());
-            bookAuthors.setPrimary(book.getAuthors().get(i).isPrimary());
-
-            if (!bookAuthorsDao.add(bookAuthors)) {
-                return false;
-            }
-        }
-
-        Copy copy = new Copy();
-        copy.setBookId(id);
-
-        return copyDao.add(copy);
+        return true;
     }
 
     @Override
