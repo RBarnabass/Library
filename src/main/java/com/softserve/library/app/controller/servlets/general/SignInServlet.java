@@ -27,6 +27,11 @@ public class SignInServlet extends HttpServlet {
         SecurityUtils.addSalt(request.getSession().getId(), serverSalt);
         request.setAttribute("serverSalt", serverSalt);
 
+        if (SecurityUtils.checkSession(request.getSession(false).getId())) {
+            response.sendRedirect("/library/profile");
+            return;
+        }
+
         final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/signIn.jsp");
         dispatcher.forward(request, response);
     }
