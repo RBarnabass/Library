@@ -139,7 +139,7 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> getAllByBookNameAndYearPeriodAndAuthor(String bookName, int start, int end, String author) throws SQLException {
 
-        return getAllByOption("WHERE book.name=" + wrapper(bookName) + " AND author.name=" + wrapper(author) + " AND book.publish_year BETWEEN " + start + " AND " + end);
+        return getAllByOption("WHERE book.name=" + wrapper(bookName) + " AND author.full_name=" + wrapper(author) + " AND book.publish_year BETWEEN " + start + " AND " + end);
     }
 
     @Override
@@ -163,7 +163,7 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> getAllByPublisherAndYearPeriodAndAuthor(String publisher, int start, int end, String author) throws SQLException {
 
-        return getAllByOption("WHERE publisher.name=" + wrapper(publisher) + " AND author.full_name=" + wrapper(author));
+        return getAllByOption("WHERE publisher.name=" + wrapper(publisher) + " AND author.full_name=" + wrapper(author) + " AND book.publish_year BETWEEN " + start + " AND " + end);
     }
 
     @Override
