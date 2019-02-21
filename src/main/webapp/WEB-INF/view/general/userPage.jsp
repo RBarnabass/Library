@@ -23,11 +23,6 @@
             <a href="${pageContext.request.contextPath}/library/logout">Logout</a>
         </div>
     </div>
-    <nav>
-        <a href="${pageContext.request.contextPath}/library/signin">Sign in</a>
-        <a href="${pageContext.request.contextPath}/library/logout">Sign out</a>
-    </nav>
-    <h1>Library</h1>
 </header>
 
 <body>
@@ -60,7 +55,11 @@
         </div>
     </div>
 </div>
-
+<div class="outher">
+    <div class="button">
+        <button id="edit">edit</button>
+    </div>
+</div>
 </body>
 <footer>
     Copyright by
