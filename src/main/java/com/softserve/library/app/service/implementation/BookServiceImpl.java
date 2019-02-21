@@ -2,6 +2,7 @@ package com.softserve.library.app.service.implementation;
 
 import com.softserve.library.app.dao.implementation.BookDaoImpl;
 import com.softserve.library.app.dao.interfaces.BookDao;
+import com.softserve.library.app.dto.BookDto;
 import com.softserve.library.app.dto.BookParametersDto;
 import com.softserve.library.app.model.Book;
 import com.softserve.library.app.service.interfaces.BookService;
@@ -51,9 +52,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getAllByParameters(BookParametersDto bookParametersDto) throws SQLException {
+    public List<BookDto> getAllByParameters(BookParametersDto bookParametersDto) throws SQLException {
 
         List<Book> books;
+        List<BookDto> bookDtos = new ArrayList<>();
 
         if (bookParametersDto.getName() == null &&
                 bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() == null &&
@@ -174,10 +176,19 @@ public class BookServiceImpl implements BookService {
         } else {
 
             books = new ArrayList<>();
-            //return null;
         }
 
-        return books;
+        for (Book book : books) {
+
+            BookDto bookDto = new BookDto();
+            bookDto.setName(book.getName());
+            bookDto.setFirstAuthorName(book.getAuthors().get(0).getName());
+            bookDto.setPublisherName(book.getPublisher().getName());
+            bookDto.setPublishYear(book.getPublishYear());
+            bookDtos.add(bookDto);
+        }
+
+        return bookDtos;
     }
 
 
@@ -186,10 +197,21 @@ public class BookServiceImpl implements BookService {
 //        return null;
 //    }
 
-//    @Override public List<BookDto> getAll() throws SQLException {
-//
-//        return bookDao.getAll();
-//    }
+    @Override public List<BookDto> getAll() throws SQLException {
+
+        List<Book> books = bookDao.getAllBooks();
+        List<BookDto> bookDtos = new ArrayList<>();
+
+        for (Book book : books) {
+
+            BookDto bookDto = new BookDto();
+            bookDto.bookEntityToDto(book);
+            bookDtos.add(bookDto);
+        }
+
+        return bookDtos;
+    }
+
 //    @Override public int getAllAvailableByBookId(int id) throws SQLException {
 //
 //        return bookDao.getAllAvailableByBookId(id);
