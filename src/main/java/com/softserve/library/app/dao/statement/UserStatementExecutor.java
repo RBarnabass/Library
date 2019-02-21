@@ -1,20 +1,15 @@
 package com.softserve.library.app.dao.statement;
 
 import com.softserve.library.app.config.DBConnectivity;
-import com.softserve.library.app.dto.*;
-import com.softserve.library.app.enums.sql.UserSQL;
+import com.softserve.library.app.dto.DebtCopyDto;
+import com.softserve.library.app.dto.DebtorDto;
+import com.softserve.library.app.dto.UserStatisticDto;
 import com.softserve.library.app.enums.tables.BookColumns;
-import com.softserve.library.app.enums.tables.Tables;
 import com.softserve.library.app.enums.tables.UserColumns;
-import com.softserve.library.app.http.CustomResponseEntity;
-import com.softserve.library.app.http.HttpStatus;
-import com.softserve.library.app.model.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,36 +18,6 @@ import java.util.List;
  */
 public class UserStatementExecutor {
 
-
-    public List<User> get(int id) throws SQLException {
-
-        List<User> list = new ArrayList<>();
-
-        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(UserSQL.SELECT.getSQL());
-        ResultSet set = preparedStatement.getResultSet();
-        User user;
-
-        while (set.next()) {
-
-            user = new User();
-            user.setId(set.getInt(UserColumns.ID.getColumn()));
-            user.setFullName(set.getString(UserColumns.FULL_NAME.getColumn()));
-            //user.setBirthDate(set.getDate(UserColumns.BIRTH_DATE.getColumn()));
-           // user.setRegDate(set.getDate(UserColumns.REGISTRATION_DATE.getColumn()));
-
-            list.add(user);
-        }
-
-        set.close();
-        preparedStatement.close();
-
-        return list;
-    }
-
-
-    private boolean isSuccess;
-    // TODO: refactor or so
-    // Task 3 - the usage period is repeated in every line!
     public List<UserStatisticDto> getUserStatistic(int id) throws SQLException {
 
         List<UserStatisticDto> list = new ArrayList<>();
@@ -264,126 +229,6 @@ public class UserStatementExecutor {
         return debtors;
     }
 
-    public CustomResponseEntity<?> addUser(CreateUserDto createUserDto) throws SQLException {
-
-        String fullName = createUserDto.getFullName();
-        LocalDate birthDate = createUserDto.getBirthDate();
-        String login = createUserDto.getLogin();
-        String password = createUserDto.getPassword();
-
-        String addUserSql = "INSERT INTO user (full_name, birth_date, registration_date, login, password, role_id)\n" +
-                "VALUES ('" + fullName + "', DATE '" + birthDate + "', CURDATE(),\n" +
-                "'" + login + "', '" + password + "', " + (createUserDto.isAdmin() ? 2 : 1) + ")";
-
-        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(addUserSql, Statement.RETURN_GENERATED_KEYS);
-        int count = preparedStatement.executeUpdate();
-
-        if (count < 1) {
-
-            ErrorDto errorDto = new ErrorDto();
-            errorDto.setErrorMessage("Internal server error occurred during creating new user.");
-
-            return new CustomResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        ResultSet resultSet = preparedStatement.getGeneratedKeys();
-        resultSet.next();
-
-        CreatedUserDto createdUserDto = new CreatedUserDto();
-        createdUserDto.setId(resultSet.getInt(1));
-        createdUserDto.setFullName(fullName);
-        createdUserDto.setBirthDate(birthDate);
-        createdUserDto.setRegDate(LocalDate.now());
-        createdUserDto.setLogin(login);
-
-        return new CustomResponseEntity<>(createUserDto, HttpStatus.OK);
-    }
-
-
-    public User getUserByLogin(String login) throws SQLException, NullPointerException {
-
-        String sql = "SELECT\n" +
-                "  u.id                AS id,\n" +
-                "  u.full_name         AS fullName,\n" +
-                "  u.birth_date        as birthDate,\n" +
-                "  u.registration_date AS regDate,\n" +
-                "  u.login             AS login,\n" +
-                "  u.password          AS password,\n" +
-                "  u.role_id           AS roleId\n" +
-                "FROM user AS u\n" +
-                "WHERE u.login = '" + login + "'";
-
-        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
-        preparedStatement.executeQuery();
-        ResultSet resultSet = preparedStatement.getResultSet();
-
-        FullUserDto fullUserDto = new FullUserDto();
-
-        if (!resultSet.next()) {
-
-            throw new NullPointerException();
-        }
-
-        boolean isAdmin = resultSet.getInt("roleId") == 2;
-
-        while(!resultSet.isAfterLast()) {
-
-            fullUserDto.setId(resultSet.getInt("id"));
-            fullUserDto.setFullName(resultSet.getString("fullName"));
-            fullUserDto.setBirthDate(LocalDate.parse(resultSet.getDate("birthDate").toString()));
-            fullUserDto.setRegDate(LocalDate.parse(resultSet.getDate("regDate").toString()));
-            fullUserDto.setLogin(resultSet.getString("login"));
-            fullUserDto.setPassword(resultSet.getString("password"));
-            fullUserDto.setIsAdmin(isAdmin);
-
-            resultSet.next();
-        }
-
-        //return fullUserDto;
-        return null;
-    }
-
-//    public User getUserByLogin(String login) throws SQLException, NullPointerException {
-//
-//        String sql = "SELECT\n" +
-//                "  u.id                AS id,\n" +
-//                "  u.full_name         AS fullName,\n" +
-//                "  u.birth_date        as birthDate,\n" +
-//                "  u.registration_date AS regDate,\n" +
-//                "  u.login             AS login,\n" +
-//                "  u.password          AS password,\n" +
-//                "  u.role_id           AS roleId\n" +
-//                "FROM user AS u\n" +
-//                "WHERE u.login = '" + login + "'";
-//
-//        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(sql);
-//        preparedStatement.executeQuery();
-//        ResultSet resultSet = preparedStatement.getResultSet();
-//
-//        FullUserDto fullUserDto = new FullUserDto();
-//
-//        if (!resultSet.next()) {
-//
-//            throw new NullPointerException();
-//        }
-//
-//        boolean isAdmin = resultSet.getInt("roleId") == 2;
-//
-//        while(!resultSet.isAfterLast()) {
-//
-//            fullUserDto.setId(resultSet.getInt("id"));
-//            fullUserDto.setFullName(resultSet.getString("fullName"));
-//            fullUserDto.setBirthDate(LocalDate.parse(resultSet.getDate("birthDate").toString()));
-//            fullUserDto.setRegDate(LocalDate.parse(resultSet.getDate("regDate").toString()));
-//            fullUserDto.setLogin(resultSet.getString("login"));
-//            fullUserDto.setPassword(resultSet.getString("password"));
-//            fullUserDto.setIsAdmin(isAdmin);
-//
-//            resultSet.next();
-//        }
-//
-//        return fullUserDto;
-//    }
 }
 
 

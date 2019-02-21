@@ -12,7 +12,6 @@ class SecurityConfig {
 
     private static final String ROLE_ADMIN = "admin";
     private static final String ROLE_USER = "user";
-    private static final String ROLE_LIBRARIAN = "librarian";
     private static final String ROLE_GUEST = "general";
     private static final Map<String, List<String>> mapConfig = new HashMap<>();
 
@@ -24,7 +23,6 @@ class SecurityConfig {
 
         // ADMIN
         final List<String> urlPatternsForAdmin = new ArrayList<>();
-        urlPatternsForAdmin.add(UrlPatterns.USER_OPTION);
         urlPatternsForAdmin.add(UrlPatterns.BOOK_SEARCH);
         urlPatternsForAdmin.add(UrlPatterns.BOOK_LIST);
         urlPatternsForAdmin.add(UrlPatterns.BOOK_PAGE);
@@ -40,12 +38,6 @@ class SecurityConfig {
         urlPatternsForUser.add(UrlPatterns.BOOK_PAGE);
         urlPatternsForUser.add(UrlPatterns.USER_PAGE);
         mapConfig.put(ROLE_USER, urlPatternsForUser);
-
-        // LIBRARIAN
-        final List<String> urlPatternsForLibrarian = new ArrayList<>();
-        urlPatternsForLibrarian.add(UrlPatterns.BOOK_OPTION);
-        urlPatternsForLibrarian.add(UrlPatterns.BOOK_STATISTIC);
-        mapConfig.put(ROLE_LIBRARIAN, urlPatternsForLibrarian);
 
         // Common
         final List<String> urlPatternsForGuest = new ArrayList<>();

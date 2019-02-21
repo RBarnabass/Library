@@ -113,10 +113,6 @@ public class UserDaoImpl implements UserDao {
 
         return list;
     }
-    @Override public List<User> getAllUsersByName(String name) throws SQLException {
-
-        return getByOption("user.full_name=" + "'" + name + "'");
-    }
     @Override public User getUserByLoginAndPassword(String login, String password) throws SQLException {
 
         String input = "user.login=" + "'" + login + "'" + " AND " + "user.password=" + "'" + password + "'";

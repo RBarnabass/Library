@@ -7,7 +7,6 @@ package com.softserve.library.app.enums.patterns;
  */
 public enum UserJSP {
 
-    BOOK_LIST ("/WEB-INF/view/user/book_list.jsp"),
     BOOK_ORDER ("/WEB-INF/view/user/book_order.jsp");
 
     private String line;

@@ -4,7 +4,11 @@ import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.enums.sql.AuthorSQL;
 import com.softserve.library.app.enums.tables.AuthorColumns;
 import com.softserve.library.app.model.Author;
-import java.sql.*;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +20,6 @@ import java.util.List;
 public class AuthorStatementExecutor {
 
     private boolean isSuccess;
-
-    // todo: This one and Publisher are similar !!!
 
     public List<Author> getAllByOption(String option) throws SQLException {
 

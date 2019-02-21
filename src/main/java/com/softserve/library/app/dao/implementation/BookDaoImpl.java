@@ -3,7 +3,6 @@ package com.softserve.library.app.dao.implementation;
 import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.dao.interfaces.BookDao;
 import com.softserve.library.app.enums.tables.BookColumns;
-import com.softserve.library.app.enums.tables.PublisherColumns;
 import com.softserve.library.app.model.Author;
 import com.softserve.library.app.model.Book;
 import com.softserve.library.app.model.Publisher;

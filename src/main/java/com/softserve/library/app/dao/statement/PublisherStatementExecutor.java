@@ -1,11 +1,8 @@
 package com.softserve.library.app.dao.statement;
 
 import com.softserve.library.app.config.DBConnectivity;
-import com.softserve.library.app.enums.sql.AuthorSQL;
 import com.softserve.library.app.enums.sql.PublisherSQL;
-import com.softserve.library.app.enums.tables.AuthorColumns;
 import com.softserve.library.app.enums.tables.PublisherColumns;
-import com.softserve.library.app.model.Author;
 import com.softserve.library.app.model.Publisher;
 
 import java.sql.PreparedStatement;

@@ -20,7 +20,6 @@ import java.util.List;
 public class AuthorDaoImpl implements AuthorDao {
 
     private final AuthorStatementExecutor authorStatementExecutor = new AuthorStatementExecutor();
-    private boolean isSuccess;
 
     @Override public Author get(int id) throws SQLException {
 
@@ -40,7 +39,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
         PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(AuthorSQL.INSERT.getSQL(), Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, author.getName());
-        isSuccess = preparedStatement.executeUpdate() > 0;
+        boolean isSuccess = preparedStatement.executeUpdate() > 0;
 
         if (isSuccess) {
 

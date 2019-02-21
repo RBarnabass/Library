@@ -3,13 +3,11 @@ package com.softserve.library.app.dao.implementation;
 import com.softserve.library.app.config.DBConnectivity;
 import com.softserve.library.app.dao.interfaces.BookAuthorsDao;
 import com.softserve.library.app.model.BookAuthors;
+
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BookAuthorsDaoImpl implements BookAuthorsDao {
-
-    private boolean isSuccess;
 
     @Override
     public BookAuthors get(int id) throws SQLException {
@@ -25,7 +23,7 @@ public class BookAuthorsDaoImpl implements BookAuthorsDao {
         preparedStatement.setInt(1, bookAuthors.getBookId());
         preparedStatement.setInt(2, bookAuthors.getAuthorId());
         preparedStatement.setBoolean(3, bookAuthors.isPrimary());
-        isSuccess = preparedStatement.executeUpdate() > 0;
+        boolean isSuccess = preparedStatement.executeUpdate() > 0;
 
         return isSuccess;
     }
