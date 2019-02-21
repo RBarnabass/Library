@@ -10,7 +10,6 @@
     <link href="<c:url value='/resources/css/userStyle.css' />" rel="stylesheet" type="text/css">
 </head>
 <header>
-<<<<<<< HEAD
     <div class="header">
         <a href="#default" class="logo">
             <img src="<c:url value='/resources/image/logo.jpg' />" alt="logo">
@@ -24,13 +23,7 @@
             <a href="#">Logout</a>
         </div>
     </div>
-=======
-    <nav>
-        <a href="#">Sign in</a>
-        <a href="${pageContext.request.contextPath}/library/logout">Sign out</a>
-    </nav>
-    <h1>Library</h1>
->>>>>>> 1b2969c4f2f453ea968e54bf23b930206cb382ed
+
 </header>
 
 <body>
@@ -63,7 +56,11 @@
         </div>
     </div>
 </div>
-
+<div class="outher">
+    <div class="button">
+        <button id="edit">edit</button>
+    </div>
+</div>
 </body>
 <footer>
     Copyright by
