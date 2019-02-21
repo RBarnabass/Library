@@ -24,8 +24,7 @@
             <a href="${pageContext.request.contextPath}/library/logout">Logout</a>
         </div>
     </div>
-    <h1>Library</h1>
-</header>
+   </header>
 
 <body>
 <div class="body-image">

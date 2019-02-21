@@ -11,19 +11,11 @@
     <link href="<c:url value='/resources/css/advancedSearchStyle.css' />" rel="stylesheet" type="text/css">
 </head>
 <header>
-    <div class="header">
-        <a href="#default" class="logo">
-            <img src="<c:url value='/resources/image/logo.jpg' />" alt="logo">
-        </a>
-        <div class="title">
-            <h1>Library</h1>
-        </div>
-        <div class="header-right">
-            <a class="active" href="#">Home</a>
-            <a href="${pageContext.request.contextPath}/library/signin">Login</a>
-            <a href="${pageContext.request.contextPath}/library/logout">Logout</a>
-        </div>
-    </div>
+    <nav>
+        <a href="#">Sign in</a>
+        <a href="#">Sign out</a>
+    </nav>
+    <h1>Library</h1>
 </header>
 
 <body>

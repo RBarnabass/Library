@@ -7,6 +7,7 @@ import com.softserve.library.app.model.Book;
 import com.softserve.library.app.service.interfaces.BookService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,13 +57,13 @@ public class BookServiceImpl implements BookService {
 
         if (bookParametersDto.getName() == null &&
                 bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() == null &&
-                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+                (bookParametersDto.getYearPublishedFrom() == 0 && bookParametersDto.getYearPublishedTo() == 0)) {
 
             books = bookDao.getAllBooks();
 
         } else if (bookParametersDto.getName() == null &&
                 bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() != null &&
-                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+                (bookParametersDto.getYearPublishedFrom() == 0 && bookParametersDto.getYearPublishedTo() == 0)) {
 
             books = bookDao.getAllByPublisher(bookParametersDto.getPublisher());
 
@@ -74,20 +75,20 @@ public class BookServiceImpl implements BookService {
                     bookParametersDto.getYearPublishedTo());
 
         } else if (bookParametersDto.getName() == null && bookParametersDto.getAuthor() != null
-                && bookParametersDto.getPublisher() == null && (bookParametersDto.getYearPublishedFrom() == 0 ||
+                && bookParametersDto.getPublisher() == null && (bookParametersDto.getYearPublishedFrom() == 0 &&
                 bookParametersDto.getYearPublishedTo() == 0)) {
 
-            books = bookDao.getAllByAuthor(bookParametersDto.getPublisher());
+            books = bookDao.getAllByAuthor(bookParametersDto.getAuthor());
 
         } else if (bookParametersDto.getName() != null &&
                 bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() == null &&
-                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+                (bookParametersDto.getYearPublishedFrom() == 0 && bookParametersDto.getYearPublishedTo() == 0)) {
 
             books = bookDao.getAllByBookName(bookParametersDto.getName());
 
         } else if (bookParametersDto.getName() != null &&
                 bookParametersDto.getAuthor() == null && bookParametersDto.getPublisher() != null &&
-                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+                (bookParametersDto.getYearPublishedFrom() == 0 && bookParametersDto.getYearPublishedTo() == 0)) {
 
             books = bookDao.getAllByBookNameAndPublisher(bookParametersDto.getName(), bookParametersDto.getPublisher());
 
@@ -100,7 +101,7 @@ public class BookServiceImpl implements BookService {
 
         } else if (bookParametersDto.getName() != null &&
                 bookParametersDto.getAuthor() != null && bookParametersDto.getPublisher() == null &&
-                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+                (bookParametersDto.getYearPublishedFrom() == 0 && bookParametersDto.getYearPublishedTo() == 0)) {
 
             books = bookDao.getAllByBookNameAndAuthor(bookParametersDto.getName(), bookParametersDto.getAuthor());
 
@@ -114,7 +115,7 @@ public class BookServiceImpl implements BookService {
 
         } else if (bookParametersDto.getName() != null &&
                 bookParametersDto.getAuthor() != null && bookParametersDto.getPublisher() != null &&
-                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+                (bookParametersDto.getYearPublishedFrom() == 0 && bookParametersDto.getYearPublishedTo() == 0)) {
 
             books = bookDao.getAllByBookNameAndPublisherAndAuthor(bookParametersDto.getName(),
                     bookParametersDto.getPublisher(), bookParametersDto.getAuthor());
@@ -144,7 +145,7 @@ public class BookServiceImpl implements BookService {
 
         } else if (bookParametersDto.getName() == null &&
                 bookParametersDto.getAuthor() != null && bookParametersDto.getPublisher() != null &&
-                (bookParametersDto.getYearPublishedFrom() == 0 || bookParametersDto.getYearPublishedTo() == 0)) {
+                (bookParametersDto.getYearPublishedFrom() == 0 && bookParametersDto.getYearPublishedTo() == 0)) {
 
             books = bookDao.getAllByPublisherAndAuthor(bookParametersDto.getPublisher(), bookParametersDto.getAuthor());
 
@@ -172,7 +173,8 @@ public class BookServiceImpl implements BookService {
 
         } else {
 
-            return null;
+            books = new ArrayList<>();
+            //return null;
         }
 
         return books;
