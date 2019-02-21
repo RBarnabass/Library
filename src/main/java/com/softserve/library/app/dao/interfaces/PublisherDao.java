@@ -1,7 +1,9 @@
 package com.softserve.library.app.dao.interfaces;
 
-import com.softserve.library.app.dto.PublisherDto;
 import com.softserve.library.app.model.Publisher;
+
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -10,4 +12,6 @@ import com.softserve.library.app.model.Publisher;
  */
 public interface PublisherDao extends SimpleCrudDao<Publisher> {
 
+    Publisher getByName(String name) throws SQLException;
+    int addAndGetIdBack(Publisher publisher) throws SQLException;
 }

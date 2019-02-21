@@ -19,17 +19,17 @@ public class AuthorStatementExecutor {
 
     // todo: This one and Publisher are similar !!!
 
-    public List<Author> get(int id) throws SQLException {
+    public List<Author> getAllByOption(String option) throws SQLException {
 
         List<Author> list = new ArrayList<>();
 
-        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(AuthorSQL.SELECT.getSQL() + scopesWrapper(id));
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(AuthorSQL.SELECT.getSQL() + option);
+        preparedStatement.execute();
         ResultSet set = preparedStatement.getResultSet();
-        Author author;
+        Author author = new Author();
 
         while (set.next()) {
 
-            author = new Author();
             author.setId(set.getInt(AuthorColumns.ID.getColumn()));
             author.setName(set.getString(AuthorColumns.FULL_NAME.getColumn()));
             list.add(author);

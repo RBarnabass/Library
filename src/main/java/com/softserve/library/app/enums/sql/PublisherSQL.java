@@ -17,7 +17,7 @@ public enum PublisherSQL {
 
     SELECT ("SELECT * FROM "
             + Tables.PUBLISHER.getTable()
-            + " WHERE id="),
+            + " WHERE "),
 
     DELETE ("DELETE FROM "
             + Tables.PUBLISHER.getTable()

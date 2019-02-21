@@ -1,7 +1,8 @@
 package com.softserve.library.app.dao.interfaces;
 
-import com.softserve.library.app.dto.AuthorDto;
 import com.softserve.library.app.model.Author;
+
+import java.sql.SQLException;
 
 /**
  *
@@ -10,4 +11,6 @@ import com.softserve.library.app.model.Author;
  */
 public interface AuthorDao extends SimpleCrudDao<Author> {
 
+    Author getByName(String name) throws SQLException;
+    int addAndGetIdBack(Author author) throws SQLException;
 }

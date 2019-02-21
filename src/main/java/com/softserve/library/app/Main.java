@@ -93,8 +93,8 @@ public class Main {
         System.out.println(add);*/
 //        List<CopyDto> copies = serviceFactory.getBookService().getAllCopiesByBookName("Господар у домі");
 //        System.out.println(copies.size());  // 3
-//        System.out.println(copies.get(0).getIsAvailable()); // false
-//        System.out.println(copies.get(1).getIsAvailable()); // true
+//        System.out.println(copies.getAllByOptions(0).getIsAvailable()); // false
+//        System.out.println(copies.getAllByOptions(1).getIsAvailable()); // true
 
         /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         int bookQuantityPublishedFromYear = serviceFactory.getBookService().getBookQuantityPublishedFromYear(1990);
@@ -119,7 +119,7 @@ public class Main {
             System.out.println();
         }*/
 
-        // Credential get
+        // Credential getAllByOptions
 
         /*ServiceFactory serviceFactory = new ServiceFactoryImpl();
         Credential roma = serviceFactory.getCredentialService().getByLogin("roma");

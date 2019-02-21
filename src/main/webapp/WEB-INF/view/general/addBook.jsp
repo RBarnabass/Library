@@ -35,7 +35,7 @@
 <body>
 <div class="login-page">
     <div class="form">
-        <form class="register-form" method="POST" action="${pageContext.request.contextPath}/library/signup">
+        <form class="register-form" method="POST" action="${pageContext.request.contextPath}/library/book_add">
             <div class="one_line">
                 <label for="title">Title</label>
                 <input type="text" placeholder="title" name="fullName" id="title"/>

@@ -30,7 +30,7 @@ public class UserPageServlet extends HttpServlet {
         try {
             user = serviceFactory.getUserService().get(loggedUserId);
         } catch (SQLException e) {
-            System.out.println(" - - - User page servlet _ get user by id exception ! - - - ");
+            System.out.println(" - - - User page servlet _ getAllByOptions user by id exception ! - - - ");
         }
 
         req.getSession().setAttribute("user", user);

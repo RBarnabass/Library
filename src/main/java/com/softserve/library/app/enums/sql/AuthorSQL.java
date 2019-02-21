@@ -17,7 +17,7 @@ public enum AuthorSQL {
 
     SELECT ("SELECT * FROM "
             + Tables.AUTHOR.getTable()
-            + " WHERE id="),
+            + " WHERE "),
 
     DELETE ("DELETE FROM "
             + Tables.AUTHOR.getTable()

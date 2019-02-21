@@ -24,18 +24,16 @@ public class PublisherStatementExecutor {
 
     private boolean isSuccess;
 
-    // todo: the same as the author executor !!!
-    public List<Publisher> get(int id) throws SQLException {
+    public List<Publisher> getAllByOptions(String options) throws SQLException {
 
         List<Publisher> list = new ArrayList<>();
 
-        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(PublisherSQL.SELECT.getSQL() + scopesWrapper(id));
+        PreparedStatement preparedStatement = DBConnectivity.getConnection().prepareStatement(PublisherSQL.SELECT.getSQL() + options);
         ResultSet set = preparedStatement.executeQuery();
-        Publisher publisher;
+        Publisher publisher = new Publisher();
 
         while (set.next()) {
 
-            publisher = new Publisher();
             publisher.setId(set.getInt(PublisherColumns.ID.getColumn()));
             publisher.setName(set.getString(PublisherColumns.NAME.getColumn()));
             list.add(publisher);
