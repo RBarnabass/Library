@@ -62,7 +62,6 @@ public class SecurityFilter implements Filter {
             }
         }
 
-        System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
         chain.doFilter(request, response);
     }
 }
