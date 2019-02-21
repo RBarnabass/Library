@@ -50,29 +50,16 @@ public class BookAdvancedSearchServlet extends HttpServlet {
         bookParametersDto.setYearPublishedTo(yearTo);
         bookParametersDto.setAvailable(isAvailable);
 
-<<<<<<< HEAD
-        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
+        List<BookDto> books;
 
-        List<BookDto> books = new ArrayList<>();
-||||||| merged common ancestors
-        ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
-
-        List<Book> books = new ArrayList<>();
-=======
         final ServiceFactory serviceFactory = ServiceFactoryImpl.getFactory();
-        List<Book> books = new ArrayList<>();
->>>>>>> aba3c743fd12c404c5cd021efb3ee3459b7d1b10
+
 
         try {
 
             books = serviceFactory.getBookService().getAllByParameters(bookParametersDto);
-<<<<<<< HEAD
+
             resp.setStatus(resp.SC_CREATED);
-        } catch (SQLException e) {
-||||||| merged common ancestors
-        } catch (SQLException e) {
-=======
->>>>>>> aba3c743fd12c404c5cd021efb3ee3459b7d1b10
 
         } catch (SQLException e) {
 
@@ -81,23 +68,14 @@ public class BookAdvancedSearchServlet extends HttpServlet {
             return;
         }
 
-<<<<<<< HEAD
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String jsonList = gson.toJson(books);
 
         HttpSession session = req.getSession(false);
         session.setAttribute("books", jsonList);
 
-        final String redirect = req.getContextPath() + UrlPatterns.BOOK_LIST;
-        resp.sendRedirect(redirect);
-||||||| merged common ancestors
-        System.out.println();
 
         final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/advancedBookSearch.jsp");
         dispatcher.forward(req, resp);
-=======
-        final RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/general/advancedBookSearch.jsp");
-        dispatcher.forward(req, resp);
->>>>>>> aba3c743fd12c404c5cd021efb3ee3459b7d1b10
     }
 }
