@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,11 +32,22 @@
     </div>
 </header>
 
-<body>
-<div class="booklist">
-
+<body onload='init(${fn:escapeXml(sessionScope.books)})'>
+    <table>
+        <caption>Statement Summary</caption>
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Publisher</th>
+            <th scope="col">Publish year</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+    </table>
 </div>
-
+    <script type="text/javascript" src="../../../resources/js/bookList.js"></script>
 </body>
 <footer>
     Copyright by
