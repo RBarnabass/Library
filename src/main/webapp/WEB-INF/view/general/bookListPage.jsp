@@ -33,21 +33,22 @@
 </header>
 
 <body onload='init(${fn:escapeXml(sessionScope.books)})'>
-    <table>
-        <caption>Statement Summary</caption>
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Author</th>
-            <th scope="col">Publisher</th>
-            <th scope="col">Publish year</th>
-        </tr>
-        </thead>
-        <tbody id="tbody">
-        </tbody>
-    </table>
+<table>
+    <caption>Statement Summary</caption>
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Author</th>
+        <th scope="col">Publisher</th>
+        <th scope="col">Publish year</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    </tbody>
+</table>
 </div>
-    <script type="text/javascript" src="../../../resources/js/bookList.js"></script>
+<script type="text/javascript" src="../../../resources/js/bookList.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 </body>
 <footer>
     Copyright by

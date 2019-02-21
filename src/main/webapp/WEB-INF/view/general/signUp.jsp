@@ -63,6 +63,7 @@
 <script type="text/javascript" src="../../../resources/js/sjcl.js"></script>
 <script type="text/javascript" src="../../../resources/js/signup.js"></script>
 <script type="text/javascript" src="../../../resources/js/validations.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 </body>
 
 <footer>

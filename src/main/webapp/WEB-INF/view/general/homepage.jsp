@@ -30,7 +30,7 @@
         </div>
     </div>
 </header>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <body>
 <div class="body-image">
     <div class="body-text">

@@ -20,5 +20,11 @@ function validate() {
     if(!validateName(nameEl)) return false;
     if(!validateLogin(loginEl)) return false;
     if(!validateDate(dateEl)) return false;
-    return validatePassword(passwordEl);
+    if(!validatePassword(passwordEl)) return false;
+
+    Swal.fire(
+        'Done!',
+        'User created.',
+        'success'
+    )
 }

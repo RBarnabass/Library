@@ -49,13 +49,15 @@
             <input id="data-clientSalt" name="data-clientSalt" type="hidden" value="">
             <input id="data-hashResult" name="data-hashResult" type="hidden" value="">
             <button id="loginButton">log in</button>
-            <p class="message">Not registered? <a href="${pageContext.request.contextPath}/library/signup">Sign up</a></p>
+            <p class="message">Not registered? <a href="${pageContext.request.contextPath}/library/signup">Sign up</a>
+            </p>
         </form>
     </div>
 </div>
 <script type="text/javascript" src="../../../resources/js/sjcl.js"></script>
 <script type="text/javascript" src="../../../resources/js/generateHashWithSalt.js"></script>
 <script type="text/javascript" src="../../../resources/js/executeHashingSequence.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 </body>
 
 <footer>
